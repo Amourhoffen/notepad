@@ -19,9 +19,9 @@
             --box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.2); /* Enhanced shadow */
             --success-color: #10b981; /* Emerald */
             --danger-color: #ef4444; /* Red */
+            --warning-color: #f59e0b; /* Amber */
             --input-bg-dark: rgba(45, 55, 72, 0.5); /* Slightly more opaque */
             --input-border-dark: rgba(74, 85, 104, 0.7); /* Slightly more opaque */
-            /* Removed --focus-mode-bg */
         }
 
         body.light-mode {
@@ -35,9 +35,9 @@
             --box-shadow: 0 18px 36px rgba(0, 0, 0, 0.2), 0 0 20px rgba(79, 70, 229, 0.1); /* Enhanced shadow */
             --success-color: #059669; /* Darker Emerald */
             --danger-color: #dc2626; /* Darker Red */
+            --warning-color: #d97706; /* Darker Amber */
             --input-bg-dark: rgba(255, 255, 255, 0.8); /* Slightly more opaque */
             --input-border-dark: rgba(203, 213, 224, 0.9); /* Slightly more opaque */
-            /* Removed --focus-mode-bg */
         }
 
         /* Base Body Styles */
@@ -48,15 +48,15 @@
             background: linear-gradient(135deg, var(--bg-dark) 0%, #0d1117 100%);
             color: var(--text-light);
             transition: background 0.6s ease, color 0.6s ease;
-            padding: 1.5rem; /* Increased base padding */
+            padding: 2rem; /* Increased base padding for more breathing room */
             box-sizing: border-box;
-            line-height: 1.6; /* Improved readability */
+            line-height: 1.7; /* Improved readability */
         }
 
         /* Glassmorphism Effect */
         .glass-effect {
-            backdrop-filter: blur(15px); /* Increased blur */
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px); /* Increased blur for stronger effect */
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border-color);
             box-shadow: var(--box-shadow);
             transition: box-shadow 0.3s ease, border-color 0.3s ease;
@@ -65,32 +65,33 @@
         /* App Container */
         .app-container {
             background-color: var(--bg-card);
-            padding: 2rem; /* More generous padding */
-            border-radius: 20px; /* More rounded corners */
+            padding: 2.5rem; /* More generous padding */
+            border-radius: 25px; /* More rounded corners */
+            margin-bottom: 2rem; /* Space before footer */
         }
 
         /* Header Styles */
         .header h1 {
             color: var(--primary-color);
-            font-size: 2.8rem; /* Larger heading */
+            font-size: 3rem; /* Larger heading */
             font-weight: 800;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3); /* Stronger text shadow */
         }
 
         /* Icon Buttons */
         .icon-button {
             background-color: transparent;
             color: var(--text-light);
-            padding: 0.75rem; /* Larger touch target */
+            padding: 0.75rem; /* Adjusted padding for better fit on mobile */
             border-radius: 9999px; /* Fully rounded */
             transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
         }
         .icon-button:hover {
-            background-color: rgba(255, 255, 255, 0.15); /* More prominent hover */
-            transform: translateY(-2px);
+            background-color: rgba(255, 255, 255, 0.2); /* More prominent hover */
+            transform: translateY(-3px) scale(1.05); /* More pronounced lift and slight scale */
         }
         body.light-mode .icon-button:hover {
-            background-color: rgba(0, 0, 0, 0.08);
+            background-color: rgba(0, 0, 0, 0.1);
         }
 
         /* Input Fields */
@@ -98,8 +99,8 @@
             background-color: var(--input-bg-dark);
             border: 1px solid var(--input-border-dark);
             color: var(--text-light);
-            padding: 0.8rem; /* Increased padding */
-            border-radius: 10px; /* Slightly more rounded */
+            padding: 1rem; /* Increased padding */
+            border-radius: 12px; /* More rounded */
             transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
         }
         .input-field::placeholder {
@@ -107,7 +108,7 @@
         }
         .input-field:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.4); /* Stronger focus ring */
+            box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.5); /* Stronger focus ring */
             outline: none;
         }
 
@@ -115,82 +116,88 @@
         .button-primary {
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3); /* Slightly stronger border */
-            padding: 0.8rem 1.8rem; /* More generous padding */
-            border-radius: 12px; /* More rounded */
-            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.4); /* Slightly stronger border */
+            padding: 1rem 2rem; /* More generous padding */
+            border-radius: 15px; /* More rounded */
+            font-weight: 700; /* Bolder text */
             transition: all 0.3s ease;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Subtle text shadow */
         }
         .button-primary:hover {
             background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-            transform: translateY(-3px) scale(1.01); /* More pronounced lift */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 20px var(--primary-color); /* Stronger shadow */
+            transform: translateY(-4px) scale(1.02); /* More pronounced lift */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 25px var(--primary-color); /* Stronger shadow */
         }
         .button-primary:active {
             transform: translateY(0) scale(0.98);
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
         }
 
         /* Secondary Buttons */
         .button-secondary {
-            background-color: rgba(100, 100, 100, 0.4); /* Slightly more opaque */
+            background-color: rgba(100, 100, 100, 0.5); /* Slightly more opaque */
             color: var(--text-light);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 0.8rem 1.8rem;
-            border-radius: 12px;
-            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 600;
             transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
         }
         .button-secondary:hover {
-            background-color: rgba(120, 120, 120, 0.5);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+            background-color: rgba(120, 120, 120, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.4);
         }
         .button-secondary:active {
             transform: translateY(0);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
         }
 
         /* Card Styles */
         .card {
             background-color: var(--bg-card);
-            border-radius: 15px;
-            padding: 1.5rem; /* Consistent card padding */
+            border-radius: 20px; /* More rounded */
+            padding: 2rem; /* Consistent card padding */
         }
 
         /* Tag Pills */
         .tag-pill {
-            background-color: rgba(99, 102, 241, 0.25); /* Slightly more opaque */
+            background-color: rgba(99, 102, 241, 0.3); /* Slightly more opaque */
             color: var(--secondary-color);
-            padding: 0.4rem 0.9rem; /* Adjusted padding */
-            font-size: 0.85rem; /* Slightly larger font */
+            padding: 0.5rem 1rem; /* Adjusted padding */
+            font-size: 0.9rem; /* Slightly larger font */
             border-radius: 9999px; /* Fully rounded */
             transition: background-color 0.2s ease, transform 0.1s ease;
+            font-weight: 500;
         }
         .tag-pill:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
         }
         .tag-pill.active-filter {
             background-color: var(--primary-color);
             color: white;
-            font-weight: 600;
+            font-weight: 700;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.4);
         }
 
         /* Message Box */
         .message-box {
             background-color: var(--primary-color);
             color: white;
-            padding: 1rem 1.5rem; /* More padding */
-            border-radius: 12px;
-            font-weight: 500;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            padding: 1.2rem 1.8rem; /* More padding */
+            border-radius: 15px;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
         .message-box.error {
             background-color: var(--danger-color);
         }
         .message-box.success {
             background-color: var(--success-color);
+        }
+        .message-box.warning {
+            background-color: var(--warning-color);
         }
 
         /* Favorite Icon */
@@ -201,80 +208,54 @@
             color: #DAA520; /* Goldenrod */
         }
 
-        /* Removed Focus Mode Overlay CSS */
-        /* .focus-mode-overlay {
-            background-color: var(--focus-mode-bg);
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-        } */
-        /* .focus-mode-content { */
-            /* padding: 40px; More padding */
-            /* border-radius: 25px; More rounded */
-            /* box-shadow: var(--box-shadow);
-        }
-        .focus-mode-content h3 { */
-            /* font-size: 2em; Larger heading 
-            font-weight: 700;
-            color: var(--primary-color);
-        } 
-        .focus-mode-content p { */
-            /* font-size: 1.15em; Slightly larger text
-            line-height: 1.7; More comfortable line spacing */
-        /* }
-        .focus-mode-content .close-focus-mode {
-            font-size: 1.8em; Larger close button
-        } */
-
-        /* Quiz Mode (Removed - keeping styles for reference if needed later) */
-        /*
-        .quiz-question {
-            font-size: 1.6em;
-            font-weight: 700;
-        }
-        .quiz-answer {
-            font-size: 1.2em;
-        }
-        */
-
         /* Insights Panel */
         #insights-panel h3 {
-            font-size: 1.8em;
+            font-size: 2em; /* Larger heading */
             font-weight: 700;
         }
         #insights-panel p {
-            font-size: 1.05em;
+            font-size: 1.1em; /* Slightly larger text */
+            line-height: 1.8;
         }
         #insights-panel .insight-value {
-            font-size: 1.1em;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--primary-color);
         }
 
         /* Export Panel */
         #export-panel select, #export-panel input[type="text"] {
-            padding: 12px; /* Larger input fields */
-            border-radius: 10px;
+            padding: 14px; /* Larger input fields */
+            border-radius: 12px;
             background-color: var(--input-bg-dark);
             border: 1px solid var(--input-border-dark);
         }
 
         /* Streak Counter */
         #streak-counter {
-            font-size: 1.3em;
+            font-size: 1.4em;
             font-weight: 700;
+            color: var(--secondary-color);
         }
 
         /* Tag Suggestions */
         .tag-suggestions {
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: var(--box-shadow);
+            background-color: var(--bg-card); /* Match card background */
+            border: 1px solid var(--border-color);
         }
         .tag-suggestion-item {
-            padding: 10px 15px; /* More padding */
-            font-size: 0.95rem;
+            padding: 12px 18px; /* More padding */
+            font-size: 1rem;
+            color: var(--text-light);
+            cursor: pointer;
         }
         .tag-suggestion-item:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.15);
         }
         body.light-mode .tag-suggestion-item:hover {
-            background-color: rgba(0, 0, 0, 0.05);
+            background-color: rgba(0, 0, 0, 0.08);
         }
 
         /* Title Overflow Fix */
@@ -285,50 +266,76 @@
 
         /* "See more" functionality */
         .toggle-title-btn {
-            font-size: 0.85em; /* Slightly larger */
-            margin-left: 0.75rem; /* More spacing */
+            font-size: 0.9em; /* Slightly larger */
+            margin-left: 0.8rem; /* More spacing */
+            color: var(--secondary-color);
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .toggle-title-btn:hover {
+            text-decoration: underline;
         }
 
         /* Priority and Status styling */
-        .priority-high { color: var(--danger-color); font-weight: 600; }
-        .priority-medium { color: var(--warning-color); font-weight: 600; }
-        .priority-low { color: var(--success-color); font-weight: 600; }
+        .priority-high { color: var(--danger-color); font-weight: 700; }
+        .priority-medium { color: var(--warning-color); font-weight: 700; }
+        .priority-low { color: var(--success-color); font-weight: 700; }
 
-        .status-completed { color: var(--success-color); font-weight: 600; }
-        .status-in-progress { color: var(--primary-color); font-weight: 600; }
-        .status-to-do { color: var(--text-muted); font-weight: 600; }
+        .status-completed { color: var(--success-color); font-weight: 700; }
+        .status-in-progress { color: var(--primary-color); font-weight: 700; }
+        .status-to-do { color: var(--text-muted); font-weight: 700; }
+
+        /* Advertisement Section */
+        .ads-footer {
+            background-color: var(--bg-card); /* Match app container background */
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 2rem; /* Space from main content */
+            box-shadow: var(--box-shadow);
+        }
+        .ads-footer h4 {
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 0.75rem;
+        }
 
         /* Responsive adjustments for overall layout */
         @media (max-width: 768px) {
             body {
-                padding: 1rem; /* More compact padding on smaller screens */
+                padding: 1.5rem; /* More compact padding on smaller screens */
             }
             .app-container {
-                padding: 1.5rem; /* More compact padding for container */
+                padding: 2rem; /* More compact padding for container */
             }
             .header {
                 flex-direction: column;
                 align-items: flex-start;
-                margin-bottom: 1rem;
+                margin-bottom: 1.5rem;
             }
             .header h1 {
-                font-size: 2.2rem; /* Smaller heading on mobile */
-                margin-bottom: 0.75rem;
+                font-size: 2.5rem; /* Smaller heading on mobile */
+                margin-bottom: 1rem;
             }
             .header > div { /* Button group */
                 width: 100%;
                 justify-content: space-around; /* Distribute buttons evenly */
-                margin-top: 0.5rem;
+                margin-top: 0.75rem;
+                flex-wrap: wrap; /* Allow buttons to wrap */
+                gap: 0.5rem; /* Add a small gap between wrapped buttons */
             }
             .icon-button {
-                padding: 0.6rem; /* Slightly larger touch target */
+                padding: 0.6rem; /* Slightly smaller touch target for more buttons */
             }
             .button-primary, .button-secondary {
-                padding: 0.75rem 1.25rem; /* Adjust button padding */
+                padding: 0.9rem 1.5rem; /* Adjust button padding */
                 font-size: 0.95rem;
             }
             .input-field {
-                padding: 0.75rem; /* Adjust input field padding */
+                padding: 0.9rem; /* Adjust input field padding */
             }
             .content-item-notes-view .flex.items-center {
                 flex-direction: column;
@@ -336,70 +343,154 @@
             }
             .content-item-notes-view .flex.items-center h2 {
                 margin-left: 0;
-                margin-top: 0.5rem;
-                font-size: 1.8rem;
+                margin-top: 0.75rem;
+                font-size: 2rem;
             }
-            /* Removed focus-mode-content responsive CSS */
-            /* .focus-mode-content {
-                padding: 25px;
+            .ads-footer {
+                padding: 1rem;
+                margin-top: 1.5rem;
             }
-            .focus-mode-content h3 {
-                font-size: 1.6em;
-            }
-            .focus-mode-content p {
-                font-size: 1em;
-            } */
         }
 
         @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            .app-container {
+                padding: 1.5rem;
+            }
             .header h1 {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             .button-primary, .button-secondary {
-                padding: 0.6rem 1rem;
+                padding: 0.75rem 1.2rem;
                 font-size: 0.85rem;
             }
             .icon-button {
-                padding: 0.5rem;
-            }
-            .app-container {
-                padding: 1rem;
+                padding: 0.5rem; /* Even smaller for very small screens */
             }
             .card {
-                padding: 1rem;
+                padding: 1.5rem;
             }
-            /* Removed focus-mode-content responsive CSS */
-            /* .focus-mode-content {
-                padding: 20px;
-            } */
+            .ads-footer {
+                padding: 0.8rem;
+                margin-top: 1rem;
+            }
+        }
+
+        /* Page Loader */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #0d1117 100%); /* Match body gradient */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.7s ease-out, visibility 0.7s ease-out; /* Slower transition out */
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none; /* Ensure it doesn't block clicks after hiding */
+        }
+
+        .loader-content {
+            font-size: 3.5rem; /* Large text */
+            font-weight: 800;
+            color: var(--primary-color); /* Use primary color */
+            text-shadow: 0 0 20px rgba(99, 102, 241, 0.8), 0 0 10px rgba(99, 102, 241, 0.4); /* Stronger glow effect */
+            display: flex; /* To animate letters individually */
+            letter-spacing: 0.15em; /* Slightly more spacing */
+        }
+
+        /* Responsive font size for loader */
+        @media (max-width: 768px) {
+            .loader-content {
+                font-size: 2.5rem; /* Smaller on tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .loader-content {
+                font-size: 1.8rem; /* Even smaller on mobile */
+                letter-spacing: 0.1em;
+            }
+        }
+
+        .loader-letter {
+            display: inline-block; /* Allows individual transformation */
+            animation: fadeInUpPulse 2.5s infinite alternate; /* Longer animation duration */
+            opacity: 0; /* Start hidden */
+            transform: translateY(20px) scale(0.8); /* Start lower and slightly smaller */
+        }
+
+        /* Delay for each letter */
+        .loader-letter:nth-child(1) { animation-delay: 0.0s; }
+        .loader-letter:nth-child(2) { animation-delay: 0.05s; }
+        .loader-letter:nth-child(3) { animation-delay: 0.1s; }
+        .loader-letter:nth-child(4) { animation-delay: 0.15s; }
+        .loader-letter:nth-child(5) { animation-delay: 0.2s; }
+        .loader-letter:nth-child(6) { animation-delay: 0.25s; } /* Space after EveXa */
+        .loader-letter:nth-child(7) { animation-delay: 0.3s; }
+        .loader-letter:nth-child(8) { animation-delay: 0.35s; }
+        .loader-letter:nth-child(9) { animation-delay: 0.4s; }
+        .loader-letter:nth-child(10) { animation-delay: 0.45s; }
+
+        @keyframes fadeInUpPulse {
+            0% {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+                filter: blur(5px);
+            }
+            30% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+            70% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20px) scale(0.8);
+                filter: blur(5px);
+            }
         }
     </style>
 </head>
 <body class="dark">
+    <div id="page-loader" class="page-loader">
+        <div class="loader-content">
+            <span class="loader-letter">E</span>
+            <span class="loader-letter">v</span>
+            <span class="loader-letter">e</span>
+            <span class="loader-letter">X</span>
+            <span class="loader-letter">a</span>
+            <span class="loader-letter ml-4">B</span>
+            <span class="loader-letter">u</span>
+            <span class="loader-letter">d</span>
+            <span class="loader-letter">d</span>
+            <span class="loader-letter">y</span>
+        </div>
+    </div>
+
     <div id="custom-message-box" class="message-box fixed bottom-24 left-1/2 -translate-x-1/2 p-4 rounded-lg shadow-lg text-center opacity-0 invisible transition-all duration-300 z-50 max-w-xs md:max-w-md">
         Message
     </div>
 
-    <!-- Quiz Mode Overlay (Removed)
-    <div id="quiz-mode-overlay" class="focus-mode-overlay">
-        <div class="focus-mode-content quiz-card glass-effect">
-            <button class="close-focus-mode" id="close-quiz-mode-btn">×</button>
-            <div class="flex-grow flex flex-col justify-center items-center p-4 w-full">
-                <p id="quiz-question" class="quiz-question">What was this note about?</p>
-                <p id="quiz-answer" class="quiz-answer hidden"></p>
-            </div>
-            <div class="quiz-controls">
-                <button id="reveal-answer-btn" class="button-primary px-4 py-2 rounded-lg shadow-md">Reveal Answer</button>
-                <button id="next-quiz-btn" class="button-primary px-4 py-2 rounded-lg shadow-md">Next Note</button>
-            </div>
-        </div>
-    </div>
-    -->
-
     <div class="max-w-4xl mx-auto p-6 md:p-8 rounded-xl app-container glass-effect">
-        <div class="flex justify-between items-center mb-6 header">
+        <div class="flex justify-between items-center mb-8 header">
             <h1 class="text-3xl font-bold">EveXa Buddy Pad – Smart Notepad</h1>
-            <div class="flex space-x-2">
+            <div class="flex flex-wrap justify-center md:justify-end gap-2 md:space-x-3">
                 <button id="show-all-tags-btn" class="p-2 rounded-full icon-button" title="Show All Tags">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5.99M7 21h5.99M17 7h.01M17 3h5.99M17 21h5.99M12 7h.01M12 3h5.99M12 21h5.99M5 12h.01M3 12h5.99M21 12h.01M15 12h.01M12 17h.01M12 19h.01M12 5h.01M12 7h.01M12 9h.01M12 11h.01M12 13h.01M12 15h.01M12 17h.01M12 19h.01M12 21h.01" />
@@ -425,6 +516,11 @@
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
                 </button>
+                 <button id="show-show-reel-btn" class="p-2 rounded-full icon-button" title="Show Reel">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.112l-4.752 3.888-4.752-3.888M12 21V3" />
+                    </svg>
+                </button>
                 <button id="theme-toggle" class="p-2 rounded-full icon-button transition duration-300 ease-in-out transform hover:scale-110" title="Toggle Theme">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h1M4 12H3m15.325 3.325l-.707.707M6.372 6.372l-.707-.707m12.728 0l-.707.707M6.372 17.628l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -433,34 +529,34 @@
             </div>
         </div>
 
-        <div id="all-tags-section" class="mb-6 p-4 rounded-xl card hidden">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-semibold">All Tags</h3>
-                <button id="back-from-all-tags-btn" class="button-secondary px-4 py-2 rounded-lg shadow-md">Back to Dashboard</button>
+        <div id="all-tags-section" class="mb-6 p-6 rounded-xl card hidden">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="text-2xl font-semibold">All Tags</h3>
+                <button id="back-from-all-tags-btn" class="button-secondary">Back to Dashboard</button>
             </div>
-            <div id="all-tags-container" class="flex flex-wrap">
+            <div id="all-tags-container" class="flex flex-wrap gap-3">
                 </div>
         </div>
 
-        <div id="insights-panel" class="hidden glass-effect">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-semibold">Smart Insights</h3>
-                <button id="back-from-insights-btn" class="button-secondary px-4 py-2 rounded-lg shadow-md">Back to Dashboard</button>
+        <div id="insights-panel" class="hidden glass-effect p-6 rounded-xl mb-6">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="text-2xl font-semibold">Smart Insights</h3>
+                <button id="back-from-insights-btn" class="button-secondary">Back to Dashboard</button>
             </div>
-            <p>Total Notes: <span class="insight-value" id="total-notes-count">0</span></p>
-            <p>Total Links/Content: <span class="insight-value" id="total-content-items-count">0</span></p>
-            <p>Notes untouched for <span class="insight-value" id="untouched-days-threshold">7</span> days: <span class="insight-value" id="untouched-notes-count">0</span></p>
-            <p id="streak-counter" class="text-center mt-4"></p>
+            <p class="mb-2">Total Notes: <span class="insight-value" id="total-notes-count">0</span></p>
+            <p class="mb-2">Total Links/Content: <span class="insight-value" id="total-content-items-count">0</span></p>
+            <p class="mb-2">Notes untouched for <span class="insight-value" id="untouched-days-threshold">7</span> days: <span class="insight-value" id="untouched-notes-count">0</span></p>
+            <p id="streak-counter" class="text-center mt-5"></p>
         </div>
 
-        <div id="export-panel" class="hidden glass-effect">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-semibold">Export Notes</h3>
-                <button id="back-from-export-btn" class="button-secondary px-4 py-2 rounded-lg shadow-md">Back to Dashboard</button>
+        <div id="export-panel" class="hidden glass-effect p-6 rounded-xl mb-6">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="text-2xl font-semibold">Export Notes</h3>
+                <button id="back-from-export-btn" class="button-secondary">Back to Dashboard</button>
             </div>
             <div class="mb-4">
-                <label for="export-filter-type" class="block text-sm font-medium mb-2 text-gray-300">Filter by:</label>
-                <select id="export-filter-type" class="input-field">
+                <label for="export-filter-type" class="block text-base font-medium mb-2 text-gray-300">Filter by:</label>
+                <select id="export-filter-type" class="input-field w-full">
                     <option value="all">All Notes</option>
                     <option value="tag">Specific Tag</option>
                     <option value="contentItem">Specific Link/Content</option>
@@ -469,118 +565,173 @@
                     <option value="reviewDate">Notes with Review Date</option>
                 </select>
             </div>
-            <div id="export-filter-value-container" class="mb-4 hidden">
-                <label for="export-filter-value" class="block text-sm font-medium mb-2 text-gray-300">Select Value:</label>
-                <select id="export-filter-value" class="input-field">
+            <div id="export-filter-value-container" class="mb-6 hidden">
+                <label for="export-filter-value" class="block text-base font-medium mb-2 text-gray-300">Select Value:</label>
+                <select id="export-filter-value" class="input-field w-full">
                     </select>
             </div>
-            <div class="flex justify-end space-x-2">
-                <button id="export-txt-btn" class="button-primary px-4 py-2 rounded-lg shadow-md">Export as TXT</button>
-                <button id="export-json-btn" class="button-primary px-4 py-2 rounded-lg shadow-md">Export as JSON</button>
+            <div class="flex justify-end space-x-3">
+                <button id="export-txt-btn" class="button-primary">Export as TXT</button>
+                <button id="export-json-btn" class="button-primary">Export as JSON</button>
             </div>
         </div>
 
-        <div id="dashboard-view">
-            <h2 class="text-2xl font-semibold mb-4">Your Links & Content</h2>
-            <div id="content-items-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <p id="no-content-items-message" class="col-span-full text-center text-gray-400">No links or content saved yet. Add one to get started!</p>
+        <div id="show-reel-panel" class="hidden glass-effect p-6 rounded-xl mb-6">
+            <div class="flex justify-between items-center mb-5">
+                <h3 class="text-2xl font-semibold">Note Show Reel</h3>
+                <button id="back-from-show-reel-btn" class="button-secondary">Back to Dashboard</button>
             </div>
 
-            <h2 class="text-2xl font-semibold mt-8 mb-4">Standalone Notes</h2>
-            <div id="standalone-notes-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <p id="no-standalone-notes-message" class="col-span-full text-center text-gray-400">No standalone notes yet.</p>
+            <div class="mb-4">
+                <label for="show-reel-filter-type" class="block text-base font-medium mb-2 text-gray-300">Filter Notes:</label>
+                <select id="show-reel-filter-type" class="input-field w-full">
+                    <option value="all">All Notes</option>
+                    <option value="favorite">Favorites</option>
+                    <option value="reviewDate">Notes for Review</option>
+                    <option value="highPriority">High Priority</option>
+                    <option value="tag">Specific Tag</option>
+                </select>
+            </div>
+            <div id="show-reel-filter-value-container" class="mb-6 hidden">
+                <label for="show-reel-filter-value" class="block text-base font-medium mb-2 text-gray-300">Select Tag:</label>
+                <select id="show-reel-filter-value" class="input-field w-full">
+                    </select>
+            </div>
+
+            <div id="show-reel-display" class="relative p-6 rounded-xl card text-center min-h-[200px] flex flex-col justify-center items-center">
+                <p id="show-reel-note-content" class="text-lg text-gray-200 mb-4"></p>
+                <div id="show-reel-note-details" class="text-sm text-gray-400"></div>
+                <p id="show-reel-empty-message" class="text-gray-400 text-lg py-8">No notes to display in the show reel based on current filters.</p>
+            </div>
+
+            <div class="flex justify-between items-center mt-6">
+                <button id="show-reel-prev-btn" class="button-secondary p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <span id="show-reel-counter" class="text-lg font-semibold text-primary-color">0 / 0</span>
+                <button id="show-reel-next-btn" class="button-secondary p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 mt-6">
+                <div class="flex items-center space-x-2">
+                    <button id="show-reel-autoplay-btn" class="button-primary">Auto-Play</button>
+                    <button id="show-reel-stop-btn" class="button-secondary hidden">Stop</button>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <label for="show-reel-autoplay-speed" class="text-base text-gray-300">Speed (seconds):</label>
+                    <input type="number" id="show-reel-autoplay-speed" value="5" min="1" max="30" class="input-field w-20 text-center">
+                </div>
+            </div>
+        </div>
+
+
+        <div id="dashboard-view">
+            <h2 class="text-2xl font-semibold mb-5">Your Links & Content</h2>
+            <div id="content-items-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <p id="no-content-items-message" class="col-span-full text-center text-gray-400 text-lg py-8">No links or content saved yet. Add one to get started!</p>
+            </div>
+
+            <h2 class="text-2xl font-semibold mt-10 mb-5">Standalone Notes</h2>
+            <div id="standalone-notes-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <p id="no-standalone-notes-message" class="col-span-full text-center text-gray-400 text-lg py-8">No standalone notes yet.</p>
             </div>
         </div>
 
         <div id="add-content-item-view" class="hidden">
             <div class="p-6 md:p-8 rounded-xl card">
-                <h2 class="text-2xl font-semibold mb-4">Add New Link or Content</h2>
+                <h2 class="text-2xl font-semibold mb-6">Add New Link or Content</h2>
                 <div class="mb-4">
-                    <label for="content-type-select" class="block text-sm font-medium mb-2 text-gray-300">Content Type</label>
-                    <select id="content-type-select" class="input-field p-3 rounded-lg w-full">
+                    <label for="content-type-select" class="block text-base font-medium mb-2 text-gray-300">Content Type</label>
+                    <select id="content-type-select" class="input-field w-full">
                         <option value="youtube">YouTube Video</option>
                         <option value="website">Website / Blog / Portfolio</option>
                         <option value="text-only">Note to Self (No Link)</option>
                     </select>
                 </div>
                 <div class="mb-4" id="content-url-group">
-                    <label for="content-url-input" class="block text-sm font-medium mb-2 text-gray-300">URL (optional for "Note to Self")</label>
-                    <input type="text" id="content-url-input" placeholder="e.g., https://www.youtube.com/watch?v=dQw4w9WgXcQ or your-website.com" class="input-field p-3 rounded-lg w-full">
+                    <label for="content-url-input" class="block text-base font-medium mb-2 text-gray-300">URL (optional for "Note to Self")</label>
+                    <input type="text" id="content-url-input" placeholder="e.g., https://www.youtube.com/watch?v=dQw4w9WgXcQ or your-website.com" class="input-field w-full">
                 </div>
-                <div class="mb-4">
-                    <label for="content-title-input" class="block text-sm font-medium mb-2 text-gray-300">Title (e.g., Python Tutorial, My Portfolio)</label>
-                    <input type="text" id="content-title-input" placeholder="Enter a descriptive title" class="input-field p-3 rounded-lg w-full">
+                <div class="mb-6">
+                    <label for="content-title-input" class="block text-base font-medium mb-2 text-gray-300">Title (e.g., Python Tutorial, My Portfolio)</label>
+                    <input type="text" id="content-title-input" placeholder="Enter a descriptive title" class="input-field w-full">
                 </div>
-                <div class="flex justify-end space-x-2">
-                    <button id="cancel-add-content-item-btn" class="button-secondary px-4 py-2 rounded-lg shadow-md">Cancel</button>
-                    <button id="save-content-item-btn" class="button-primary px-4 py-2 rounded-lg shadow-md">Add Content</button>
+                <div class="flex justify-end space-x-3">
+                    <button id="cancel-add-content-item-btn" class="button-secondary">Cancel</button>
+                    <button id="save-content-item-btn" class="button-primary">Add Content</button>
                 </div>
             </div>
         </div>
 
         <div id="content-item-notes-view" class="hidden">
-            <div class="flex items-center mb-4">
+            <div class="flex items-center mb-6">
                 <button id="back-to-dashboard-btn" class="p-2 rounded-full icon-button">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </button>
-                <h2 id="selected-content-item-title" class="text-2xl font-semibold ml-2 flex-grow break-words-overflow"></h2>
+                <h2 id="selected-content-item-title" class="text-2xl font-semibold ml-3 flex-grow break-words-overflow"></h2>
             </div>
 
-            <div id="embedded-viewer-panel" class="w-full bg-black rounded-lg mb-6 overflow-hidden text-gray-200">
+            <div id="embedded-viewer-panel" class="w-full bg-black rounded-xl mb-8 overflow-hidden text-gray-200">
                 <div class="relative" style="padding-bottom: 56.25%;">
                     <iframe id="content-viewer-iframe" class="absolute top-0 left-0 w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-autoplay allow-fullscreen allow-accelerometer allow-gyroscope allow-encrypted-media allow-clipboard-write"></iframe>
                 </div>
-                <div class="p-3 flex justify-center space-x-4 hidden" id="website-controls">
-                    <a id="open-in-new-tab-btn" href="#" target="_blank" class="button-primary px-4 py-2 rounded-lg shadow-md">
+                <div class="p-4 flex justify-center space-x-4 hidden" id="website-controls">
+                    <a id="open-in-new-tab-btn" href="#" target="_blank" class="button-primary">
                         Open in New Tab
                     </a>
                 </div>
             </div>
 
-            <div class="flex justify-between items-center mb-4">
+            <div class="flex justify-between items-center mb-5">
                 <h3 class="text-xl font-semibold">Notes for this Content</h3>
-                <button id="add-note-for-content-item-btn-view" class="button-primary px-4 py-2 rounded-lg shadow-md">
+                <button id="add-note-for-content-item-btn-view" class="button-primary">
                     Add New Note
                 </button>
             </div>
 
-            <div id="content-item-notes-list" class="grid grid-cols-1 gap-4">
-                <p id="no-content-item-notes-message" class="col-span-full text-center text-gray-400">No notes for this content yet.</p>
+            <div id="content-item-notes-list" class="grid grid-cols-1 gap-6">
+                <p id="no-content-item-notes-message" class="col-span-full text-center text-gray-400 text-lg py-8">No notes for this content yet.</p>
             </div>
         </div>
 
         <div id="add-edit-note-view" class="p-6 md:p-8 rounded-xl card mb-6 hidden">
-            <h2 id="note-form-title" class="text-2xl font-semibold mb-4">Add New Note</h2>
+            <h2 id="note-form-title" class="text-2xl font-semibold mb-6">Add New Note</h2>
             <div class="mb-4">
-                <label for="note-content-textarea" class="block text-sm font-medium mb-2 text-gray-300">Note Content</label>
-                <textarea id="note-content-textarea" placeholder="Write your note here. Use **bold** or *italic* for emphasis." rows="6" class="input-field p-3 rounded-lg w-full"></textarea>
+                <label for="note-content-textarea" class="block text-base font-medium mb-2 text-gray-300">Note Content</label>
+                <textarea id="note-content-textarea" placeholder="Write your note here. Use **bold** or *italic* for emphasis." rows="7" class="input-field w-full"></textarea>
             </div>
 
             <div id="content-item-note-fields" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label for="note-timestamp-input" class="block text-sm font-medium mb-2 text-gray-300">Content Timestamp (MM:SS)</label>
-                    <input type="text" id="note-timestamp-input" placeholder="e.g., 01:30" class="input-field p-3 rounded-lg w-full">
+                    <label for="note-timestamp-input" class="block text-base font-medium mb-2 text-gray-300">Content Timestamp (MM:SS)</label>
+                    <input type="text" id="note-timestamp-input" placeholder="e.g., 01:30" class="input-field w-full">
                 </div>
                 <div>
-                    <label for="note-start-segment-input" class="block text-sm font-medium mb-2 text-gray-300">Segment Start (MM:SS)</label>
-                    <input type="text" id="note-start-segment-input" placeholder="e.g., 00:00" class="input-field p-3 rounded-lg w-full">
+                    <label for="note-start-segment-input" class="block text-base font-medium mb-2 text-gray-300">Segment Start (MM:SS)</label>
+                    <input type="text" id="note-start-segment-input" placeholder="e.g., 00:00" class="input-field w-full">
                 </div>
                 <div class="md:col-span-2">
-                    <label for="note-end-segment-input" class="block text-sm font-medium mb-2 text-gray-300">Segment End (MM:SS)</label>
-                    <input type="text" id="note-end-segment-input" placeholder="e.g., 02:30" class="input-field p-3 rounded-lg w-full">
+                    <label for="note-end-segment-input" class="block text-base font-medium mb-2 text-gray-300">Segment End (MM:SS)</label>
+                    <input type="text" id="note-end-segment-input" placeholder="e.g., 02:30" class="input-field w-full">
                 </div>
             </div>
 
             <div class="mb-4">
-                <label for="note-intent-input" class="block text-sm font-medium mb-2 text-gray-300">Study Intent (e.g., Exam Prep, Doubt, Long-term)</label>
-                <input type="text" id="note-intent-input" placeholder="Why this note matters" class="input-field p-3 rounded-lg w-full">
+                <label for="note-intent-input" class="block text-base font-medium mb-2 text-gray-300">Study Intent (e.g., Exam Prep, Doubt, Long-term)</label>
+                <input type="text" id="note-intent-input" placeholder="Why this note matters" class="input-field w-full">
             </div>
 
             <div class="mb-4">
-                <label for="note-priority-select" class="block text-sm font-medium mb-2 text-gray-300">Priority</label>
-                <select id="note-priority-select" class="input-field p-3 rounded-lg w-full">
+                <label for="note-priority-select" class="block text-base font-medium mb-2 text-gray-300">Priority</label>
+                <select id="note-priority-select" class="input-field w-full">
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
                     <option value="high">High</option>
@@ -588,8 +739,8 @@
             </div>
 
             <div class="mb-4">
-                <label for="note-status-select" class="block text-sm font-medium mb-2 text-gray-300">Status</label>
-                <select id="note-status-select" class="input-field p-3 rounded-lg w-full">
+                <label for="note-status-select" class="block text-base font-medium mb-2 text-gray-300">Status</label>
+                <select id="note-status-select" class="input-field w-full">
                     <option value="to-do">To Do</option>
                     <option value="in-progress">In Progress</option>
                     <option value="completed">Completed</option>
@@ -597,44 +748,50 @@
             </div>
 
             <div class="mb-4">
-                <label for="note-duration-input" class="block text-sm font-medium mb-2 text-gray-300">Estimated Study Time (minutes)</label>
-                <input type="number" id="note-duration-input" placeholder="e.g., 20" class="input-field p-3 rounded-lg w-full">
+                <label for="note-duration-input" class="block text-base font-medium mb-2 text-gray-300">Estimated Study Time (minutes)</label>
+                <input type="number" id="note-duration-input" placeholder="e.g., 20" class="input-field w-full">
             </div>
 
-            <div class="mb-4">
-                <label for="note-review-date-input" class="block text-sm font-medium mb-2 text-gray-300">Schedule Review Date</label>
-                <input type="date" id="note-review-date-input" class="input-field p-3 rounded-lg w-full">
+            <div class="mb-6">
+                <label for="note-review-date-input" class="block text-base font-medium mb-2 text-gray-300">Schedule Review Date</label>
+                <input type="date" id="note-review-date-input" class="input-field w-full">
             </div>
 
-            <div class="mb-4 tag-suggestions-container">
-                <label for="note-tags-input" class="block text-sm font-medium mb-2 text-gray-300">Tags (comma-separated, e.g., Math, Algebra, Lecture)</label>
-                <input type="text" id="note-tags-input" placeholder="Add tags for easy filtering" class="input-field p-3 rounded-lg w-full">
+            <div class="mb-6 tag-suggestions-container">
+                <label for="note-tags-input" class="block text-base font-medium mb-2 text-gray-300">Tags (comma-separated, e.g., Math, Algebra, Lecture)</label>
+                <input type="text" id="note-tags-input" placeholder="Add tags for easy filtering" class="input-field w-full">
                 <div id="tag-suggestions" class="tag-suggestions hidden"></div>
             </div>
 
-            <div class="mb-4 flex items-center space-x-4">
-                <label class="inline-flex items-center cursor-pointer text-gray-300">
-                    <input type="checkbox" id="note-favorite-checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded">
-                    <span class="ml-2">Mark as Favorite</span>
+            <div class="mb-6 flex items-center space-x-6">
+                <label class="inline-flex items-center cursor-pointer text-base text-gray-300">
+                    <input type="checkbox" id="note-favorite-checkbox" class="form-checkbox h-6 w-6 text-blue-600 rounded">
+                    <span class="ml-3">Mark as Favorite</span>
                 </label>
-                <button class="p-2 rounded-full icon-button opacity-50 cursor-not-allowed" title="Attach Image (Not Implemented)">
+                <button class="p-3 rounded-full icon-button opacity-50 cursor-not-allowed" title="Attach Image (Not Implemented)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
                 </button>
-                <button class="p-2 rounded-full icon-button opacity-50 cursor-not-allowed" title="Record Audio (Not Implemented)">
+                <button class="p-3 rounded-full icon-button opacity-50 cursor-not-allowed" title="Record Audio (Not Implemented)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                     </svg>
                 </button>
             </div>
 
-            <div class="flex justify-end space-x-2">
-                <button id="cancel-add-edit-note-btn" class="button-secondary px-4 py-2 rounded-lg shadow-md">Cancel</button>
-                <button id="save-note-btn" class="button-primary px-4 py-2 rounded-lg shadow-md">Save Note</button>
+            <div class="flex justify-end space-x-3">
+                <button id="cancel-add-edit-note-btn" class="button-secondary">Cancel</button>
+                <button id="save-note-btn" class="button-primary">Save Note</button>
             </div>
         </div>
     </div>
+
+    <footer class="ads-footer max-w-4xl mx-auto">
+        <h4>Advertisement Placeholder</h4>
+        <p>Your Google Ads or other ad partner content will appear here. This section is designed to be non-intrusive to the main user experience.</p>
+        <p class="text-sm mt-2">Learn more about monetizing your site responsibly.</p>
+    </footer>
 
     <script>
         // --- Global State Variables ---
@@ -648,9 +805,11 @@
         let allTags = [];
         let lastNoteCreationDate = localStorage.getItem('lastNoteCreationDate');
         let streakCount = parseInt(localStorage.getItem('streakCount') || '0');
-        // Removed quizNotes and currentQuizNoteIndex
-        // let quizNotes = [];
-        // let currentQuizNoteIndex = 0;
+
+        // Show Reel specific state
+        let showReelNotes = [];
+        let currentShowReelIndex = 0;
+        let showReelIntervalId = null;
 
         // --- Constants ---
         const MAX_TITLE_LENGTH = 40; // Max characters before truncation
@@ -658,6 +817,7 @@
         // --- DOM Element References ---
         const themeToggle = document.getElementById('theme-toggle');
         const customMessageBox = document.getElementById('custom-message-box');
+        const pageLoader = document.getElementById('page-loader'); // Added loader reference
 
         const dashboardView = document.getElementById('dashboard-view');
         const contentItemsList = document.getElementById('content-items-list'); // Renamed
@@ -676,17 +836,13 @@
         const contentItemNotesView = document.getElementById('content-item-notes-view'); // Renamed
         const selectedContentItemTitle = document.getElementById('selected-content-item-title'); // Renamed
         const contentViewerIframe = document.getElementById('content-viewer-iframe'); // Renamed
-        // Removed youtubeControls reference
         const websiteControls = document.getElementById('website-controls'); // New
         const openInNewTabBtn = document.getElementById('open-in-new-tab-btn'); // New
-        // Removed pauseVideoBtn and resumeVideoBtn references
         const contentItemNotesList = document.getElementById('content-item-notes-list'); // Renamed
         const noContentItemNotesMessage = document.getElementById('no-content-item-notes-message'); // Renamed
-        const addNoteForContentItemBtnDashboard = document.getElementById('add-note-for-content-item-btn'); // Renamed from addNoteForContentItemBtn
         const addNoteForContentItemBtnView = document.getElementById('add-note-for-content-item-btn-view'); // New ID for button on content notes view
         const backToDashboardBtn = document.getElementById('back-to-dashboard-btn');
 
-        // Note: addEditNoteView is now a sibling of contentItemNotesView in HTML
         const addEditNoteView = document.getElementById('add-edit-note-view');
         const noteFormTitle = document.getElementById('note-form-title');
         const noteContentTextarea = document.getElementById('note-content-textarea');
@@ -694,32 +850,32 @@
         const noteStartSegmentInput = document.getElementById('note-start-segment-input');
         const noteEndSegmentInput = document.getElementById('note-end-segment-input');
         const noteIntentInput = document.getElementById('note-intent-input');
-        const notePrioritySelect = document.getElementById('note-priority-select'); // New
-        const noteStatusSelect = document.getElementById('note-status-select');     // New
+        const notePrioritySelect = document.getElementById('note-priority-select');
+        const noteStatusSelect = document.getElementById('note-status-select');
         const noteDurationInput = document.getElementById('note-duration-input');
         const noteReviewDateInput = document.getElementById('note-review-date-input');
         const noteTagsInput = document.getElementById('note-tags-input');
         const noteFavoriteCheckbox = document.getElementById('note-favorite-checkbox');
-        const contentItemNoteFields = document.getElementById('content-item-note-fields'); // Renamed from videoNoteFields
+        const contentItemNoteFields = document.getElementById('content-item-note-fields');
         const saveNoteBtn = document.getElementById('save-note-btn');
         const cancelAddEditNoteBtn = document.getElementById('cancel-add-edit-note-btn');
         const tagSuggestionsContainer = document.getElementById('tag-suggestions');
 
         const showAllTagsBtn = document.getElementById('show-all-tags-btn');
-        const addContentItemBtn = document.getElementById('add-content-item-btn'); // Renamed
+        const addContentItemBtn = document.getElementById('add-content-item-btn');
         const addStandaloneNoteBtn = document.getElementById('add-standalone-note-btn');
         const allTagsSection = document.getElementById('all-tags-section');
         const allTagsContainer = document.getElementById('all-tags-container');
-        const backFromAllTagsBtn = document.getElementById('back-from-all-tags-btn'); // New
+        const backFromAllTagsBtn = document.getElementById('back-from-all-tags-btn');
 
         const showInsightsBtn = document.getElementById('show-insights-btn');
         const insightsPanel = document.getElementById('insights-panel');
         const totalNotesCount = document.getElementById('total-notes-count');
-        const totalContentItemsCount = document.getElementById('total-content-items-count'); // Renamed
+        const totalContentItemsCount = document.getElementById('total-content-items-count');
         const untouchedNotesCount = document.getElementById('untouched-notes-count');
         const untouchedDaysThreshold = document.getElementById('untouched-days-threshold');
         const streakCounterDisplay = document.getElementById('streak-counter');
-        const backFromInsightsBtn = document.getElementById('back-from-insights-btn'); // New
+        const backFromInsightsBtn = document.getElementById('back-from-insights-btn');
 
         const showExportBtn = document.getElementById('show-export-btn');
         const exportPanel = document.getElementById('export-panel');
@@ -728,29 +884,33 @@
         const exportFilterValue = document.getElementById('export-filter-value');
         const exportTxtBtn = document.getElementById('export-txt-btn');
         const exportJsonBtn = document.getElementById('export-json-btn');
-        const backFromExportBtn = document.getElementById('back-from-export-btn'); // New
+        const backFromExportBtn = document.getElementById('back-from-export-btn');
 
-        // Removed focus mode DOM element references
-        // const focusModeOverlay = document.getElementById('focus-mode-overlay');
-        // const closeFocusModeBtn = document.getElementById('close-focus-mode-btn');
-        // const focusNoteTitle = document.getElementById('focus-note-title');
-        // const focusNoteContent = document.getElementById('focus-note-content');
-        // const focusNoteDetails = document.getElementById('focus-note-details');
+        // Show Reel DOM elements
+        const showShowReelBtn = document.getElementById('show-show-reel-btn');
+        const showReelPanel = document.getElementById('show-reel-panel');
+        const backFromShowReelBtn = document.getElementById('back-from-show-reel-btn');
+        const showReelFilterType = document.getElementById('show-reel-filter-type');
+        const showReelFilterValueContainer = document.getElementById('show-reel-filter-value-container');
+        const showReelFilterValue = document.getElementById('show-reel-filter-value');
+        const showReelDisplay = document.getElementById('show-reel-display');
+        const showReelNoteContent = document.getElementById('show-reel-note-content');
+        const showReelNoteDetails = document.getElementById('show-reel-note-details');
+        const showReelEmptyMessage = document.getElementById('show-reel-empty-message');
+        const showReelPrevBtn = document.getElementById('show-reel-prev-btn');
+        const showReelNextBtn = document.getElementById('show-reel-next-btn');
+        const showReelCounter = document.getElementById('show-reel-counter');
+        const showReelAutoplayBtn = document.getElementById('show-reel-autoplay-btn');
+        const showReelStopBtn = document.getElementById('show-reel-stop-btn');
+        const showReelAutoplaySpeed = document.getElementById('show-reel-autoplay-speed');
 
-        // Removed quiz mode DOM element references
-        // const quizModeOverlay = document.getElementById('quiz-mode-overlay');
-        // const closeQuizModeBtn = document.getElementById('close-quiz-mode-btn');
-        // const quizQuestion = document.getElementById('quiz-question');
-        // const quizAnswer = document.getElementById('quiz-answer');
-        // const revealAnswerBtn = document.getElementById('reveal-answer-btn');
-        // const nextQuizBtn = document.getElementById('next-quiz-btn');
 
         // --- Utility Functions ---
 
         /**
          * Shows a custom message box.
          * @param {string} message - The message to display.
-         * @param {string} type - 'info', 'success', or 'error'.
+         * @param {string} type - 'info', 'success', 'error', or 'warning'.
          * @param {number} duration - How long the message should be visible in ms.
          */
         function showMessageBox(message, type = 'info', duration = 3000) {
@@ -761,6 +921,8 @@
                 customMessageBox.classList.add('error');
             } else if (type === 'success') {
                 customMessageBox.classList.add('success');
+            } else if (type === 'warning') {
+                customMessageBox.classList.add('warning');
             } else {
                 customMessageBox.classList.add('info');
             }
@@ -846,13 +1008,19 @@
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9 9 0 008.354-5.646z" />
                 </svg>`;
 
-            // Re-render dashboard to apply new theme colors to dynamically generated elements
+            // Re-render views to apply new theme colors to dynamically generated elements
             if (currentView === 'dashboard') {
                 renderDashboard();
             } else if (currentView === 'contentItemNotes' && selectedContentItem) {
                 renderContentItemNotes();
             } else if (currentView === 'allTags') {
                 renderAllTags();
+            }
+            if (currentView === 'addNote') { // Ensure form elements update
+                renderAddEditNoteForm();
+            }
+            if (currentView === 'showReel') {
+                displayCurrentShowReelNote(); // Re-render current note in show reel to apply theme
             }
         }
 
@@ -908,9 +1076,9 @@
             allTagsSection.classList.add('hidden');
             insightsPanel.classList.add('hidden');
             exportPanel.classList.add('hidden');
+            showReelPanel.classList.add('hidden'); // Hide show reel panel
 
             // Always hide the note form when switching main views, unless it's specifically for adding/editing a note
-            // This is important because the note form can be shown in two contexts (standalone or linked)
             addEditNoteView.classList.add('hidden');
 
             currentView = viewName;
@@ -931,15 +1099,13 @@
                     contentItemNotesView.classList.remove('hidden');
                     renderContentItemNotes();
                     break;
-                case 'addNote': // This is the key change
-                    // If it's a standalone note, show it as a primary view
+                case 'addNote':
                     if (isStandaloneNote) {
-                        dashboardView.classList.add('hidden'); // Ensure dashboard is hidden
+                        dashboardView.classList.add('hidden');
                         addEditNoteView.classList.remove('hidden');
                     } else {
-                        // If it's a linked note, keep contentItemNotesView visible and show the form within it
                         contentItemNotesView.classList.remove('hidden');
-                        addEditNoteView.classList.remove('hidden'); // This is the crucial part
+                        addEditNoteView.classList.remove('hidden');
                     }
                     renderAddEditNoteForm();
                     break;
@@ -955,6 +1121,10 @@
                     exportPanel.classList.remove('hidden');
                     renderExportPanel();
                     break;
+                case 'showReel':
+                    showReelPanel.classList.remove('hidden');
+                    renderShowReelPanel();
+                    break;
             }
         }
 
@@ -968,35 +1138,33 @@
 
             // Render Content Items
             contentItemsList.innerHTML = '';
-            const linkedContentItems = contentItems.filter(item => item.type !== 'text-only'); // Don't show notes-to-self here
+            const linkedContentItems = contentItems.filter(item => item.type !== 'text-only');
             if (linkedContentItems.length === 0) {
                 noContentItemsMessage.classList.remove('hidden');
             } else {
                 noContentItemsMessage.classList.add('hidden');
                 linkedContentItems.forEach(item => {
                     const itemCard = document.createElement('div');
-                    // Added text-center and break-words to the card for general alignment and wrapping
-                    itemCard.className = `relative p-4 mb-4 rounded-xl card glass-effect text-center break-words ${isDark ? 'text-white' : 'text-gray-800'}`;
+                    itemCard.className = `relative p-6 rounded-xl card glass-effect text-center break-words`;
                     
                     let thumbnailHtml = '';
                     if (item.type === 'youtube' && item.thumbnail) {
-                        thumbnailHtml = `<img src="${item.thumbnail}" alt="${item.title}" class="w-full h-32 object-cover rounded-lg mb-3" onerror="this.onerror=null;this.src='https://placehold.co/320x180/333333/FFFFFF?text=Video';">`;
+                        thumbnailHtml = `<img src="${item.thumbnail}" alt="${item.title}" class="w-full h-36 object-cover rounded-lg mb-4" onerror="this.onerror=null;this.src='https://placehold.co/320x180/333333/FFFFFF?text=Video';">`;
                     } else if (item.type === 'website') {
-                        thumbnailHtml = `<div class="w-full h-32 flex items-center justify-center bg-gray-700 rounded-lg mb-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        thumbnailHtml = `<div class="w-full h-36 flex items-center justify-center bg-gray-700 rounded-lg mb-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                             </svg>
                                         </div>`;
                     } else { // Generic fallback
-                        thumbnailHtml = `<div class="w-full h-32 flex items-center justify-center bg-gray-700 rounded-lg mb-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        thumbnailHtml = `<div class="w-full h-36 flex items-center justify-center bg-gray-700 rounded-lg mb-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                         </div>`;
                     }
 
-                    // Title handling with "See more"
-                    let titleHtml = `<h3 class="text-lg font-semibold mb-2 ${isDark ? 'text-white' : 'text-gray-800'}">`;
+                    let titleHtml = `<h3 class="text-xl font-semibold mb-3">`;
                     if (item.title.length > MAX_TITLE_LENGTH) {
                         const truncatedTitle = item.title.substring(0, MAX_TITLE_LENGTH) + '...';
                         titleHtml += `
@@ -1015,12 +1183,12 @@
                     itemCard.innerHTML = `
                         ${thumbnailHtml}
                         ${titleHtml}
-                        <p class="${isDark ? 'text-gray-400' : 'text-gray-600'}"><span class="font-medium">Notes:</span> ${notes.filter(n => n.contentItemId === item.id).length}</p>
-                        <div class="flex flex-wrap mt-2 justify-center">
-                            ${notes.filter(n => n.contentItemId === item.id).flatMap(n => n.tags || []).filter((value, index, self) => self.indexOf(value) === index).map(tag => `<span class="inline-block px-3 py-1 text-sm rounded-full mr-2 mb-2 tag-pill cursor-pointer" style="background-color: ${stringToHslColor(tag, 50, isDark ? 30 : 80)}; color: ${isDark ? 'var(--text-light)' : 'var(--text-dark)'};" data-tag="${tag}">#${tag}</span>`).join('')}
+                        <p class="text-base text-gray-400 mb-3"><span class="font-medium">Notes:</span> ${notes.filter(n => n.contentItemId === item.id).length}</p>
+                        <div class="flex flex-wrap mt-2 justify-center gap-2">
+                            ${notes.filter(n => n.contentItemId === item.id).flatMap(n => n.tags || []).filter((value, index, self) => self.indexOf(value) === index).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, isDark ? 30 : 80)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
                         </div>
-                        <div class="flex justify-between mt-4">
-                            <button class="button-primary px-4 py-2 rounded-lg shadow-md view-notes-btn" data-content-item-id="${item.id}">
+                        <div class="flex justify-between mt-5">
+                            <button class="button-primary view-notes-btn" data-content-item-id="${item.id}">
                                 View Notes
                             </button>
                             <div class="flex space-x-2">
@@ -1051,44 +1219,29 @@
                 noStandaloneNotesMessage.classList.add('hidden');
                 standaloneNotes.forEach(note => {
                     const noteCard = document.createElement('div');
-                    // Added text-center and break-words to the card for general alignment and wrapping
-                    noteCard.className = `relative p-4 mb-4 rounded-xl card glass-effect text-center break-words ${isDark ? 'text-white' : 'text-gray-800'}`;
+                    noteCard.className = `relative p-6 rounded-xl card glass-effect text-center break-words`;
                     noteCard.innerHTML = `
-                        <h3 class="text-lg font-semibold mb-2 flex items-center justify-center">
-                            ${note.isFavorite ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 favorite-icon mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" /></svg>` : ''}
+                        <h3 class="text-xl font-semibold mb-3 flex items-center justify-center">
+                            ${note.isFavorite ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 favorite-icon mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" /></svg>` : ''}
                             Standalone Note
                         </h3>
-                        <p class="text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'} mb-2">${note.content.substring(0, 100)}...</p>
-                        ${note.intent ? `<p class="text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}">Intent: ${note.intent}</p>` : ''}
-                        ${note.priority ? `<p class="text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}">Priority: <span class="priority-${note.priority}">${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}</span></p>` : ''}
-                        ${note.status ? `<p class="text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}">Status: <span class="status-${note.status}">${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}</span></p>` : ''}
-                        ${note.estimatedDuration ? `<p class="text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}">Est. Time: ${note.estimatedDuration} mins</p>` : ''}
-                        ${note.reviewDate ? `<p class="text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}">Review: ${new Date(note.reviewDate).toLocaleDateString()}</p>` : ''}
-                        <div class="flex flex-wrap mt-2 justify-center">
-                            ${(note.tags || []).map(tag => `<span class="inline-block px-3 py-1 text-sm rounded-full mr-2 mb-2 tag-pill cursor-pointer" style="background-color: ${stringToHslColor(tag, 50, isDark ? 30 : 80)}; color: ${isDark ? 'var(--text-light)' : 'var(--text-dark)'};" data-tag="${tag}">#${tag}</span>`).join('')}
+                        <p class="text-base text-gray-300 mb-3">${note.content.substring(0, 100)}...</p>
+                        ${note.intent ? `<p class="text-sm text-gray-500 mb-1">Intent: ${note.intent}</p>` : ''}
+                        ${note.priority ? `<p class="text-sm text-gray-500 mb-1">Priority: <span class="priority-${note.priority}">${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}</span></p>` : ''}
+                        ${note.status ? `<p class="text-sm text-gray-500 mb-1">Status: <span class="status-${note.status}">${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}</span></p>` : ''}
+                        ${note.estimatedDuration ? `<p class="text-sm text-gray-500 mb-1">Est. Time: ${note.estimatedDuration} mins</p>` : ''}
+                        ${note.reviewDate ? `<p class="text-sm text-gray-500 mb-3">Review: ${new Date(note.reviewDate).toLocaleDateString()}</p>` : ''}
+                        <div class="flex flex-wrap mt-2 justify-center gap-2">
+                            ${(note.tags || []).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, isDark ? 30 : 80)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
                         </div>
-                        <div class="flex justify-end mt-4 space-x-2">
-                            <!--
-                            <button class="p-2 rounded-full icon-button focus-note-btn" data-note-id="${note.id}" title="Focus Mode">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                                </svg>
-                            </button>
-                            -->
-                            <!--
-                            <button class="p-2 rounded-full icon-button quiz-note-btn" data-note-id="${note.id}" title="Quiz Me">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9.247a1 1 0 01.791-.595 1 1 0 01.903.868l1.498 4.993 2.502-2.502a1 1 0 01.83-.293 1 1 0 01.791.595l1.498 4.993a1 1 0 01-.791 1.352 1 1 0 01-.903-.868l-1.498-4.993L13.5 11.5l-2.502 2.502a1 1 0 01-.83.293 1 1 0 01-.791-.595l-1.498-4.993a1 1 0 01.791-1.352z" />
-                                </svg>
-                            </button>
-                            -->
+                        <div class="flex justify-end mt-5 space-x-2">
                             <button class="p-2 rounded-full icon-button edit-note-btn" data-note-id="${note.id}" title="Edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
                             </button>
                             <button class="p-2 rounded-full icon-button delete-note-btn" data-note-id="${note.id}" title="Delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
                             </button>
@@ -1113,7 +1266,6 @@
 
             // Set iframe src based on content type
             if (selectedContentItem.type === 'youtube') {
-                // Corrected YouTube embed URL
                 contentViewerIframe.src = `https://www.youtube.com/embed/${extractYouTubeVideoId(selectedContentItem.url)}`;
                 websiteControls.classList.add('hidden');
                 contentItemNoteFields.classList.remove('hidden'); // Show timestamp fields for YouTube
@@ -1128,8 +1280,7 @@
                 contentItemNoteFields.classList.add('hidden'); // Hide timestamp fields
             }
 
-            // Ensure the note form is hidden when rendering notes initially
-            addEditNoteView.classList.add('hidden');
+            addEditNoteView.classList.add('hidden'); // Ensure the note form is hidden
 
             contentItemNotesList.innerHTML = '';
             const contentItemSpecificNotes = notes.filter(n => n.contentItemId === selectedContentItem.id && (!filterTag || (n.tags && n.tags.includes(filterTag))))
@@ -1141,47 +1292,32 @@
                 noContentItemNotesMessage.classList.add('hidden');
                 contentItemSpecificNotes.forEach(note => {
                     const noteCard = document.createElement('div');
-                    // Added text-center and break-words to the note card for general alignment and wrapping
-                    noteCard.className = `relative p-4 mb-4 rounded-xl card glass-effect text-center break-words ${isDark ? 'text-white' : 'text-gray-800'}`;
+                    noteCard.className = `relative p-6 rounded-xl card glass-effect text-center break-words`;
                     noteCard.innerHTML = `
-                        <div class="flex justify-between items-start mb-2">
+                        <div class="flex justify-between items-start mb-3">
                             <div class="flex items-center">
-                                ${note.timestamp ? `<span class="text-lg font-bold mr-3 ${isDark ? 'text-blue-300' : 'text-blue-600'}">${formatTimestamp(note.timestamp)}</span>` : ''}
-                                ${note.startSegment && note.endSegment ? `<span class="text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}">(${formatTimestamp(note.startSegment)} - ${formatTimestamp(note.endSegment)})</span>` : ''}
+                                ${note.timestamp ? `<span class="text-xl font-bold mr-3 text-blue-300">${formatTimestamp(note.timestamp)}</span>` : ''}
+                                ${note.startSegment && note.endSegment ? `<span class="text-base text-gray-400">(${formatTimestamp(note.startSegment)} - ${formatTimestamp(note.endSegment)})</span>` : ''}
                             </div>
-                            ${note.isFavorite ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 favorite-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" /></svg>` : ''}
+                            ${note.isFavorite ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 favorite-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" /></svg>` : ''}
                         </div>
-                        <p class="mb-3 ${isDark ? 'text-gray-200' : 'text-gray-800'}">${note.content}</p>
-                        ${note.intent ? `<p class="text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}">Intent: ${note.intent}</p>` : ''}
-                        ${note.priority ? `<p class="text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}">Priority: <span class="priority-${note.priority}">${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}</span></p>` : ''}
-                        ${note.status ? `<p class="text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}">Status: <span class="status-${note.status}">${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}</span></p>` : ''}
-                        ${note.estimatedDuration ? `<p class="text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}">Est. Time: ${note.estimatedDuration} mins</p>` : ''}
-                        ${note.reviewDate ? `<p class="text-xs ${isDark ? 'text-gray-500' : 'text-gray-500'}">Review: ${new Date(note.reviewDate).toLocaleDateString()}</p>` : ''}
-                        <div class="flex flex-wrap justify-center">
-                            ${(note.tags || []).map(tag => `<span class="inline-block px-3 py-1 text-sm rounded-full mr-2 mb-2 tag-pill cursor-pointer" style="background-color: ${stringToHslColor(tag, 50, isDark ? 30 : 80)}; color: ${isDark ? 'var(--text-light)' : 'var(--text-dark)'};" data-tag="${tag}">#${tag}</span>`).join('')}
+                        <p class="mb-4 text-lg text-gray-200">${note.content}</p>
+                        ${note.intent ? `<p class="text-sm text-gray-500 mb-1">Intent: ${note.intent}</p>` : ''}
+                        ${note.priority ? `<p class="text-sm text-gray-500 mb-1">Priority: <span class="priority-${note.priority}">${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}</span></p>` : ''}
+                        ${note.status ? `<p class="text-sm text-gray-500 mb-1">Status: <span class="status-${note.status}">${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}</span></p>` : ''}
+                        ${note.estimatedDuration ? `<p class="text-sm text-gray-500 mb-1">Est. Time: ${note.estimatedDuration} mins</p>` : ''}
+                        ${note.reviewDate ? `<p class="text-sm text-gray-500 mb-4">Review: ${new Date(note.reviewDate).toLocaleDateString()}</p>` : ''}
+                        <div class="flex flex-wrap justify-center gap-2">
+                            ${(note.tags || []).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, isDark ? 30 : 80)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
                         </div>
-                        <div class="flex justify-end mt-4 space-x-2">
-                            <!--
-                            <button class="p-2 rounded-full icon-button focus-note-btn" data-note-id="${note.id}" title="Focus Mode">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-                                </svg>
-                            </button>
-                            -->
-                            <!--
-                            <button class="p-2 rounded-full icon-button quiz-note-btn" data-note-id="${note.id}" title="Quiz Me">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9.247a1 1 0 01.791-.595 1 1 0 01.903.868l1.498 4.993 2.502-2.502a1 1 0 01.83-.293 1 1 0 01.791.595l1.498 4.993a1 1 0 01-.791 1.352 1 1 0 01-.903-.868l-1.498-4.993L13.5 11.5l-2.502 2.502a1 1 0 01-.83.293 1 1 0 01-.791-.595l-1.498-4.993a1 1 0 01.791-1.352z" />
-                                </svg>
-                            </button>
-                            -->
+                        <div class="flex justify-end mt-5 space-x-2">
                             <button class="p-2 rounded-full icon-button edit-note-btn" data-note-id="${note.id}" title="Edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
                             </button>
                             <button class="p-2 rounded-full icon-button delete-note-btn" data-note-id="${note.id}" title="Delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
                             </button>
@@ -1196,17 +1332,17 @@
          * Renders the add/edit note form.
          */
         function renderAddEditNoteForm() {
-            const isDark = document.body.classList.contains('dark');
-            noteContentTextarea.className = `input-field p-3 rounded-lg w-full ${isDark ? 'text-white' : 'text-gray-800'}`;
-            noteTimestampInput.className = `input-field p-3 rounded-lg w-full ${isDark ? 'text-white' : 'text-gray-800'}`;
-            noteStartSegmentInput.className = `input-field p-3 rounded-lg w-full ${isDark ? 'text-white' : 'text-gray-800'}`;
-            noteEndSegmentInput.className = `input-field p-3 rounded-lg w-full ${isDark ? 'text-white' : 'text-gray-800'}`;
-            noteIntentInput.className = `input-field p-3 rounded-lg w-full ${isDark ? 'text-white' : 'text-gray-800'}`;
-            notePrioritySelect.className = `input-field p-3 rounded-lg w-full ${isDark ? 'text-white' : 'text-gray-800'}`;
-            noteStatusSelect.className = `input-field p-3 rounded-lg w-full ${isDark ? 'text-white' : 'text-gray-800'}`;
-            noteDurationInput.className = `input-field p-3 rounded-lg w-full ${isDark ? 'text-white' : 'text-gray-800'}`;
-            noteReviewDateInput.className = `input-field p-3 rounded-lg w-full ${isDark ? 'text-white' : 'text-gray-800'}`;
-            noteTagsInput.className = `input-field p-3 rounded-lg w-full ${isDark ? 'text-white' : 'text-gray-800'}`;
+            // Apply input-field class for styling, which uses CSS variables
+            noteContentTextarea.className = `input-field w-full`;
+            noteTimestampInput.className = `input-field w-full`;
+            noteStartSegmentInput.className = `input-field w-full`;
+            noteEndSegmentInput.className = `input-field w-full`;
+            noteIntentInput.className = `input-field w-full`;
+            notePrioritySelect.className = `input-field w-full`;
+            noteStatusSelect.className = `input-field w-full`;
+            noteDurationInput.className = `input-field w-full`;
+            noteReviewDateInput.className = `input-field w-full`;
+            noteTagsInput.className = `input-field w-full`;
 
             if (editingNote) {
                 noteFormTitle.textContent = 'Edit Note';
@@ -1217,15 +1353,13 @@
                 noteStartSegmentInput.value = editingNote.startSegment ? formatTimestamp(editingNote.startSegment) : '';
                 noteEndSegmentInput.value = editingNote.endSegment ? formatTimestamp(editingNote.endSegment) : '';
                 noteIntentInput.value = editingNote.intent || '';
-                notePrioritySelect.value = editingNote.priority || 'medium'; // Default to medium
-                noteStatusSelect.value = editingNote.status || 'to-do';     // Default to to-do
+                notePrioritySelect.value = editingNote.priority || 'medium';
+                noteStatusSelect.value = editingNote.status || 'to-do';
                 noteDurationInput.value = editingNote.estimatedDuration || '';
-                noteReviewDateInput.value = editingNote.reviewDate || ''; //ISO-MM-DD format
-                // Hide timestamp/segment fields if it's a standalone note or non-YouTube content
+                noteReviewDateInput.value = editingNote.reviewDate || '';
                 const hideTimestampFields = editingNote.isStandalone || (selectedContentItem && selectedContentItem.type !== 'youtube');
                 contentItemNoteFields.classList.toggle('hidden', hideTimestampFields);
             } else {
-                // If adding a new note, clear previous values
                 noteFormTitle.textContent = isStandaloneNote ? 'Add Standalone Note' : `Add New Note`;
                 noteContentTextarea.value = '';
                 noteTagsInput.value = '';
@@ -1234,16 +1368,15 @@
                 noteStartSegmentInput.value = '';
                 noteEndSegmentInput.value = '';
                 noteIntentInput.value = '';
-                notePrioritySelect.value = 'medium'; // Default for new notes
-                noteStatusSelect.value = 'to-do';     // Default for new notes
+                notePrioritySelect.value = 'medium';
+                noteStatusSelect.value = 'to-do';
                 noteDurationInput.value = '';
                 noteReviewDateInput.value = '';
-                // Show/hide timestamp/segment fields based on whether it's a standalone note or non-YouTube content
                 const hideTimestampFields = isStandaloneNote || (selectedContentItem && selectedContentItem.type !== 'youtube');
                 contentItemNoteFields.classList.toggle('hidden', hideTimestampFields);
             }
-            tagSuggestionsContainer.classList.add('hidden'); // Hide suggestions when form opens
-            addEditNoteView.classList.remove('hidden'); // Show the form
+            tagSuggestionsContainer.classList.add('hidden');
+            addEditNoteView.classList.remove('hidden');
         }
 
         /**
@@ -1252,28 +1385,28 @@
         function renderAllTags() {
             allTagsContainer.innerHTML = '';
             if (allTags.length === 0) {
-                allTagsContainer.innerHTML = '<p class="text-gray-400">No tags created yet.</p>';
+                allTagsContainer.innerHTML = '<p class="text-gray-400 text-base">No tags created yet.</p>';
                 return;
             }
             const isDark = document.body.classList.contains('dark');
 
             allTags.forEach(tag => {
                 const tagSpan = document.createElement('span');
-                tagSpan.className = `inline-block px-3 py-1 text-sm rounded-full mr-2 mb-2 tag-pill cursor-pointer ${filterTag === tag ? 'active-filter' : ''}`;
+                tagSpan.className = `inline-block tag-pill ${filterTag === tag ? 'active-filter' : ''}`;
                 tagSpan.textContent = `#${tag}`;
                 tagSpan.style.backgroundColor = stringToHslColor(tag, 50, isDark ? 30 : 80);
-                tagSpan.style.color = isDark ? 'var(--text-light)' : 'var(--text-dark)';
+                tagSpan.style.color = `var(--text-light)`;
                 tagSpan.dataset.tag = tag;
                 allTagsContainer.appendChild(tagSpan);
             });
 
             if (filterTag) {
                 const clearFilterBtn = document.createElement('button');
-                clearFilterBtn.className = `px-3 py-1 text-sm rounded-full bg-red-500 text-white mr-2 mb-2 tag-pill cursor-pointer`;
+                clearFilterBtn.className = `px-4 py-2 text-sm rounded-full bg-red-500 text-white tag-pill cursor-pointer`;
                 clearFilterBtn.textContent = `Clear Filter (${filterTag})`;
                 clearFilterBtn.onclick = () => {
                     filterTag = '';
-                    showView('dashboard'); // Re-render dashboard without filter
+                    showView('dashboard');
                 };
                 allTagsContainer.appendChild(clearFilterBtn);
             }
@@ -1287,7 +1420,7 @@
             totalContentItemsCount.textContent = contentItems.length;
 
             const today = new Date();
-            today.setHours(0, 0, 0, 0); // Normalize to start of day
+            today.setHours(0, 0, 0, 0);
 
             const sevenDaysAgo = new Date(today);
             sevenDaysAgo.setDate(today.getDate() - 7);
@@ -1298,7 +1431,6 @@
             });
             untouchedNotesCount.textContent = untouchedNotes.length;
 
-            // Render Streak Counter
             updateStreakCounter();
         }
 
@@ -1307,8 +1439,8 @@
          */
         function renderExportPanel() {
             populateExportFilterValues();
-            exportFilterType.value = 'all'; // Reset filter type
-            exportFilterValueContainer.classList.add('hidden'); // Hide value selector initially
+            exportFilterType.value = 'all';
+            exportFilterValueContainer.classList.add('hidden');
         }
 
         /**
@@ -1321,12 +1453,8 @@
 
             if (filterType === 'tag') {
                 options = allTags.map(tag => ({ value: tag, text: tag }));
-            } else if (filterType === 'contentItem') { // Changed from 'video'
+            } else if (filterType === 'contentItem') {
                 options = contentItems.map(item => ({ value: item.id, text: item.title }));
-            } else if (filterType === 'reviewDate') {
-                // For reviewDate, we might just show a message or a list of notes with review dates
-                // For simplicity, we'll just show the filter type and let the export function handle the logic.
-                // No specific options for this dropdown in this simple implementation.
             }
 
             if (options.length > 0) {
@@ -1342,43 +1470,175 @@
             }
         }
 
-        // --- Feature Specific Functions ---
+        /**
+         * Renders the show reel panel.
+         */
+        function renderShowReelPanel() {
+            populateShowReelFilterValues();
+            showReelFilterType.value = 'all'; // Default filter
+            showReelFilterValueContainer.classList.add('hidden'); // Hide tag filter by default
+            populateShowReel(); // Populate notes based on default filter
+            displayCurrentShowReelNote(); // Display the first note
+            stopAutoPlay(); // Ensure autoplay is stopped when opening
+        }
 
-        // Removed enterFocusMode function
-        /*
-        function enterFocusMode(noteId) {
-            const note = notes.find(n => n.id === noteId);
-            if (!note) {
-                showMessageBox('Note not found for focus mode.', 'error');
+        /**
+         * Populates the show reel filter value dropdown based on filter type.
+         */
+        function populateShowReelFilterValues() {
+            showReelFilterValue.innerHTML = '';
+            const filterType = showReelFilterType.value;
+            let options = [];
+
+            if (filterType === 'tag') {
+                options = allTags.map(tag => ({ value: tag, text: tag }));
+            }
+
+            if (options.length > 0) {
+                options.forEach(optionData => {
+                    const option = document.createElement('option');
+                    option.value = optionData.value;
+                    option.textContent = optionData.text;
+                    showReelFilterValue.appendChild(option);
+                });
+                showReelFilterValueContainer.classList.remove('hidden');
+            } else {
+                showReelFilterValueContainer.classList.add('hidden');
+            }
+        }
+
+        /**
+         * Populates the showReelNotes array based on selected filter.
+         */
+        function populateShowReel() {
+            const filterType = showReelFilterType.value;
+            const filterValue = showReelFilterValue.value;
+
+            switch (filterType) {
+                case 'all':
+                    showReelNotes = notes.slice(); // Clone array
+                    break;
+                case 'favorite':
+                    showReelNotes = notes.filter(note => note.isFavorite);
+                    break;
+                case 'reviewDate':
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    showReelNotes = notes.filter(note => note.reviewDate && new Date(note.reviewDate) >= today);
+                    break;
+                case 'highPriority':
+                    showReelNotes = notes.filter(note => note.priority === 'high');
+                    break;
+                case 'tag':
+                    showReelNotes = notes.filter(note => note.tags && note.tags.includes(filterValue));
+                    break;
+                default:
+                    showReelNotes = notes.slice();
+            }
+            // Sort by creation date descending
+            showReelNotes.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+            currentShowReelIndex = 0; // Reset index when populating
+            displayCurrentShowReelNote();
+        }
+
+        /**
+         * Displays the note at the currentShowReelIndex.
+         */
+        function displayCurrentShowReelNote() {
+            const isDark = document.body.classList.contains('dark');
+
+            if (showReelNotes.length === 0) {
+                showReelEmptyMessage.classList.remove('hidden');
+                showReelNoteContent.textContent = '';
+                showReelNoteDetails.innerHTML = '';
+                showReelCounter.textContent = '0 / 0';
+                showReelPrevBtn.disabled = true;
+                showReelNextBtn.disabled = true;
+                showReelAutoplayBtn.disabled = true;
+                return;
+            } else {
+                showReelEmptyMessage.classList.add('hidden');
+                showReelAutoplayBtn.disabled = false;
+            }
+
+            const note = showReelNotes[currentShowReelIndex];
+            showReelNoteContent.textContent = note.content;
+
+            let detailsHtml = '';
+            if (note.contentItemId) {
+                const contentItem = contentItems.find(item => item.id === note.contentItemId);
+                detailsHtml += `<p class="mb-1">Content: <span class="font-medium">${contentItem ? contentItem.title : 'Unknown'}</span></p>`;
+            } else {
+                detailsHtml += `<p class="mb-1">Type: <span class="font-medium">Standalone Note</span></p>`;
+            }
+            if (note.timestamp) detailsHtml += `<p class="mb-1">Timestamp: <span class="font-medium">${formatTimestamp(note.timestamp)}</span></p>`;
+            if (note.intent) detailsHtml += `<p class="mb-1">Intent: <span class="font-medium">${note.intent}</span></p>`;
+            if (note.priority) detailsHtml += `<p class="mb-1">Priority: <span class="priority-${note.priority}">${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}</span></p>`;
+            if (note.status) detailsHtml += `<p class="mb-1">Status: <span class="status-${note.status}">${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}</span></p>`;
+            if (note.reviewDate) detailsHtml += `<p class="mb-1">Review Date: <span class="font-medium">${new Date(note.reviewDate).toLocaleDateString()}</span></p>`;
+            if (note.tags && note.tags.length > 0) {
+                detailsHtml += `<div class="flex flex-wrap justify-center gap-2 mt-2">`;
+                detailsHtml += note.tags.map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, isDark ? 30 : 80)}; color: var(--text-light);">#${tag}</span>`).join('');
+                detailsHtml += `</div>`;
+            }
+            showReelNoteDetails.innerHTML = detailsHtml;
+
+            showReelCounter.textContent = `${currentShowReelIndex + 1} / ${showReelNotes.length}`;
+            showReelPrevBtn.disabled = currentShowReelIndex === 0;
+            showReelNextBtn.disabled = currentShowReelIndex === showReelNotes.length - 1;
+        }
+
+        /**
+         * Navigates the show reel.
+         * @param {number} direction - 1 for next, -1 for previous.
+         */
+        function navigateShowReel(direction) {
+            stopAutoPlay(); // Stop autoplay on manual navigation
+            currentShowReelIndex += direction;
+            if (currentShowReelIndex < 0) {
+                currentShowReelIndex = showReelNotes.length - 1; // Loop back to end
+            } else if (currentShowReelIndex >= showReelNotes.length) {
+                currentShowReelIndex = 0; // Loop back to start
+            }
+            displayCurrentShowReelNote();
+        }
+
+        /**
+         * Starts the auto-play for the show reel.
+         */
+        function startAutoPlay() {
+            stopAutoPlay(); // Clear any existing interval
+            const speed = parseInt(showReelAutoplaySpeed.value) * 1000;
+            if (isNaN(speed) || speed <= 0) {
+                showMessageBox('Please enter a valid auto-play speed (seconds).', 'warning');
+                return;
+            }
+            if (showReelNotes.length === 0) {
+                showMessageBox('No notes to auto-play.', 'info');
                 return;
             }
 
-            focusNoteTitle.textContent = note.isStandalone ? 'Standalone Note' : (contentItems.find(item => item.id === note.contentItemId)?.title || 'Linked Note');
-            focusNoteContent.textContent = note.content;
+            showReelIntervalId = setInterval(() => {
+                navigateShowReel(1); // Move to next note
+            }, speed);
 
-            let details = [];
-            if (note.timestamp) details.push(`Timestamp: ${formatTimestamp(note.timestamp)}`);
-            if (note.startSegment && note.endSegment) details.push(`Segment: ${formatTimestamp(note.startSegment)} - ${formatTimestamp(note.endSegment)}`);
-            if (note.intent) details.push(`Intent: ${note.intent}`);
-            if (note.priority) details.push(`Priority: ${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}`);
-            if (note.status) details.push(`Status: ${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}`);
-            if (note.estimatedDuration) details.push(`Est. Time: ${note.estimatedDuration} mins`);
-            if (note.reviewDate) details.push(`Review: ${new Date(note.reviewDate).toLocaleDateString()}`);
-            if (note.tags && note.tags.length > 0) details.push(`Tags: ${note.tags.map(t => `#${t}`).join(', ')}`);
-            if (note.isFavorite) details.push(`Favorite: Yes`);
-
-            focusNoteDetails.innerHTML = details.join(' | ');
-
-            focusModeOverlay.classList.add('active');
+            showReelAutoplayBtn.classList.add('hidden');
+            showReelStopBtn.classList.remove('hidden');
+            showMessageBox(`Auto-play started at ${showReelAutoplaySpeed.value} seconds per note.`, 'success');
         }
-        */
 
-        // Removed exitFocusMode function
-        /*
-        function exitFocusMode() {
-            focusModeOverlay.classList.remove('active');
+        /**
+         * Stops the auto-play for the show reel.
+         */
+        function stopAutoPlay() {
+            if (showReelIntervalId) {
+                clearInterval(showReelIntervalId);
+                showReelIntervalId = null;
+                showReelAutoplayBtn.classList.remove('hidden');
+                showReelStopBtn.classList.add('hidden');
+                showMessageBox('Auto-play stopped.', 'info');
+            }
         }
-        */
 
         /**
          * Updates the streak counter.
@@ -1394,13 +1654,12 @@
                 const diffTime = Math.abs(today.getTime() - lastDate.getTime());
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-                if (diffDays === 1) { // Created note yesterday
-                    // Streak continues, no change to streakCount until a new note is added today
-                } else if (diffDays > 1) { // Gap in streak
+                if (diffDays === 1) {
+                } else if (diffDays > 1) {
                     streakCount = 0;
                 }
-            } else { // First note ever
-                streakCount = 0; // Will be incremented when a note is saved
+            } else {
+                streakCount = 0;
             }
 
             if (streakCount > 0) {
@@ -1409,39 +1668,6 @@
                 streakCounterDisplay.textContent = `Start a streak by adding a note today!`;
             }
         }
-
-        // Removed quiz mode functions
-        /*
-        function startQuizMode(notesToQuiz) {
-            if (notesToQuiz.length === 0) {
-                showMessageBox('No notes available for quizzing.', 'info');
-                return;
-            }
-            quizNotes = notesToQuiz;
-            currentQuizNoteIndex = 0;
-            quizModeOverlay.classList.add('active');
-            displayQuizNote();
-        }
-
-        function displayQuizNote() {
-            if (quizNotes.length === 0) {
-                showMessageBox('No more notes in this quiz session.', 'info');
-                exitQuizMode();
-                return;
-            }
-            const note = quizNotes[currentQuizNoteIndex];
-            quizQuestion.textContent = "What was this note about?"; // Generic question
-            quizAnswer.textContent = note.content; // The actual note content is the answer
-            quizAnswer.classList.add('hidden'); // Hide answer initially
-            revealAnswerBtn.textContent = 'Reveal Answer';
-        }
-
-        function exitQuizMode() {
-            quizModeOverlay.classList.remove('active');
-            quizNotes = [];
-            currentQuizNoteIndex = 0;
-        }
-        */
 
         /**
          * Handles tag input for suggestions.
@@ -1460,9 +1686,9 @@
                         suggestionItem.classList.add('tag-suggestion-item');
                         suggestionItem.textContent = tag;
                         suggestionItem.addEventListener('click', () => {
-                            const newTags = currentTags.slice(0, -1); // Remove incomplete last tag
-                            newTags.push(tag); // Add selected tag
-                            noteTagsInput.value = newTags.join(', ') + ', '; // Add comma for next tag
+                            const newTags = currentTags.slice(0, -1);
+                            newTags.push(tag);
+                            noteTagsInput.value = newTags.join(', ') + ', ';
                             tagSuggestionsContainer.classList.add('hidden');
                             noteTagsInput.focus();
                         });
@@ -1499,7 +1725,6 @@
             } else if (filterType === 'reviewDate') {
                 notesToExport = notes.filter(note => note.reviewDate && new Date(note.reviewDate) >= new Date());
             }
-
 
             if (notesToExport.length === 0) {
                 showMessageBox('No notes found for the selected filter.', 'info');
@@ -1560,28 +1785,27 @@
             applyTheme();
         });
 
-        addContentItemBtn.addEventListener('click', () => showView('addContentItem')); // Renamed
+        addContentItemBtn.addEventListener('click', () => showView('addContentItem'));
         addStandaloneNoteBtn.addEventListener('click', () => {
             selectedContentItem = null;
             editingNote = null;
             isStandaloneNote = true;
-            showView('addNote'); // This will now show the form in the main dashboard view
+            showView('addNote');
         });
         showAllTagsBtn.addEventListener('click', () => showView('allTags'));
         showInsightsBtn.addEventListener('click', () => showView('insights'));
         showExportBtn.addEventListener('click', () => showView('export'));
+        showShowReelBtn.addEventListener('click', () => showView('showReel')); // Show Reel button
 
-        // New back buttons for utility panels
         backFromAllTagsBtn.addEventListener('click', () => showView('dashboard'));
         backFromInsightsBtn.addEventListener('click', () => showView('dashboard'));
         backFromExportBtn.addEventListener('click', () => showView('dashboard'));
+        backFromShowReelBtn.addEventListener('click', () => showView('dashboard')); // Show Reel back button
 
-
-        // Handle content type selection to show/hide URL input
         contentTypeSelect.addEventListener('change', () => {
             if (contentTypeSelect.value === 'text-only') {
                 contentUrlGroup.classList.add('hidden');
-                contentUrlInput.value = ''; // Clear URL if text-only
+                contentUrlInput.value = '';
             } else {
                 contentUrlGroup.classList.remove('hidden');
             }
@@ -1611,13 +1835,12 @@
             }
 
             const newItem = {
-                id: Date.now().toString(), // Simple unique ID
+                id: Date.now().toString(),
                 type: type,
                 url: url,
                 title: title,
-                youtubeId: youtubeId, // Will be null for non-YouTube types
-                // Corrected YouTube thumbnail URL
-                thumbnail: type === 'youtube' ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null, // Generic thumbnail for YouTube
+                youtubeId: youtubeId,
+                thumbnail: type === 'youtube' ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null,
                 createdAt: Date.now()
             };
             contentItems.push(newItem);
@@ -1630,174 +1853,146 @@
 
         backToDashboardBtn.addEventListener('click', () => {
             selectedContentItem = null;
-            filterTag = ''; // Clear filter when going back to dashboard
+            filterTag = '';
             showView('dashboard');
         });
 
-        // Global map to store delete button timeouts
         const deleteConfirmationTimeouts = new Map();
 
-        // Event delegation for dynamically created elements
         document.addEventListener('click', (e) => {
-            // View Notes button
             if (e.target.classList.contains('view-notes-btn')) {
                 const contentItemId = e.target.dataset.contentItemId;
                 selectedContentItem = contentItems.find(item => item.id === contentItemId);
-                filterTag = ''; // Clear any existing tag filter
+                filterTag = '';
                 showView('contentItemNotes');
             }
-            // Add Note for Content Item button (from dashboard card)
             else if (e.target.classList.contains('add-note-for-content-item-btn')) {
                 const contentItemId = e.target.dataset.contentItemId;
                 selectedContentItem = contentItems.find(item => item.id === contentItemId);
                 editingNote = null;
                 isStandaloneNote = false;
-                showView('addNote'); // Now correctly switches to addNote view
+                showView('addNote');
             }
-            // Edit Note button
             const editButton = e.target.closest('.edit-note-btn');
             if (editButton) {
                 const noteId = editButton.dataset.noteId;
-                console.log('Edit button clicked for noteId:', noteId); // Debugging
                 editingNote = notes.find(n => n.id === noteId);
                 isStandaloneNote = editingNote.isStandalone;
-                selectedContentItem = contentItems.find(item => item.id === editingNote.contentItemId); // Re-select content item if it's a linked note
-                // If it's a standalone note, switch view; otherwise, just show the form
-                if (isStandaloneNote) {
-                    showView('addNote');
-                } else {
-                    showView('addNote'); // Now correctly switches to addNote view for linked notes too
-                }
+                selectedContentItem = contentItems.find(item => item.id === editingNote.contentItemId);
+                showView('addNote');
             }
-            // Delete Note button
             const deleteButton = e.target.closest('.delete-note-btn');
             if (deleteButton) {
                 const noteId = deleteButton.dataset.noteId;
-                console.log('Delete button clicked for noteId:', noteId); // Debugging
+                console.log('Delete button clicked for note ID:', noteId);
 
-                // If already in confirmation state
                 if (deleteButton.dataset.confirmDelete === 'true') {
-                    // Perform deletion
+                    console.log('Confirming deletion for note ID:', noteId);
                     notes = notes.filter(n => n.id !== noteId);
+                    console.log('Notes array after filter:', notes.length);
                     saveData();
+                    console.log('Data saved after deletion.');
                     showMessageBox('Note deleted successfully!', 'success');
-                    // Clear timeout and reset button immediately
                     clearTimeout(deleteConfirmationTimeouts.get(noteId));
                     deleteConfirmationTimeouts.delete(noteId);
                     
-                    // Revert button to original state
-                    deleteButton.innerHTML = deleteButton.dataset.originalHtml; // Revert to original icon
-                    deleteButton.classList.remove('bg-red-600', 'text-white'); // Remove temporary style
+                    deleteButton.innerHTML = deleteButton.dataset.originalHtml;
+                    deleteButton.classList.remove('bg-red-600', 'text-white');
                     deleteButton.dataset.confirmDelete = 'false';
 
-                    // Re-render appropriate view
+                    // Re-render the appropriate view
                     if (currentView === 'dashboard') {
+                        console.log('Re-rendering dashboard after note deletion.');
                         renderDashboard();
                     } else if (currentView === 'contentItemNotes') {
+                        console.log('Re-rendering content item notes after note deletion.');
                         renderContentItemNotes();
                     } else if (currentView === 'allTags') {
+                        console.log('Re-rendering all tags after note deletion.');
                         renderAllTags();
+                    } else if (currentView === 'showReel') {
+                        console.log('Re-populating show reel after note deletion.');
+                        populateShowReel(); // Re-populate show reel after deletion
                     }
                 } else {
-                    // First click: enter confirmation state
+                    console.log('First click for deletion of note ID:', noteId, ' - requesting confirmation.');
                     deleteButton.dataset.confirmDelete = 'true';
-                    // Store original icon HTML (to restore later)
                     deleteButton.dataset.originalHtml = deleteButton.innerHTML; 
                     
-                    deleteButton.innerHTML = `<span class="text-sm font-semibold">Confirm?</span>`; // Change to text
-                    deleteButton.classList.add('bg-red-600', 'text-white'); // Add temporary style for visibility
+                    deleteButton.innerHTML = `<span class="text-sm font-semibold">Confirm?</span>`;
+                    deleteButton.classList.add('bg-red-600', 'text-white');
                     showMessageBox('Click again to confirm deletion.', 'warning', 2000);
 
-                    // Set a timeout to revert the button if not confirmed
                     const timeoutId = setTimeout(() => {
-                        if (deleteButton.dataset.confirmDelete === 'true') { // Only revert if still in confirmation state
-                            deleteButton.innerHTML = deleteButton.dataset.originalHtml; // Revert to original icon
+                        if (deleteButton.dataset.confirmDelete === 'true') {
+                            console.log('Deletion confirmation timed out for note ID:', noteId);
+                            deleteButton.innerHTML = deleteButton.dataset.originalHtml;
                             deleteButton.classList.remove('bg-red-600', 'text-white');
                             deleteButton.dataset.confirmDelete = 'false';
                         }
-                        deleteConfirmationTimeouts.delete(noteId); // Clean up timeout map
-                    }, 3000); // 3 seconds to confirm
+                        deleteConfirmationTimeouts.delete(noteId);
+                    }, 3000);
 
                     deleteConfirmationTimeouts.set(noteId, timeoutId);
                 }
             }
-            // Delete Content Item (Link) button
             const deleteContentItemButton = e.target.closest('.delete-content-item-btn');
             if (deleteContentItemButton) {
                 const contentItemIdToDelete = deleteContentItemButton.dataset.contentItemId;
                 console.log('Delete content item button clicked for ID:', contentItemIdToDelete);
 
-                // If already in confirmation state
                 if (deleteContentItemButton.dataset.confirmDelete === 'true') {
-                    // Perform deletion
+                    console.log('Confirming deletion for content item ID:', contentItemIdToDelete);
                     contentItems = contentItems.filter(item => item.id !== contentItemIdToDelete);
-                    notes = notes.filter(note => note.contentItemId !== contentItemIdToDelete); // Also delete associated notes
+                    notes = notes.filter(note => note.contentItemId !== contentItemIdToDelete);
+                    console.log('Content items array after filter:', contentItems.length);
+                    console.log('Notes array after content item deletion:', notes.length);
                     saveData();
+                    console.log('Data saved after content item deletion.');
                     showMessageBox('Link and associated notes deleted successfully!', 'success');
-                    // Clear timeout and reset button immediately
                     clearTimeout(deleteConfirmationTimeouts.get(contentItemIdToDelete));
                     deleteConfirmationTimeouts.delete(contentItemIdToDelete);
                     
-                    // Revert button to original state
-                    deleteContentItemButton.innerHTML = deleteContentItemButton.dataset.originalHtml; // Revert to original icon
-                    deleteContentItemButton.classList.remove('bg-red-600', 'text-white'); // Remove temporary style
+                    deleteContentItemButton.innerHTML = deleteContentItemButton.dataset.originalHtml;
+                    deleteContentItemButton.classList.remove('bg-red-600', 'text-white');
                     deleteContentItemButton.dataset.confirmDelete = 'false';
 
-                    renderDashboard(); // Re-render the dashboard
+                    console.log('Re-rendering dashboard after content item deletion.');
+                    renderDashboard();
                 } else {
-                    // First click: enter confirmation state
+                    console.log('First click for deletion of content item ID:', contentItemIdToDelete, ' - requesting confirmation.');
                     deleteContentItemButton.dataset.confirmDelete = 'true';
-                    // Store original icon HTML (to restore later)
                     deleteContentItemButton.dataset.originalHtml = deleteContentItemButton.innerHTML; 
                     
-                    deleteContentItemButton.innerHTML = `<span class="text-sm font-semibold">Confirm?</span>`; // Change to text
-                    deleteContentItemButton.classList.add('bg-red-600', 'text-white'); // Add temporary style for visibility
+                    deleteContentItemButton.innerHTML = `<span class="text-sm font-semibold">Confirm?</span>`;
+                    deleteContentItemButton.classList.add('bg-red-600', 'text-white');
                     showMessageBox('Click again to confirm deletion of link and all its notes.', 'warning', 3000);
 
-                    // Set a timeout to revert the button if not confirmed
                     const timeoutId = setTimeout(() => {
-                        if (deleteContentItemButton.dataset.confirmDelete === 'true') { // Only revert if still in confirmation state
-                            deleteContentItemButton.innerHTML = deleteContentItemButton.dataset.originalHtml; // Revert to original icon
+                        if (deleteContentItemButton.dataset.confirmDelete === 'true') {
+                            console.log('Content item deletion confirmation timed out for ID:', contentItemIdToDelete);
+                            deleteContentItemButton.innerHTML = deleteContentItemButton.dataset.originalHtml;
                             deleteContentItemButton.classList.remove('bg-red-600', 'text-white');
                             deleteContentItemButton.dataset.confirmDelete = 'false';
                         }
-                        deleteConfirmationTimeouts.delete(contentItemIdToDelete); // Clean up timeout map
-                    }, 3000); // 3 seconds to confirm
+                        deleteConfirmationTimeouts.delete(contentItemIdToDelete);
+                    }, 3000);
 
                     deleteConfirmationTimeouts.set(contentItemIdToDelete, timeoutId);
                 }
             }
-            // Tag pill click for filtering
             else if (e.target.classList.contains('tag-pill') && e.target.dataset.tag) {
                 filterTag = e.target.dataset.tag;
                 if (currentView === 'dashboard' || currentView === 'allTags') {
-                    showView('dashboard'); // Go to dashboard and apply filter
+                    showView('dashboard');
                 } else if (currentView === 'contentItemNotes') {
-                    renderContentItemNotes(); // Re-render content item notes with filter
+                    renderContentItemNotes();
                 }
             }
-            // Removed Focus Mode button click listener
-            /*
-            else if (e.target.classList.contains('focus-note-btn')) {
-                const noteId = e.target.dataset.noteId;
-                enterFocusMode(noteId);
-            }
-            */
-            // Quiz Me button (Removed - keeping for reference if user asks to re-add)
-            /*
-            else if (e.target.classList.contains('quiz-note-btn')) {
-                const noteId = e.target.dataset.noteId;
-                const noteToQuiz = notes.find(n => n.id === noteId);
-                if (noteToQuiz) {
-                    startQuizMode([noteToQuiz]); // Quiz on just this note
-                }
-            }
-            */
-            // Toggle "See more/Show less" for titles
             else if (e.target.classList.contains('toggle-title-btn')) {
                 const btn = e.target;
-                const truncatedSpan = btn.previousElementSibling; // Span with "..."
-                const fullSpan = truncatedSpan.previousElementSibling; // Span with full title (hidden)
+                const truncatedSpan = btn.previousElementSibling;
+                const fullSpan = truncatedSpan.previousElementSibling;
 
                 if (btn.textContent === 'See more') {
                     fullSpan.classList.remove('hidden');
@@ -1811,11 +2006,10 @@
             }
         });
 
-        // Add Note for Content Item button (from content notes view)
         addNoteForContentItemBtnView.addEventListener('click', () => {
             editingNote = null;
-            isStandaloneNote = false; // This button is for linked notes
-            showView('addNote'); // Now correctly switches to addNote view
+            isStandaloneNote = false;
+            showView('addNote');
         });
 
         saveNoteBtn.addEventListener('click', () => {
@@ -1826,10 +2020,10 @@
             const endSegment = parseTimestamp(noteEndSegmentInput.value);
             const isFavorite = noteFavoriteCheckbox.checked;
             const intent = noteIntentInput.value.trim();
-            const priority = notePrioritySelect.value; // New
-            const status = noteStatusSelect.value;     // New
+            const priority = notePrioritySelect.value;
+            const status = noteStatusSelect.value;
             const estimatedDuration = parseInt(noteDurationInput.value.trim());
-            const reviewDate = noteReviewDateInput.value; //ISO-MM-DD format
+            const reviewDate = noteReviewDateInput.value;
 
             if (!content) {
                 showMessageBox('Note content cannot be empty.', 'error');
@@ -1838,7 +2032,6 @@
 
             const now = Date.now();
             if (editingNote) {
-                // Update existing note
                 editingNote.content = content;
                 editingNote.tags = tags;
                 editingNote.timestamp = timestamp;
@@ -1846,15 +2039,14 @@
                 editingNote.endSegment = endSegment;
                 editingNote.isFavorite = isFavorite;
                 editingNote.intent = intent;
-                editingNote.priority = priority; // New
-                editingNote.status = status;     // New
+                editingNote.priority = priority;
+                editingNote.status = status;
                 editingNote.estimatedDuration = isNaN(estimatedDuration) ? null : estimatedDuration;
                 editingNote.reviewDate = reviewDate || null;
-                editingNote.lastModifiedAt = now; // Update last modified timestamp
+                editingNote.lastModifiedAt = now;
             } else {
-                // Create new note
                 const newNote = {
-                    id: now.toString(), // Unique ID
+                    id: now.toString(),
                     content: content,
                     tags: tags,
                     timestamp: timestamp,
@@ -1862,10 +2054,10 @@
                     endSegment: endSegment,
                     isFavorite: isFavorite,
                     isStandalone: isStandaloneNote,
-                    contentItemId: selectedContentItem ? selectedContentItem.id : null, // Renamed from videoId
+                    contentItemId: selectedContentItem ? selectedContentItem.id : null,
                     intent: intent,
-                    priority: priority, // New
-                    status: status,     // New
+                    priority: priority,
+                    status: status,
                     estimatedDuration: isNaN(estimatedDuration) ? null : estimatedDuration,
                     reviewDate: reviewDate || null,
                     createdAt: now,
@@ -1873,15 +2065,14 @@
                 };
                 notes.push(newNote);
 
-                // Update streak counter if a note was added today
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
                 const lastDate = lastNoteCreationDate ? new Date(parseInt(lastNoteCreationDate)) : null;
                 if (lastDate) lastDate.setHours(0, 0, 0, 0);
 
-                if (!lastDate || (today.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24) === 1) { // If no previous note or note was created yesterday
+                if (!lastDate || (today.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24) === 1) {
                     streakCount++;
-                } else if (today.getTime() !== lastDate.getTime()) { // If note created today but not consecutive
+                } else if (today.getTime() !== lastDate.getTime()) {
                     streakCount = 1;
                 }
                 lastNoteCreationDate = today.getTime().toString();
@@ -1889,68 +2080,67 @@
 
             saveData();
             showMessageBox(editingNote ? 'Note updated successfully!' : 'Note added successfully!', 'success');
-            editingNote = null; // Clear editing state
-            addEditNoteView.classList.add('hidden'); // Hide the form after saving
+            editingNote = null;
+            addEditNoteView.classList.add('hidden');
 
             if (isStandaloneNote) {
-                showView('dashboard'); // Back to dashboard for standalone notes
+                showView('dashboard');
             } else {
-                renderContentItemNotes(); // Re-render content item notes for linked notes
+                renderContentItemNotes();
             }
         });
 
         cancelAddEditNoteBtn.addEventListener('click', () => {
-            editingNote = null; // Clear editing state
-            addEditNoteView.classList.add('hidden'); // Hide the form after canceling
+            editingNote = null;
+            addEditNoteView.classList.add('hidden');
 
             if (isStandaloneNote) {
-                showView('dashboard'); // Back to dashboard for standalone notes
-            } else {
-                // For linked notes, just hide the form, stay on the content item notes view
-                // No need to call renderContentItemNotes() as data hasn't changed
+                showView('dashboard');
+            } else if (selectedContentItem) {
+                showView('contentItemNotes');
             }
         });
 
-        // Removed Focus Mode Event Listeners
-        // closeFocusModeBtn.addEventListener('click', exitFocusMode);
-
-        // Quiz Mode Event Listeners (Removed)
-        /*
-        closeQuizModeBtn.addEventListener('click', exitQuizMode);
-        revealAnswerBtn.addEventListener('click', () => {
-            quizAnswer.classList.remove('hidden');
-            revealAnswerBtn.textContent = 'Answer Revealed';
-        });
-        nextQuizBtn.addEventListener('click', () => {
-            currentQuizNoteIndex++;
-            if (currentQuizNoteIndex < quizNotes.length) {
-                displayQuizNote();
-            } else {
-                showMessageBox('Quiz session finished!', 'info');
-                exitQuizMode();
-            }
-        });
-        */
-
-        // Tag Suggestions
         noteTagsInput.addEventListener('input', handleTagInput);
         noteTagsInput.addEventListener('blur', () => {
-            // Delay hiding to allow click on suggestion
             setTimeout(() => tagSuggestionsContainer.classList.add('hidden'), 100);
         });
-        noteTagsInput.addEventListener('focus', handleTagInput); // Show suggestions on focus if text exists
+        noteTagsInput.addEventListener('focus', handleTagInput);
 
-        // Export Panel Event Listeners
         exportFilterType.addEventListener('change', populateExportFilterValues);
         exportTxtBtn.addEventListener('click', () => handleExport('txt'));
         exportJsonBtn.addEventListener('click', () => handleExport('json'));
 
+        // Show Reel Event Listeners
+        showReelFilterType.addEventListener('change', () => {
+            populateShowReelFilterValues(); // Update tag dropdown if filter type changes to tag
+            populateShowReel(); // Re-populate notes based on new filter
+        });
+        showReelFilterValue.addEventListener('change', populateShowReel); // Re-populate notes when tag filter value changes
+        showReelPrevBtn.addEventListener('click', () => navigateShowReel(-1));
+        showReelNextBtn.addEventListener('click', () => navigateShowReel(1));
+        showReelAutoplayBtn.addEventListener('click', startAutoPlay);
+        showReelStopBtn.addEventListener('click', stopAutoPlay);
+        showReelAutoplaySpeed.addEventListener('change', () => {
+            if (showReelIntervalId) { // If autoplay is active, restart with new speed
+                startAutoPlay();
+            }
+        });
 
         // --- Initial Load ---
+        // Show loader immediately on DOMContentLoaded
         document.addEventListener('DOMContentLoaded', () => {
+            pageLoader.classList.remove('hidden'); // Ensure loader is visible
             loadData();
-            updateStreakCounter(); // Initialize streak display on load
-            showView('dashboard'); // Start on the dashboard view
+            updateStreakCounter();
+            showView('dashboard');
+        });
+
+        // Hide loader after everything (including images, if any) is loaded
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                pageLoader.classList.add('hidden');
+            }, 1000); // Give the animation 1 second to play before hiding
         });
 
     </script>
