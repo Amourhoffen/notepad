@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom CSS Variables for Theming (Dark and Light Mode) */
+        /* Custom CSS Variables for Theming (Defaulting to Dark Mode) */
         :root {
             --primary-color: #6366f1; /* Indigo 500 */
             --secondary-color: #a78bfa; /* Violet 400 */
@@ -24,23 +24,7 @@
             --input-border-dark: rgba(74, 85, 104, 0.7); /* Slightly more opaque */
         }
 
-        body.light-mode {
-            --primary-color: #4f46e5; /* Indigo 600 */
-            --secondary-color: #8b5cf6; /* Violet 500 */
-            --bg-dark: #f0f4f8; /* Light blue-gray */
-            --bg-card: rgba(255, 255, 255, 0.7); /* White - semi-transparent for glassmorphism */
-            --text-light: #2d3748; /* Dark gray */
-            --text-muted: #718096; /* Medium gray */
-            --border-color: rgba(203, 213, 224, 0.7); /* Light border - semi-transparent */
-            --box-shadow: 0 18px 36px rgba(0, 0, 0, 0.2), 0 0 20px rgba(79, 70, 229, 0.1); /* Enhanced shadow */
-            --success-color: #059669; /* Darker Emerald */
-            --danger-color: #dc2626; /* Darker Red */
-            --warning-color: #d97706; /* Darker Amber */
-            --input-bg-dark: rgba(255, 255, 255, 0.8); /* Slightly more opaque */
-            --input-border-dark: rgba(203, 213, 224, 0.9); /* Slightly more opaque */
-        }
-
-        /* Base Body Styles */
+        /* Base Body Styles - Always dark theme now */
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
@@ -89,9 +73,6 @@
         .icon-button:hover {
             background-color: rgba(255, 255, 255, 0.2); /* More prominent hover */
             transform: translateY(-3px) scale(1.05); /* More pronounced lift and slight scale */
-        }
-        body.light-mode .icon-button:hover {
-            background-color: rgba(0, 0, 0, 0.1);
         }
 
         /* Input Fields */
@@ -204,9 +185,6 @@
         .favorite-icon {
             color: #FFD700; /* Gold */
         }
-        body.light-mode .favorite-icon {
-            color: #DAA520; /* Goldenrod */
-        }
 
         /* Insights Panel */
         #insights-panel h3 {
@@ -253,9 +231,6 @@
         }
         .tag-suggestion-item:hover {
             background-color: rgba(255, 255, 255, 0.15);
-        }
-        body.light-mode .tag-suggestion-item:hover {
-            background-color: rgba(0, 0, 0, 0.08);
         }
 
         /* Title Overflow Fix */
@@ -437,49 +412,38 @@
         .loader-letter:nth-child(3) { animation-delay: 0.1s; }
         .loader-letter:nth-child(4) { animation-delay: 0.15s; }
         .loader-letter:nth-child(5) { animation-delay: 0.2s; }
-        .loader-letter:nth-child(6) { animation-delay: 0.25s; } /* Space after EveXa */
+        .loader-letter:nth-child(6) { animation-delay: 0.25s; }
         .loader-letter:nth-child(7) { animation-delay: 0.3s; }
         .loader-letter:nth-child(8) { animation-delay: 0.35s; }
         .loader-letter:nth-child(9) { animation-delay: 0.4s; }
         .loader-letter:nth-child(10) { animation-delay: 0.45s; }
-
-        @keyframes fadeInUpPulse {
-            0% {
-                opacity: 0;
-                transform: translateY(20px) scale(0.8);
-                filter: blur(5px);
-            }
-            30% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: blur(0);
-            }
-            70% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: blur(0);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-20px) scale(0.8);
-                filter: blur(5px);
-            }
-        }
+        .loader-letter:nth-child(11) { animation-delay: 0.5s; }
+        .loader-letter:nth-child(12) { animation-delay: 0.55s; }
+        .loader-letter:nth-child(13) { animation-delay: 0.6s; }
+        .loader-letter:nth-child(14) { animation-delay: 0.65s; }
+        .loader-letter:nth-child(15) { animation-delay: 0.7s; }
+        .loader-letter:nth-child(16) { animation-delay: 0.75s; }
+        .loader-letter:nth-child(17) { animation-delay: 0.8s; }
+        .loader-letter:nth-child(18) { animation-delay: 0.85s; }
+        .loader-letter:nth-child(19) { animation-delay: 0.9s; }
+        .loader-letter:nth-child(20) { animation-delay: 0.95s; }
     </style>
 </head>
-<body class="dark">
-    <div id="page-loader" class="page-loader">
+<body class="dark"> <div id="page-loader" class="page-loader">
         <div class="loader-content">
             <span class="loader-letter">E</span>
             <span class="loader-letter">v</span>
             <span class="loader-letter">e</span>
             <span class="loader-letter">X</span>
             <span class="loader-letter">a</span>
-            <span class="loader-letter ml-4">B</span>
+            <span class="loader-letter">&nbsp;</span> <span class="loader-letter">B</span>
             <span class="loader-letter">u</span>
             <span class="loader-letter">d</span>
             <span class="loader-letter">d</span>
             <span class="loader-letter">y</span>
+            <span class="loader-letter">&nbsp;</span> <span class="loader-letter">P</span>
+            <span class="loader-letter">a</span>
+            <span class="loader-letter">d</span>
         </div>
     </div>
 
@@ -519,11 +483,6 @@
                  <button id="show-show-reel-btn" class="p-2 rounded-full icon-button" title="Show Reel">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.112l-4.752 3.888-4.752-3.888M12 21V3" />
-                    </svg>
-                </button>
-                <button id="theme-toggle" class="p-2 rounded-full icon-button transition duration-300 ease-in-out transform hover:scale-110" title="Toggle Theme">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h1M4 12H3m15.325 3.325l-.707.707M6.372 6.372l-.707-.707m12.728 0l-.707.707M6.372 17.628l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                 </button>
             </div>
@@ -815,7 +774,6 @@
         const MAX_TITLE_LENGTH = 40; // Max characters before truncation
 
         // --- DOM Element References ---
-        const themeToggle = document.getElementById('theme-toggle');
         const customMessageBox = document.getElementById('custom-message-box');
         const pageLoader = document.getElementById('page-loader'); // Added loader reference
 
@@ -993,37 +951,6 @@
             return `hsl(${h}, ${s}%, ${l}%)`;
         }
 
-        /**
-         * Applies the current theme to the body.
-         */
-        function applyTheme() {
-            document.body.className = localStorage.getItem('theme') || 'dark';
-            // Update theme toggle icon
-            const isDark = document.body.classList.contains('dark');
-            themeToggle.innerHTML = isDark
-                ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h1M4 12H3m15.325 3.325l-.707.707M6.372 6.372l-.707-.707m12.728 0l-.707.707M6.372 17.628l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>`
-                : `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9 9 0 008.354-5.646z" />
-                </svg>`;
-
-            // Re-render views to apply new theme colors to dynamically generated elements
-            if (currentView === 'dashboard') {
-                renderDashboard();
-            } else if (currentView === 'contentItemNotes' && selectedContentItem) {
-                renderContentItemNotes();
-            } else if (currentView === 'allTags') {
-                renderAllTags();
-            }
-            if (currentView === 'addNote') { // Ensure form elements update
-                renderAddEditNoteForm();
-            }
-            if (currentView === 'showReel') {
-                displayCurrentShowReelNote(); // Re-render current note in show reel to apply theme
-            }
-        }
-
         // --- Data Management (localStorage) ---
 
         /**
@@ -1035,7 +962,6 @@
             lastNoteCreationDate = localStorage.getItem('lastNoteCreationDate');
             streakCount = parseInt(localStorage.getItem('streakCount') || '0');
             updateAllTags();
-            applyTheme(); // Load theme preference
         }
 
         /**
@@ -1134,8 +1060,6 @@
          * Renders the main dashboard with content items and standalone notes.
          */
         function renderDashboard() {
-            const isDark = document.body.classList.contains('dark');
-
             // Render Content Items
             contentItemsList.innerHTML = '';
             const linkedContentItems = contentItems.filter(item => item.type !== 'text-only');
@@ -1185,7 +1109,7 @@
                         ${titleHtml}
                         <p class="text-base text-gray-400 mb-3"><span class="font-medium">Notes:</span> ${notes.filter(n => n.contentItemId === item.id).length}</p>
                         <div class="flex flex-wrap mt-2 justify-center gap-2">
-                            ${notes.filter(n => n.contentItemId === item.id).flatMap(n => n.tags || []).filter((value, index, self) => self.indexOf(value) === index).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, isDark ? 30 : 80)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
+                            ${notes.filter(n => n.contentItemId === item.id).flatMap(n => n.tags || []).filter((value, index, self) => self.indexOf(value) === index).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 30)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
                         </div>
                         <div class="flex justify-between mt-5">
                             <button class="button-primary view-notes-btn" data-content-item-id="${item.id}">
@@ -1232,7 +1156,7 @@
                         ${note.estimatedDuration ? `<p class="text-sm text-gray-500 mb-1">Est. Time: ${note.estimatedDuration} mins</p>` : ''}
                         ${note.reviewDate ? `<p class="text-sm text-gray-500 mb-3">Review: ${new Date(note.reviewDate).toLocaleDateString()}</p>` : ''}
                         <div class="flex flex-wrap mt-2 justify-center gap-2">
-                            ${(note.tags || []).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, isDark ? 30 : 80)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
+                            ${(note.tags || []).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 30)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
                         </div>
                         <div class="flex justify-end mt-5 space-x-2">
                             <button class="p-2 rounded-full icon-button edit-note-btn" data-note-id="${note.id}" title="Edit">
@@ -1260,7 +1184,6 @@
                 showView('dashboard'); // Go back if no content item selected
                 return;
             }
-            const isDark = document.body.classList.contains('dark');
 
             selectedContentItemTitle.textContent = selectedContentItem.title;
 
@@ -1308,7 +1231,7 @@
                         ${note.estimatedDuration ? `<p class="text-sm text-gray-500 mb-1">Est. Time: ${note.estimatedDuration} mins</p>` : ''}
                         ${note.reviewDate ? `<p class="text-sm text-gray-500 mb-4">Review: ${new Date(note.reviewDate).toLocaleDateString()}</p>` : ''}
                         <div class="flex flex-wrap justify-center gap-2">
-                            ${(note.tags || []).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, isDark ? 30 : 80)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
+                            ${(note.tags || []).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 30)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
                         </div>
                         <div class="flex justify-end mt-5 space-x-2">
                             <button class="p-2 rounded-full icon-button edit-note-btn" data-note-id="${note.id}" title="Edit">
@@ -1388,13 +1311,12 @@
                 allTagsContainer.innerHTML = '<p class="text-gray-400 text-base">No tags created yet.</p>';
                 return;
             }
-            const isDark = document.body.classList.contains('dark');
 
             allTags.forEach(tag => {
                 const tagSpan = document.createElement('span');
                 tagSpan.className = `inline-block tag-pill ${filterTag === tag ? 'active-filter' : ''}`;
                 tagSpan.textContent = `#${tag}`;
-                tagSpan.style.backgroundColor = stringToHslColor(tag, 50, isDark ? 30 : 80);
+                tagSpan.style.backgroundColor = stringToHslColor(tag, 50, 30);
                 tagSpan.style.color = `var(--text-light)`;
                 tagSpan.dataset.tag = tag;
                 allTagsContainer.appendChild(tagSpan);
@@ -1545,8 +1467,6 @@
          * Displays the note at the currentShowReelIndex.
          */
         function displayCurrentShowReelNote() {
-            const isDark = document.body.classList.contains('dark');
-
             if (showReelNotes.length === 0) {
                 showReelEmptyMessage.classList.remove('hidden');
                 showReelNoteContent.textContent = '';
@@ -1578,7 +1498,7 @@
             if (note.reviewDate) detailsHtml += `<p class="mb-1">Review Date: <span class="font-medium">${new Date(note.reviewDate).toLocaleDateString()}</span></p>`;
             if (note.tags && note.tags.length > 0) {
                 detailsHtml += `<div class="flex flex-wrap justify-center gap-2 mt-2">`;
-                detailsHtml += note.tags.map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, isDark ? 30 : 80)}; color: var(--text-light);">#${tag}</span>`).join('');
+                detailsHtml += note.tags.map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 30)}; color: var(--text-light);">#${tag}</span>`).join('');
                 detailsHtml += `</div>`;
             }
             showReelNoteDetails.innerHTML = detailsHtml;
@@ -1777,13 +1697,6 @@
         }
 
         // --- Event Listeners ---
-
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            localStorage.setItem('theme', newTheme);
-            applyTheme();
-        });
 
         addContentItemBtn.addEventListener('click', () => showView('addContentItem'));
         addStandaloneNoteBtn.addEventListener('click', () => {
