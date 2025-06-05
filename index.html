@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EveXa Buddy Pad – Smart Notepad for Content-Based Study</title>
+    <title>EveXa Buddy Pad – Smart Notepad: Organize Content, Notes & Study</title>
+    <meta name="description" content="EveXa Buddy Pad is a smart notepad for content-based study. Easily capture notes from YouTube videos, websites, or create standalone notes. Organize with tags, track progress, and export your learning to PDF, TXT, or JSON. Boost your productivity!">
+    <meta name="keywords" content="smart notepad, note-taking app, study organizer, content learning, video notes, productivity tool, digital notebook, task management, educational tool, study app">
+    <meta name="author" content="EveXa Buddy Pad Team">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="YOUR_WEBSITE_URL_HERE"> <!-- Replace with your actual deployed URL -->
+    <meta property="og:title" content="EveXa Buddy Pad – Smart Notepad: Organize Content, Notes & Study">
+    <meta property="og:description" content="EveXa Buddy Pad is a smart notepad for content-based study. Easily capture notes from YouTube videos, websites, or create standalone notes. Organize with tags, track progress, and export your learning to PDF, TXT, or JSON. Boost your productivity!">
+    <meta property="og:image" content="YOUR_PREVIEW_IMAGE_URL_HERE"> <!-- Replace with a relevant image URL (e.g., screenshot) -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="YOUR_WEBSITE_URL_HERE"> <!-- Replace with your actual deployed URL -->
+    <meta property="twitter:title" content="EveXa Buddy Pad – Smart Notepad: Organize Content, Notes & Study">
+    <meta property="twitter:description" content="EveXa Buddy Pad is a smart notepad for content-based study. Easily capture notes from YouTube videos, websites, or create standalone notes. Organize with tags, track progress, and export your learning to PDF, TXT, or JSON. Boost your productivity!">
+    <meta property="twitter:image" content="YOUR_PREVIEW_IMAGE_URL_HERE"> <!-- Replace with a relevant image URL (e.g., screenshot) -->
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         /* Custom CSS Variables for Theming (Defaulting to Dark Mode) */
         :root {
@@ -16,7 +35,7 @@
             --text-light: #e2e8f0; /* Light gray */
             --text-muted: #a0aec0; /* Muted gray */
             --border-color: rgba(74, 85, 104, 0.5); /* Semi-transparent border */
-            --box-shadow: 0 18px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.2); /* Enhanced shadow */
+            --box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Standard shadow */
             --success-color: #10b981; /* Emerald */
             --danger-color: #ef4444; /* Red */
             --warning-color: #f59e0b; /* Amber */
@@ -31,48 +50,48 @@
             min-height: 100vh;
             background: linear-gradient(135deg, var(--bg-dark) 0%, #0d1117 100%);
             color: var(--text-light);
-            transition: background 0.6s ease, color 0.6s ease;
-            padding: 2rem; /* Increased base padding for more breathing room */
+            transition: background 0.3s ease, color 0.3s ease;
+            padding: 1.5rem;
             box-sizing: border-box;
-            line-height: 1.7; /* Improved readability */
         }
 
         /* Glassmorphism Effect */
         .glass-effect {
-            backdrop-filter: blur(20px); /* Increased blur for stronger effect */
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
             box-shadow: var(--box-shadow);
-            transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         /* App Container */
         .app-container {
             background-color: var(--bg-card);
-            padding: 2.5rem; /* More generous padding */
-            border-radius: 25px; /* More rounded corners */
-            margin-bottom: 2rem; /* Space before footer */
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
         }
 
         /* Header Styles */
-        .header h1 {
+        .app-header h1 {
             color: var(--primary-color);
-            font-size: 3rem; /* Larger heading */
-            font-weight: 800;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3); /* Stronger text shadow */
+            font-size: 2.5rem;
+            font-weight: 700;
         }
 
         /* Icon Buttons */
         .icon-button {
             background-color: transparent;
             color: var(--text-light);
-            padding: 0.75rem; /* Adjusted padding for better fit on mobile */
-            border-radius: 9999px; /* Fully rounded */
-            transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+            padding: 0.5rem;
+            border-radius: 9999px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
         }
         .icon-button:hover {
-            background-color: rgba(255, 255, 255, 0.2); /* More prominent hover */
-            transform: translateY(-3px) scale(1.05); /* More pronounced lift and slight scale */
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        .icon-button:active {
+            transform: translateY(0);
         }
 
         /* Input Fields */
@@ -80,16 +99,16 @@
             background-color: var(--input-bg-dark);
             border: 1px solid var(--input-border-dark);
             color: var(--text-light);
-            padding: 1rem; /* Increased padding */
-            border-radius: 12px; /* More rounded */
-            transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+            padding: 0.75rem;
+            border-radius: 8px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
         .input-field::placeholder {
             color: var(--text-muted);
         }
         .input-field:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 5px rgba(99, 102, 241, 0.5); /* Stronger focus ring */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.5);
             outline: none;
         }
 
@@ -97,79 +116,74 @@
         .button-primary {
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.4); /* Slightly stronger border */
-            padding: 1rem 2rem; /* More generous padding */
-            border-radius: 15px; /* More rounded */
-            font-weight: 700; /* Bolder text */
-            transition: all 0.3s ease;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Subtle text shadow */
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
         .button-primary:hover {
             background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
-            transform: translateY(-4px) scale(1.02); /* More pronounced lift */
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 25px var(--primary-color); /* Stronger shadow */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         .button-primary:active {
-            transform: translateY(0) scale(0.98);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         /* Secondary Buttons */
         .button-secondary {
-            background-color: rgba(100, 100, 100, 0.5); /* Slightly more opaque */
+            background-color: rgba(100, 100, 100, 0.3);
             color: var(--text-light);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 1rem 2rem;
-            border-radius: 15px;
-            font-weight: 600;
-            transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: background-color 0.2s ease, transform 0.1s ease;
         }
         .button-secondary:hover {
-            background-color: rgba(120, 120, 120, 0.6);
-            transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(0, 0, 0, 0.4);
+            background-color: rgba(120, 120, 120, 0.4);
+            transform: translateY(-1px);
         }
         .button-secondary:active {
             transform: translateY(0);
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         /* Card Styles */
         .card {
             background-color: var(--bg-card);
-            border-radius: 20px; /* More rounded */
-            padding: 2rem; /* Consistent card padding */
+            border-radius: 15px;
+            padding: 1.5rem;
         }
 
         /* Tag Pills */
         .tag-pill {
-            background-color: rgba(99, 102, 241, 0.3); /* Slightly more opaque */
+            background-color: rgba(99, 102, 241, 0.2);
             color: var(--secondary-color);
-            padding: 0.5rem 1rem; /* Adjusted padding */
-            font-size: 0.9rem; /* Slightly larger font */
-            border-radius: 9999px; /* Fully rounded */
-            transition: background-color 0.2s ease, transform 0.1s ease;
-            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+            border-radius: 9999px;
+            transition: background-color 0.2s ease;
         }
         .tag-pill:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            background-color: rgba(99, 102, 241, 0.3);
         }
         .tag-pill.active-filter {
             background-color: var(--primary-color);
             color: white;
-            font-weight: 700;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.4);
+            font-weight: 600;
         }
 
         /* Message Box */
         .message-box {
             background-color: var(--primary-color);
             color: white;
-            padding: 1.2rem 1.8rem; /* More padding */
-            border-radius: 15px;
-            font-weight: 600;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         .message-box.error {
             background-color: var(--danger-color);
@@ -188,49 +202,48 @@
 
         /* Insights Panel */
         #insights-panel h3 {
-            font-size: 2em; /* Larger heading */
-            font-weight: 700;
+            font-size: 1.8em;
+            font-weight: 600;
         }
         #insights-panel p {
-            font-size: 1.1em; /* Slightly larger text */
-            line-height: 1.8;
+            font-size: 1em;
         }
         #insights-panel .insight-value {
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: 600;
             color: var(--primary-color);
         }
 
         /* Export Panel */
         #export-panel select, #export-panel input[type="text"] {
-            padding: 14px; /* Larger input fields */
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 8px;
             background-color: var(--input-bg-dark);
             border: 1px solid var(--input-border-dark);
         }
 
         /* Streak Counter */
         #streak-counter {
-            font-size: 1.4em;
-            font-weight: 700;
+            font-size: 1.2em;
+            font-weight: 600;
             color: var(--secondary-color);
         }
 
         /* Tag Suggestions */
         .tag-suggestions {
-            border-radius: 12px;
+            border-radius: 8px;
             box-shadow: var(--box-shadow);
-            background-color: var(--bg-card); /* Match card background */
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
         }
         .tag-suggestion-item {
-            padding: 12px 18px; /* More padding */
-            font-size: 1rem;
+            padding: 10px 15px;
+            font-size: 0.95rem;
             color: var(--text-light);
             cursor: pointer;
         }
         .tag-suggestion-item:hover {
-            background-color: rgba(255, 255, 255, 0.15);
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         /* Title Overflow Fix */
@@ -241,76 +254,66 @@
 
         /* "See more" functionality */
         .toggle-title-btn {
-            font-size: 0.9em; /* Slightly larger */
-            margin-left: 0.8rem; /* More spacing */
+            font-size: 0.8em;
+            margin-left: 0.5rem;
             color: var(--secondary-color);
             cursor: pointer;
-            font-weight: 500;
         }
         .toggle-title-btn:hover {
             text-decoration: underline;
         }
 
         /* Priority and Status styling */
-        .priority-high { color: var(--danger-color); font-weight: 700; }
-        .priority-medium { color: var(--warning-color); font-weight: 700; }
-        .priority-low { color: var(--success-color); font-weight: 700; }
+        .priority-high { color: var(--danger-color); font-weight: 600; }
+        .priority-medium { color: var(--warning-color); font-weight: 600; }
+        .priority-low { color: var(--success-color); font-weight: 600; }
 
-        .status-completed { color: var(--success-color); font-weight: 700; }
-        .status-in-progress { color: var(--primary-color); font-weight: 700; }
-        .status-to-do { color: var(--text-muted); font-weight: 700; }
+        .status-completed { color: var(--success-color); font-weight: 600; }
+        .status-in-progress { color: var(--primary-color); font-weight: 600; }
+        .status-to-do { color: var(--text-muted); font-weight: 600; }
 
         /* Advertisement Section */
         .ads-footer {
-            background-color: var(--bg-card); /* Match app container background */
+            background-color: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 1.5rem;
+            border-radius: 15px;
+            padding: 1rem;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            margin-top: 2rem; /* Space from main content */
+            margin-top: 1.5rem;
             box-shadow: var(--box-shadow);
         }
         .ads-footer h4 {
             font-weight: 600;
             color: var(--text-light);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         /* Responsive adjustments for overall layout */
         @media (max-width: 768px) {
-            body {
-                padding: 1.5rem; /* More compact padding on smaller screens */
-            }
             .app-container {
-                padding: 2rem; /* More compact padding for container */
+                padding: 1.5rem;
             }
-            .header {
+            .app-header {
                 flex-direction: column;
                 align-items: flex-start;
-                margin-bottom: 1.5rem;
-            }
-            .header h1 {
-                font-size: 2.5rem; /* Smaller heading on mobile */
                 margin-bottom: 1rem;
             }
-            .header > div { /* Button group */
-                width: 100%;
-                justify-content: space-around; /* Distribute buttons evenly */
-                margin-top: 0.75rem;
-                flex-wrap: wrap; /* Allow buttons to wrap */
-                gap: 0.5rem; /* Add a small gap between wrapped buttons */
+            .app-header h1 {
+                font-size: 2rem;
+                margin-bottom: 0.75rem;
             }
-            .icon-button {
-                padding: 0.6rem; /* Slightly smaller touch target for more buttons */
+            .app-header > div { /* Button group */
+                width: 100%;
+                justify-content: space-around;
             }
             .button-primary, .button-secondary {
-                padding: 0.9rem 1.5rem; /* Adjust button padding */
-                font-size: 0.95rem;
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
             }
             .input-field {
-                padding: 0.9rem; /* Adjust input field padding */
+                padding: 0.6rem;
             }
             .content-item-notes-view .flex.items-center {
                 flex-direction: column;
@@ -318,38 +321,38 @@
             }
             .content-item-notes-view .flex.items-center h2 {
                 margin-left: 0;
-                margin-top: 0.75rem;
-                font-size: 2rem;
+                margin-top: 0.5rem;
+                font-size: 1.8rem;
             }
             .ads-footer {
-                padding: 1rem;
-                margin-top: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 1rem;
-            }
-            .app-container {
-                padding: 1.5rem;
-            }
-            .header h1 {
-                font-size: 2rem;
-            }
-            .button-primary, .button-secondary {
-                padding: 0.75rem 1.2rem;
-                font-size: 0.85rem;
-            }
-            .icon-button {
-                padding: 0.5rem; /* Even smaller for very small screens */
-            }
-            .card {
-                padding: 1.5rem;
-            }
-            .ads-footer {
-                padding: 0.8rem;
+                padding: 0.75rem;
                 margin-top: 1rem;
+            }
+
+            /* Export buttons: Center and adjust size for mobile */
+            #export-panel .flex.justify-end.space-x-2 {
+                flex-direction: column; /* Stack buttons vertically */
+                align-items: center; /* Center horizontally */
+                gap: 0.75rem; /* Space between stacked buttons */
+                margin-top: 1rem; /* Add some top margin */
+            }
+            #export-panel .button-primary {
+                width: 80%; /* Make buttons take more width for easier tapping */
+                font-size: 1rem; /* Slightly larger font */
+                padding: 0.8rem 1.5rem; /* More padding */
+            }
+
+            /* Page Loader: Smaller font size for mobile */
+            .loader-content {
+                font-size: 2rem; /* Reduce font size for mobile */
+            }
+
+            /* Global Search and Filters */
+            #dashboard-view .card.flex-col {
+                flex-direction: column;
+            }
+            #dashboard-view .card.flex-col > * {
+                width: 100%; /* Make search and selects full width */
             }
         }
 
@@ -360,162 +363,138 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #0d1117 100%); /* Match body gradient */
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #0d1117 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
             opacity: 1;
             visibility: visible;
-            transition: opacity 0.7s ease-out, visibility 0.7s ease-out; /* Slower transition out */
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
         }
 
         .page-loader.hidden {
             opacity: 0;
             visibility: hidden;
-            pointer-events: none; /* Ensure it doesn't block clicks after hiding */
+            pointer-events: none;
         }
 
         .loader-content {
-            font-size: 3.5rem; /* Large text */
-            font-weight: 800;
-            color: var(--primary-color); /* Use primary color */
-            text-shadow: 0 0 20px rgba(99, 102, 241, 0.8), 0 0 10px rgba(99, 102, 241, 0.4); /* Stronger glow effect */
-            display: flex; /* To animate letters individually */
-            letter-spacing: 0.15em; /* Slightly more spacing */
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-shadow: 0 0 15px rgba(99, 102, 241, 0.7);
         }
 
-        /* Responsive font size for loader */
-        @media (max-width: 768px) {
-            .loader-content {
-                font-size: 2.5rem; /* Smaller on tablets */
-            }
+        /* Page transition animation */
+        .page-content-wrapper {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         }
 
-        @media (max-width: 480px) {
-            .loader-content {
-                font-size: 1.8rem; /* Even smaller on mobile */
-                letter-spacing: 0.1em;
-            }
+        .page-content-wrapper.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .loader-letter {
-            display: inline-block; /* Allows individual transformation */
-            animation: fadeInUpPulse 2.5s infinite alternate; /* Longer animation duration */
-            opacity: 0; /* Start hidden */
-            transform: translateY(20px) scale(0.8); /* Start lower and slightly smaller */
+        /* Show Reel Content Wrapping */
+        #show-reel-note-content {
+            word-wrap: break-word; /* Ensures long words break and wrap */
+            overflow-wrap: break-word; /* Another property for word wrapping */
+            text-align: left; /* Align text to the left for better readability of multi-line notes */
+            width: 100%; /* Ensure it takes full width to wrap */
         }
-
-        /* Delay for each letter */
-        .loader-letter:nth-child(1) { animation-delay: 0.0s; }
-        .loader-letter:nth-child(2) { animation-delay: 0.05s; }
-        .loader-letter:nth-child(3) { animation-delay: 0.1s; }
-        .loader-letter:nth-child(4) { animation-delay: 0.15s; }
-        .loader-letter:nth-child(5) { animation-delay: 0.2s; }
-        .loader-letter:nth-child(6) { animation-delay: 0.25s; }
-        .loader-letter:nth-child(7) { animation-delay: 0.3s; }
-        .loader-letter:nth-child(8) { animation-delay: 0.35s; }
-        .loader-letter:nth-child(9) { animation-delay: 0.4s; }
-        .loader-letter:nth-child(10) { animation-delay: 0.45s; }
-        .loader-letter:nth-child(11) { animation-delay: 0.5s; }
-        .loader-letter:nth-child(12) { animation-delay: 0.55s; }
-        .loader-letter:nth-child(13) { animation-delay: 0.6s; }
-        .loader-letter:nth-child(14) { animation-delay: 0.65s; }
-        .loader-letter:nth-child(15) { animation-delay: 0.7s; }
-        .loader-letter:nth-child(16) { animation-delay: 0.75s; }
-        .loader-letter:nth-child(17) { animation-delay: 0.8s; }
-        .loader-letter:nth-child(18) { animation-delay: 0.85s; }
-        .loader-letter:nth-child(19) { animation-delay: 0.9s; }
-        .loader-letter:nth-child(20) { animation-delay: 0.95s; }
     </style>
+    <!-- Chosen Palette: Indigo and Violet shades for primary/secondary, with dark charcoal and light gray for backgrounds and text. Accents in yellow, red, green for status/favorite. -->
+    <!-- Application Structure Plan: The SPA is designed with a dashboard-first approach, serving as the main entry point (h1). All other "pages" (add content, note details, insights, export, show reel) are presented as distinct logical sections (sections) that toggle visibility using JavaScript, mimicking a multi-page experience within a single HTML file. This structure prioritizes user understanding and ease of navigation by centralizing the main overview and offering clear pathways to specific tasks or deeper content. The semantic HTML (main, section) helps search engines understand the content segmentation despite it being an SPA. -->
+    <!-- Visualization & Content Choices:
+    1. Dashboard: Goals: Inform, Organize. Presentation: Lists of Content Items (videos/links) and Standalone Notes. Interaction: Clickable cards to 'View Notes' or 'Add Note', global search/filters. Justification: Provides a quick overview and entry points. Library: Vanilla JS for rendering and filtering.
+    2. Add/Edit Content/Note Forms: Goals: Input. Presentation: Structured HTML forms with input fields, textareas, checkboxes, dropdowns. Interaction: Form submission, clear/cancel. Justification: Standard UI for data entry. Library: Vanilla JS for data handling.
+    3. Content Item Notes View: Goals: Inform, Contextualize. Presentation: Embedded iframe for content, list of associated notes. Interaction: Filtering by tag, timestamp navigation (simulated), edit/delete note actions. Justification: Provides focused content consumption alongside notes. Library: Vanilla JS.
+    4. All Tags/Insights/Export/Show Reel: Goals: Organize, Inform, Data Management. Presentation: Tabular display for tags, text-based summaries for insights, forms for export, dynamic text for show reel. Interaction: Filtering, button clicks for actions, navigation for show reel. Justification: Provides analytical and utility functions. Library: Vanilla JS.
+    NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
-<body class="dark"> <div id="page-loader" class="page-loader">
-        <div class="loader-content">
-            <span class="loader-letter">E</span>
-            <span class="loader-letter">v</span>
-            <span class="loader-letter">e</span>
-            <span class="loader-letter">X</span>
-            <span class="loader-letter">a</span>
-            <span class="loader-letter">&nbsp;</span> <span class="loader-letter">B</span>
-            <span class="loader-letter">u</span>
-            <span class="loader-letter">d</span>
-            <span class="loader-letter">d</span>
-            <span class="loader-letter">y</span>
-            <span class="loader-letter">&nbsp;</span> <span class="loader-letter">P</span>
-            <span class="loader-letter">a</span>
-            <span class="loader-letter">d</span>
-        </div>
+<body class="dark">
+    <div id="page-loader" class="page-loader" role="status" aria-label="Loading application">
+        <div class="loader-content">EveXa Buddy Pad</div>
     </div>
 
-    <div id="custom-message-box" class="message-box fixed bottom-24 left-1/2 -translate-x-1/2 p-4 rounded-lg shadow-lg text-center opacity-0 invisible transition-all duration-300 z-50 max-w-xs md:max-w-md">
+    <div id="custom-message-box" class="message-box fixed bottom-10 left-1/2 -translate-x-1/2 p-4 rounded-lg shadow-lg text-center opacity-0 invisible transition-all duration-300 z-50 max-w-xs md:max-w-md" role="alert" aria-live="polite">
         Message
     </div>
 
-    <div class="max-w-4xl mx-auto p-6 md:p-8 rounded-xl app-container glass-effect">
-        <div class="flex justify-between items-center mb-8 header">
+    <main class="max-w-4xl mx-auto p-6 md:p-8 rounded-xl app-container glass-effect">
+        <header class="flex justify-between items-center mb-6 app-header">
             <h1 class="text-3xl font-bold">EveXa Buddy Pad – Smart Notepad</h1>
-            <div class="flex flex-wrap justify-center md:justify-end gap-2 md:space-x-3">
-                <button id="show-all-tags-btn" class="p-2 rounded-full icon-button" title="Show All Tags">
+            <div class="flex flex-wrap justify-center md:justify-end gap-2 md:space-x-2" role="navigation" aria-label="Main Actions">
+                <button id="show-all-tags-btn" class="p-2 rounded-full icon-button" title="Show All Tags" aria-label="Show all tags">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5.99M7 21h5.99M17 7h.01M17 3h5.99M17 21h5.99M12 7h.01M12 3h5.99M12 21h5.99M5 12h.01M3 12h5.99M21 12h.01M15 12h.01M12 17h.01M12 19h.01M12 5h.01M12 7h.01M12 9h.01M12 11h.01M12 13h.01M12 15h.01M12 17h.01M12 19h.01M12 21h.01" />
                     </svg>
                 </button>
-                <button id="add-content-item-btn" class="p-2 rounded-full icon-button" title="Add New Link/Content">
+                <button id="add-content-item-btn" class="p-2 rounded-full icon-button" title="Add New Link/Content" aria-label="Add new link or content">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </button>
-                <button id="add-standalone-note-btn" class="p-2 rounded-full icon-button" title="Add Standalone Note">
+                <button id="add-standalone-note-btn" class="p-2 rounded-full icon-button" title="Add Standalone Note" aria-label="Add a standalone note">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                 </button>
-                <button id="show-insights-btn" class="p-2 rounded-full icon-button" title="Show Insights">
+                <button id="show-insights-btn" class="p-2 rounded-full icon-button" title="Show Insights" aria-label="Show insights and statistics">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                 </button>
-                <button id="show-export-btn" class="p-2 rounded-full icon-button" title="Export Notes">
+                <button id="show-export-btn" class="p-2 rounded-full icon-button" title="Export Notes" aria-label="Export notes to file">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
                 </button>
-                 <button id="show-show-reel-btn" class="p-2 rounded-full icon-button" title="Show Reel">
+                 <button id="show-show-reel-btn" class="p-2 rounded-full icon-button" title="Show Reel" aria-label="Start note show reel">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.112l-4.752 3.888-4.752-3.888M12 21V3" />
                     </svg>
                 </button>
             </div>
-        </div>
+        </header>
 
-        <div id="all-tags-section" class="mb-6 p-6 rounded-xl card hidden">
-            <div class="flex justify-between items-center mb-5">
-                <h3 class="text-2xl font-semibold">All Tags</h3>
-                <button id="back-from-all-tags-btn" class="button-secondary">Back to Dashboard</button>
+        <section id="all-tags-section" class="mb-6 p-6 rounded-xl card hidden main-app-panel" aria-labelledby="all-tags-heading">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="all-tags-heading" class="text-xl font-semibold">All Tags</h2>
+                <button id="back-from-all-tags-btn" class="button-secondary" aria-label="Back to Dashboard">Back to Dashboard</button>
             </div>
-            <div id="all-tags-container" class="flex flex-wrap gap-3">
+            <p class="text-gray-400 text-sm mb-4" aria-live="polite">Explore and filter your notes by category. Clicking a tag will filter your dashboard view.</p>
+            <div id="all-tags-container" class="flex flex-wrap gap-2">
                 </div>
-        </div>
+        </section>
 
-        <div id="insights-panel" class="hidden glass-effect p-6 rounded-xl mb-6">
-            <div class="flex justify-between items-center mb-5">
-                <h3 class="text-2xl font-semibold">Smart Insights</h3>
-                <button id="back-from-insights-btn" class="button-secondary">Back to Dashboard</button>
+        <section id="insights-panel" class="hidden glass-effect p-6 rounded-xl mb-6 main-app-panel" aria-labelledby="smart-insights-heading">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="smart-insights-heading" class="text-xl font-semibold">Smart Insights</h2>
+                <button id="back-from-insights-btn" class="button-secondary" aria-label="Back to Dashboard">Back to Dashboard</button>
             </div>
-            <p class="mb-2">Total Notes: <span class="insight-value" id="total-notes-count">0</span></p>
-            <p class="mb-2">Total Links/Content: <span class="insight-value" id="total-content-items-count">0</span></p>
-            <p class="mb-2">Notes untouched for <span class="insight-value" id="untouched-days-threshold">7</span> days: <span class="insight-value" id="untouched-notes-count">0</span></p>
-            <p id="streak-counter" class="text-center mt-5"></p>
-        </div>
+            <p class="text-gray-300 mb-4">Gain a quick overview of your note-taking habits and content engagement.</p>
+            <div role="status">
+                <p class="mb-2">Total Notes: <span class="insight-value" id="total-notes-count">0</span></p>
+                <p class="mb-2">Total Links/Content: <span class="insight-value" id="total-content-items-count">0</span></p>
+                <p class="mb-2">Notes untouched for <span class="insight-value" id="untouched-days-threshold">7</span> days: <span class="insight-value" id="untouched-notes-count">0</span></p>
+                <p id="streak-counter" class="text-center mt-4"></p>
+            </div>
+        </section>
 
-        <div id="export-panel" class="hidden glass-effect p-6 rounded-xl mb-6">
-            <div class="flex justify-between items-center mb-5">
-                <h3 class="text-2xl font-semibold">Export Notes</h3>
-                <button id="back-from-export-btn" class="button-secondary">Back to Dashboard</button>
+        <section id="export-panel" class="hidden glass-effect p-6 rounded-xl mb-6 main-app-panel" aria-labelledby="export-notes-heading">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="export-notes-heading" class="text-xl font-semibold">Export Notes</h2>
+                <button id="back-from-export-btn" class="button-secondary" aria-label="Back to Dashboard">Back to Dashboard</button>
             </div>
+            <p class="text-gray-300 mb-4">Download your organized notes in various formats for safekeeping or external use.</p>
             <div class="mb-4">
-                <label for="export-filter-type" class="block text-base font-medium mb-2 text-gray-300">Filter by:</label>
-                <select id="export-filter-type" class="input-field w-full">
+                <label for="export-filter-type" class="block text-sm font-medium mb-1 text-gray-300">Filter notes to export by:</label>
+                <select id="export-filter-type" class="input-field w-full" aria-label="Select export filter type">
                     <option value="all">All Notes</option>
                     <option value="tag">Specific Tag</option>
                     <option value="contentItem">Specific Link/Content</option>
@@ -524,26 +503,27 @@
                     <option value="reviewDate">Notes with Review Date</option>
                 </select>
             </div>
-            <div id="export-filter-value-container" class="mb-6 hidden">
-                <label for="export-filter-value" class="block text-base font-medium mb-2 text-gray-300">Select Value:</label>
-                <select id="export-filter-value" class="input-field w-full">
+            <div id="export-filter-value-container" class="mb-4 hidden">
+                <label for="export-filter-value" class="block text-sm font-medium mb-1 text-gray-300">Select Value:</label>
+                <select id="export-filter-value" class="input-field w-full" aria-label="Select export filter value">
                     </select>
             </div>
-            <div class="flex justify-end space-x-3">
-                <button id="export-txt-btn" class="button-primary">Export as TXT</button>
-                <button id="export-json-btn" class="button-primary">Export as JSON</button>
+            <div class="flex flex-wrap justify-center md:justify-end gap-2">
+                <button id="export-txt-btn" class="button-primary" aria-label="Export as TXT">Export as TXT</button>
+                <button id="export-json-btn" class="button-primary" aria-label="Export as JSON">Export as JSON</button>
+                <button id="export-pdf-btn" class="button-primary" aria-label="Export as PDF">Export as PDF</button>
             </div>
-        </div>
+        </section>
 
-        <div id="show-reel-panel" class="hidden glass-effect p-6 rounded-xl mb-6">
-            <div class="flex justify-between items-center mb-5">
-                <h3 class="text-2xl font-semibold">Note Show Reel</h3>
-                <button id="back-from-show-reel-btn" class="button-secondary">Back to Dashboard</button>
+        <section id="show-reel-panel" class="hidden glass-effect p-6 rounded-xl mb-6 main-app-panel" aria-labelledby="note-show-reel-heading">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="note-show-reel-heading" class="text-xl font-semibold">Note Show Reel</h2>
+                <button id="back-from-show-reel-btn" class="button-secondary" aria-label="Back to Dashboard">Back to Dashboard</button>
             </div>
-
+            <p class="text-gray-300 mb-4">Quickly review your notes in an interactive carousel format. Perfect for spaced repetition!</p>
             <div class="mb-4">
-                <label for="show-reel-filter-type" class="block text-base font-medium mb-2 text-gray-300">Filter Notes:</label>
-                <select id="show-reel-filter-type" class="input-field w-full">
+                <label for="show-reel-filter-type" class="block text-sm font-medium mb-1 text-gray-300">Filter Notes for Reel:</label>
+                <select id="show-reel-filter-type" class="input-field w-full" aria-label="Select show reel filter type">
                     <option value="all">All Notes</option>
                     <option value="favorite">Favorites</option>
                     <option value="reviewDate">Notes for Review</option>
@@ -551,205 +531,232 @@
                     <option value="tag">Specific Tag</option>
                 </select>
             </div>
-            <div id="show-reel-filter-value-container" class="mb-6 hidden">
-                <label for="show-reel-filter-value" class="block text-base font-medium mb-2 text-gray-300">Select Tag:</label>
-                <select id="show-reel-filter-value" class="input-field w-full">
+            <div id="show-reel-filter-value-container" class="mb-4 hidden">
+                <label for="show-reel-filter-value" class="block text-sm font-medium mb-1 text-gray-300">Select Tag:</label>
+                <select id="show-reel-filter-value" class="input-field w-full" aria-label="Select show reel tag filter value">
                     </select>
             </div>
 
-            <div id="show-reel-display" class="relative p-6 rounded-xl card text-center min-h-[200px] flex flex-col justify-center items-center">
-                <p id="show-reel-note-content" class="text-lg text-gray-200 mb-4"></p>
+            <div id="show-reel-display" class="relative p-4 rounded-xl card text-center min-h-[150px] flex flex-col justify-center items-center" aria-live="polite">
+                <p id="show-reel-note-content" class="text-lg text-gray-200 mb-2"></p>
                 <div id="show-reel-note-details" class="text-sm text-gray-400"></div>
-                <p id="show-reel-empty-message" class="text-gray-400 text-lg py-8">No notes to display in the show reel based on current filters.</p>
+                <p id="show-reel-empty-message" class="text-gray-400 text-base py-4">No notes to display in the show reel based on current filters.</p>
             </div>
 
-            <div class="flex justify-between items-center mt-6">
-                <button id="show-reel-prev-btn" class="button-secondary p-3 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="flex justify-between items-center mt-4" role="group" aria-label="Show reel navigation">
+                <button id="show-reel-prev-btn" class="button-secondary p-2 rounded-full" aria-label="Previous note">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
-                <span id="show-reel-counter" class="text-lg font-semibold text-primary-color">0 / 0</span>
-                <button id="show-reel-next-btn" class="button-secondary p-3 rounded-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <span id="show-reel-counter" class="text-base font-semibold text-primary-color">0 / 0</span>
+                <button id="show-reel-next-btn" class="button-secondary p-2 rounded-full" aria-label="Next note">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
                 </button>
             </div>
 
-            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 mt-6">
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-3 md:space-y-0 md:space-x-3 mt-4" role="group" aria-label="Show reel autoplay controls">
                 <div class="flex items-center space-x-2">
-                    <button id="show-reel-autoplay-btn" class="button-primary">Auto-Play</button>
-                    <button id="show-reel-stop-btn" class="button-secondary hidden">Stop</button>
+                    <button id="show-reel-autoplay-btn" class="button-primary" aria-label="Start autoplay">Auto-Play</button>
+                    <button id="show-reel-stop-btn" class="button-secondary hidden" aria-label="Stop autoplay">Stop</button>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <label for="show-reel-autoplay-speed" class="text-base text-gray-300">Speed (seconds):</label>
-                    <input type="number" id="show-reel-autoplay-speed" value="5" min="1" max="30" class="input-field w-20 text-center">
+                    <label for="show-reel-autoplay-speed" class="text-sm text-gray-300">Speed (seconds):</label>
+                    <input type="number" id="show-reel-autoplay-speed" value="5" min="1" max="30" class="input-field w-16 text-center" aria-label="Autoplay speed in seconds">
                 </div>
             </div>
-        </div>
+        </section>
 
 
-        <div id="dashboard-view">
-            <h2 class="text-2xl font-semibold mb-5">Your Links & Content</h2>
-            <div id="content-items-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <p id="no-content-items-message" class="col-span-full text-center text-gray-400 text-lg py-8">No links or content saved yet. Add one to get started!</p>
+        <section id="dashboard-view" class="page-content-wrapper active main-app-panel" aria-labelledby="dashboard-heading">
+            <h2 id="dashboard-heading" class="sr-only">Dashboard Overview</h2>
+            <p class="text-gray-300 mb-6">Welcome to your personalized study hub. Quickly find and manage your links, content, and standalone notes.</p>
+            <div class="mb-6 p-4 rounded-xl card glass-effect flex flex-col md:flex-row items-center gap-4">
+                <input type="text" id="global-search-input" placeholder="Search notes, links, tags, tasks..." class="input-field flex-grow" aria-label="Search all notes and content">
+                <select id="global-filter-type" class="input-field w-full md:w-auto" aria-label="Filter items by type">
+                    <option value="all">All Items</option>
+                    <option value="notes">Notes Only</option>
+                    <option value="links">Links/Content Only</option>
+                    <option value="standalone">Standalone Notes Only</option>
+                </select>
+                <select id="global-filter-tag" class="input-field w-full md:w-auto" aria-label="Filter items by tag">
+                    <option value="all">All Tags</option>
+                    </select>
+                <select id="global-filter-date" class="input-field w-full md:w-auto" aria-label="Filter items by date range">
+                    <option value="all">All Time</option>
+                    <option value="today">Today</option>
+                    <option value="last7days">Last 7 Days</option>
+                    <option value="last30days">Last 30 Days</option>
+                </select>
             </div>
 
-            <h2 class="text-2xl font-semibold mt-10 mb-5">Standalone Notes</h2>
-            <div id="standalone-notes-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <p id="no-standalone-notes-message" class="col-span-full text-center text-gray-400 text-lg py-8">No standalone notes yet.</p>
+            <h2 class="text-xl font-semibold mb-4">Your Links & Content</h2>
+            <p class="text-gray-400 text-sm mb-4">Organize your external study resources, like videos and articles, along with their associated notes.</p>
+            <div id="content-items-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" aria-live="polite">
+                <p id="no-content-items-message" class="col-span-full text-center text-gray-400 text-base py-6">No links or content saved yet. Add one to get started!</p>
             </div>
-        </div>
 
-        <div id="add-content-item-view" class="hidden">
+            <h2 class="text-xl font-semibold mt-8 mb-4">Standalone Notes</h2>
+            <p class="text-gray-400 text-sm mb-4">Personal insights and quick thoughts that are not tied to any external content.</p>
+            <div id="standalone-notes-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" aria-live="polite">
+                <p id="no-standalone-notes-message" class="col-span-full text-center text-gray-400 text-base py-6">No standalone notes yet.</p>
+            </div>
+        </section>
+
+        <section id="add-content-item-view" class="page-content-wrapper hidden main-app-panel" aria-labelledby="add-content-heading">
             <div class="p-6 md:p-8 rounded-xl card">
-                <h2 class="text-2xl font-semibold mb-6">Add New Link or Content</h2>
-                <div class="mb-4">
-                    <label for="content-type-select" class="block text-base font-medium mb-2 text-gray-300">Content Type</label>
-                    <select id="content-type-select" class="input-field w-full">
+                <h2 id="add-content-heading" class="text-xl font-semibold mb-5">Add New Link or Content</h2>
+                <p class="text-gray-300 mb-4">Integrate external learning materials directly into your Buddy Pad.</p>
+                <div class="mb-3">
+                    <label for="content-type-select" class="block text-sm font-medium mb-1 text-gray-300">Content Type</label>
+                    <select id="content-type-select" class="input-field w-full" aria-label="Select content type">
                         <option value="youtube">YouTube Video</option>
                         <option value="website">Website / Blog / Portfolio</option>
                         <option value="text-only">Note to Self (No Link)</option>
                     </select>
                 </div>
-                <div class="mb-4" id="content-url-group">
-                    <label for="content-url-input" class="block text-base font-medium mb-2 text-gray-300">URL (optional for "Note to Self")</label>
-                    <input type="text" id="content-url-input" placeholder="e.g., https://www.youtube.com/watch?v=dQw4w9WgXcQ or your-website.com" class="input-field w-full">
+                <div class="mb-3" id="content-url-group">
+                    <label for="content-url-input" class="block text-sm font-medium mb-1 text-gray-300">URL (optional for "Note to Self")</label>
+                    <input type="text" id="content-url-input" placeholder="e.g., https://www.youtube.com/watch?v=dQw4w9WgXcQ or your-website.com" class="input-field w-full" aria-label="Content URL">
                 </div>
-                <div class="mb-6">
-                    <label for="content-title-input" class="block text-base font-medium mb-2 text-gray-300">Title (e.g., Python Tutorial, My Portfolio)</label>
-                    <input type="text" id="content-title-input" placeholder="Enter a descriptive title" class="input-field w-full">
+                <div class="mb-4">
+                    <label for="content-title-input" class="block text-sm font-medium mb-1 text-gray-300">Title (e.g., Python Tutorial, My Portfolio)</label>
+                    <input type="text" id="content-title-input" placeholder="Enter a descriptive title" class="input-field w-full" aria-label="Content title">
                 </div>
-                <div class="flex justify-end space-x-3">
-                    <button id="cancel-add-content-item-btn" class="button-secondary">Cancel</button>
-                    <button id="save-content-item-btn" class="button-primary">Add Content</button>
+                <div class="flex justify-end space-x-2">
+                    <button id="cancel-add-content-item-btn" class="button-secondary" aria-label="Cancel adding content">Cancel</button>
+                    <button id="save-content-item-btn" class="button-primary" aria-label="Add content item">Add Content</button>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="content-item-notes-view" class="hidden">
-            <div class="flex items-center mb-6">
-                <button id="back-to-dashboard-btn" class="p-2 rounded-full icon-button">
+        <section id="content-item-notes-view" class="page-content-wrapper hidden main-app-panel" aria-labelledby="selected-content-item-title">
+            <div class="flex items-center mb-5">
+                <button id="back-to-dashboard-btn" class="p-2 rounded-full icon-button" aria-label="Back to dashboard">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                 </button>
-                <h2 id="selected-content-item-title" class="text-2xl font-semibold ml-3 flex-grow break-words-overflow"></h2>
+                <h2 id="selected-content-item-title" class="text-xl font-semibold ml-2 flex-grow break-words-overflow"></h2>
             </div>
-
-            <div id="embedded-viewer-panel" class="w-full bg-black rounded-xl mb-8 overflow-hidden text-gray-200">
+            <p class="text-gray-300 mb-4">Dive deeper into your selected content and review all associated notes.</p>
+            <div id="embedded-viewer-panel" class="w-full bg-black rounded-xl mb-6 overflow-hidden text-gray-200" aria-label="Embedded content viewer">
                 <div class="relative" style="padding-bottom: 56.25%;">
-                    <iframe id="content-viewer-iframe" class="absolute top-0 left-0 w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-autoplay allow-fullscreen allow-accelerometer allow-gyroscope allow-encrypted-media allow-clipboard-write"></iframe>
+                    <iframe id="content-viewer-iframe" class="absolute top-0 left-0 w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-autoplay allow-fullscreen allow-accelerometer allow-gyroscope allow-encrypted-media allow-clipboard-write" title="Content Viewer"></iframe>
                 </div>
-                <div class="p-4 flex justify-center space-x-4 hidden" id="website-controls">
-                    <a id="open-in-new-tab-btn" href="#" target="_blank" class="button-primary">
+                <div class="p-3 flex justify-center space-x-3 hidden" id="website-controls">
+                    <a id="open-in-new-tab-btn" href="#" target="_blank" class="button-primary" aria-label="Open content in new tab">
                         Open in New Tab
                     </a>
                 </div>
             </div>
 
-            <div class="flex justify-between items-center mb-5">
-                <h3 class="text-xl font-semibold">Notes for this Content</h3>
-                <button id="add-note-for-content-item-btn-view" class="button-primary">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold">Notes for this Content</h3>
+                <button id="add-note-for-content-item-btn-view" class="button-primary" aria-label="Add new note for this content">
                     Add New Note
                 </button>
             </div>
-
-            <div id="content-item-notes-list" class="grid grid-cols-1 gap-6">
-                <p id="no-content-item-notes-message" class="col-span-full text-center text-gray-400 text-lg py-8">No notes for this content yet.</p>
+            <p class="text-gray-400 text-sm mb-4">Here are all the notes you've captured for this specific content item. Filter and manage them with ease.</p>
+            <div id="content-item-notes-list" class="grid grid-cols-1 gap-4" aria-live="polite">
+                <p id="no-content-item-notes-message" class="col-span-full text-center text-gray-400 text-base py-6">No notes for this content yet.</p>
             </div>
-        </div>
+        </section>
 
-        <div id="add-edit-note-view" class="p-6 md:p-8 rounded-xl card mb-6 hidden">
-            <h2 id="note-form-title" class="text-2xl font-semibold mb-6">Add New Note</h2>
-            <div class="mb-4">
-                <label for="note-content-textarea" class="block text-base font-medium mb-2 text-gray-300">Note Content</label>
-                <textarea id="note-content-textarea" placeholder="Write your note here. Use **bold** or *italic* for emphasis." rows="7" class="input-field w-full"></textarea>
-            </div>
-
-            <div id="content-item-note-fields" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
-                    <label for="note-timestamp-input" class="block text-base font-medium mb-2 text-gray-300">Content Timestamp (MM:SS)</label>
-                    <input type="text" id="note-timestamp-input" placeholder="e.g., 01:30" class="input-field w-full">
+        <section id="add-edit-note-view" class="page-content-wrapper hidden main-app-panel" aria-labelledby="note-form-title">
+            <div class="p-6 md:p-8 rounded-xl card mb-6">
+                <h2 id="note-form-title" class="text-xl font-semibold mb-5">Add New Note</h2>
+                <p class="text-gray-300 mb-4">Capture your thoughts, key takeaways, and study points efficiently.</p>
+                <div class="mb-3">
+                    <label for="note-content-textarea" class="block text-sm font-medium mb-1 text-gray-300">Note Content</label>
+                    <textarea id="note-content-textarea" placeholder="Write your note here. Use **bold** or *italic* for emphasis." rows="6" class="input-field w-full" aria-label="Note content"></textarea>
                 </div>
-                <div>
-                    <label for="note-start-segment-input" class="block text-base font-medium mb-2 text-gray-300">Segment Start (MM:SS)</label>
-                    <input type="text" id="note-start-segment-input" placeholder="e.g., 00:00" class="input-field w-full">
+
+                <div id="content-item-note-fields" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+                    <div>
+                        <label for="note-timestamp-input" class="block text-sm font-medium mb-1 text-gray-300">Content Timestamp (MM:SS)</label>
+                        <input type="text" id="note-timestamp-input" placeholder="e.g., 01:30" class="input-field w-full" aria-label="Content timestamp in minutes and seconds">
+                    </div>
+                    <div>
+                        <label for="note-start-segment-input" class="block text-sm font-medium mb-1 text-gray-300">Segment Start (MM:SS)</label>
+                        <input type="text" id="note-start-segment-input" placeholder="e.g., 00:00" class="input-field w-full" aria-label="Segment start time in minutes and seconds">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="note-end-segment-input" class="block text-sm font-medium mb-1 text-gray-300">Segment End (MM:SS)</label>
+                        <input type="text" id="note-end-segment-input" placeholder="e.g., 02:30" class="input-field w-full" aria-label="Segment end time in minutes and seconds">
+                    </div>
                 </div>
-                <div class="md:col-span-2">
-                    <label for="note-end-segment-input" class="block text-base font-medium mb-2 text-gray-300">Segment End (MM:SS)</label>
-                    <input type="text" id="note-end-segment-input" placeholder="e.g., 02:30" class="input-field w-full">
+
+                <div class="mb-3">
+                    <label for="note-intent-input" class="block text-sm font-medium mb-1 text-gray-300">Study Intent (e.g., Exam Prep, Doubt, Long-term)</label>
+                    <input type="text" id="note-intent-input" placeholder="Why this note matters" class="input-field w-full" aria-label="Note study intent">
                 </div>
-            </div>
 
-            <div class="mb-4">
-                <label for="note-intent-input" class="block text-base font-medium mb-2 text-gray-300">Study Intent (e.g., Exam Prep, Doubt, Long-term)</label>
-                <input type="text" id="note-intent-input" placeholder="Why this note matters" class="input-field w-full">
-            </div>
+                <div class="mb-3">
+                    <label for="note-priority-select" class="block text-sm font-medium mb-1 text-gray-300">Priority</label>
+                    <select id="note-priority-select" class="input-field w-full" aria-label="Note priority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
 
-            <div class="mb-4">
-                <label for="note-priority-select" class="block text-base font-medium mb-2 text-gray-300">Priority</label>
-                <select id="note-priority-select" class="input-field w-full">
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-            </div>
+                <div class="mb-3">
+                    <label for="note-status-select" class="block text-sm font-medium mb-1 text-gray-300">Status</label>
+                    <select id="note-status-select" class="input-field w-full" aria-label="Note status">
+                        <option value="to-do">To Do</option>
+                        <option value="in-progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
 
-            <div class="mb-4">
-                <label for="note-status-select" class="block text-base font-medium mb-2 text-gray-300">Status</label>
-                <select id="note-status-select" class="input-field w-full">
-                    <option value="to-do">To Do</option>
-                    <option value="in-progress">In Progress</option>
-                    <option value="completed">Completed</option>
-                </select>
-            </div>
+                <div class="mb-3">
+                    <label for="note-duration-input" class="block text-sm font-medium mb-1 text-gray-300">Estimated Study Time (minutes)</label>
+                    <input type="number" id="note-duration-input" placeholder="e.g., 20" class="input-field w-full" aria-label="Estimated study time in minutes">
+                </div>
 
-            <div class="mb-4">
-                <label for="note-duration-input" class="block text-base font-medium mb-2 text-gray-300">Estimated Study Time (minutes)</label>
-                <input type="number" id="note-duration-input" placeholder="e.g., 20" class="input-field w-full">
-            </div>
+                <div class="mb-4">
+                    <label for="note-review-date-input" class="block text-sm font-medium mb-1 text-gray-300">Schedule Review Date</label>
+                    <input type="date" id="note-review-date-input" class="input-field w-full" aria-label="Schedule review date">
+                </div>
 
-            <div class="mb-6">
-                <label for="note-review-date-input" class="block text-base font-medium mb-2 text-gray-300">Schedule Review Date</label>
-                <input type="date" id="note-review-date-input" class="input-field w-full">
-            </div>
+                <div class="mb-4 tag-suggestions-container">
+                    <label for="note-tags-input" class="block text-sm font-medium mb-1 text-gray-300">Tags (comma-separated, e.g., Math, Algebra, Lecture)</label>
+                    <input type="text" id="note-tags-input" placeholder="Add tags for easy filtering" class="input-field w-full" aria-label="Note tags, comma separated">
+                    <div id="tag-suggestions" class="tag-suggestions hidden" role="listbox" aria-label="Tag suggestions"></div>
+                </div>
 
-            <div class="mb-6 tag-suggestions-container">
-                <label for="note-tags-input" class="block text-base font-medium mb-2 text-gray-300">Tags (comma-separated, e.g., Math, Algebra, Lecture)</label>
-                <input type="text" id="note-tags-input" placeholder="Add tags for easy filtering" class="input-field w-full">
-                <div id="tag-suggestions" class="tag-suggestions hidden"></div>
-            </div>
-
-            <div class="mb-6 flex items-center space-x-6">
-                <label class="inline-flex items-center cursor-pointer text-base text-gray-300">
-                    <input type="checkbox" id="note-favorite-checkbox" class="form-checkbox h-6 w-6 text-blue-600 rounded">
-                    <span class="ml-3">Mark as Favorite</span>
-                </label>
-                <button class="p-3 rounded-full icon-button opacity-50 cursor-not-allowed" title="Attach Image (Not Implemented)">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                <div class="mb-4 flex items-center space-x-4" role="group" aria-label="Note options">
+                    <label class="inline-flex items-center cursor-pointer text-sm text-gray-300">
+                        <input type="checkbox" id="note-favorite-checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded" aria-label="Mark note as favorite">
+                        <span class="ml-2">Mark as Favorite</span>
+                    </label>
+                    <button class="p-2 rounded-full icon-button opacity-50 cursor-not-allowed" title="Attach Image (Not Implemented)" aria-label="Attach image (not implemented)">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                </button>
-                <button class="p-3 rounded-full icon-button opacity-50 cursor-not-allowed" title="Record Audio (Not Implemented)">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                    </svg>
-                </button>
-            </div>
+                    </button>
+                    <button class="p-2 rounded-full icon-button opacity-50 cursor-not-allowed" title="Record Audio (Not Implemented)" aria-label="Record audio (not implemented)">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                        </svg>
+                    </button>
+                </div>
 
-            <div class="flex justify-end space-x-3">
-                <button id="cancel-add-edit-note-btn" class="button-secondary">Cancel</button>
-                <button id="save-note-btn" class="button-primary">Save Note</button>
+                <div class="flex justify-end space-x-2">
+                    <button id="cancel-add-edit-note-btn" class="button-secondary" aria-label="Cancel note creation/edit">Cancel</button>
+                    <button id="save-note-btn" class="button-primary" aria-label="Save note">Save Note</button>
+                </div>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
-    <footer class="ads-footer max-w-4xl mx-auto">
+    <footer class="ads-footer max-w-4xl mx-auto" role="contentinfo" aria-label="Advertisement area">
         <h4>Advertisement Placeholder</h4>
-        <p>Your Google Ads or other ad partner content will appear here. This section is designed to be non-intrusive to the main user experience.</p>
-        <p class="text-sm mt-2">Learn more about monetizing your site responsibly.</p>
+        <p>Your Google Ads or other ad partner content will appear here. This section is designed to be non-intrusive to the main user experience, supporting the free features of EveXa Buddy Pad.</p>
+        <p class="text-sm mt-2">Learn more about monetizing your site responsibly and ethically.</p>
     </footer>
 
     <script>
@@ -760,10 +767,17 @@
         let selectedContentItem = null; // Renamed from 'selectedVideo'
         let editingNote = null;
         let isStandaloneNote = false;
-        let filterTag = '';
+        let filterTag = ''; // Used for specific tag filter in dashboard/content view
         let allTags = [];
         let lastNoteCreationDate = localStorage.getItem('lastNoteCreationDate');
         let streakCount = parseInt(localStorage.getItem('streakCount') || '0');
+
+        // NEW: Global Search & Filter State
+        let globalSearchTerm = '';
+        let globalFilterItemType = 'all'; // 'all', 'notes', 'links', 'standalone'
+        let globalFilterSearchTag = 'all'; // Used for global tag filter
+        let globalFilterDateRange = 'all'; // 'all', 'today', 'last7days', 'last30days'
+
 
         // Show Reel specific state
         let showReelNotes = [];
@@ -842,6 +856,7 @@
         const exportFilterValue = document.getElementById('export-filter-value');
         const exportTxtBtn = document.getElementById('export-txt-btn');
         const exportJsonBtn = document.getElementById('export-json-btn');
+        const exportPdfBtn = document.getElementById('export-pdf-btn'); // NEW: PDF export button reference
         const backFromExportBtn = document.getElementById('back-from-export-btn');
 
         // Show Reel DOM elements
@@ -862,6 +877,12 @@
         const showReelStopBtn = document.getElementById('show-reel-stop-btn');
         const showReelAutoplaySpeed = document.getElementById('show-reel-autoplay-speed');
 
+        // NEW: Global Search and Filter Event Listeners
+        const globalSearchInput = document.getElementById('global-search-input');
+        const globalFilterType = document.getElementById('global-filter-type');
+        const globalFilterTag = document.getElementById('global-filter-tag');
+        const globalFilterDate = document.getElementById('global-filter-date');
+
 
         // --- Utility Functions ---
 
@@ -873,7 +894,7 @@
          */
         function showMessageBox(message, type = 'info', duration = 3000) {
             customMessageBox.textContent = message;
-            customMessageBox.className = `message-box fixed bottom-24 left-1/2 -translate-x-1/2 p-4 rounded-lg shadow-lg text-center opacity-0 invisible transition-all duration-300 z-50 max-w-xs md:max-w-md`; // Reset classes
+            customMessageBox.className = `message-box fixed bottom-10 left-1/2 -translate-x-1/2 p-4 rounded-lg shadow-lg text-center opacity-0 invisible transition-all duration-300 z-50 max-w-xs md:max-w-md`; // Reset classes
             
             if (type === 'error') {
                 customMessageBox.classList.add('error');
@@ -961,7 +982,7 @@
             notes = JSON.parse(localStorage.getItem('smartNotepadNotes')) || [];
             lastNoteCreationDate = localStorage.getItem('lastNoteCreationDate');
             streakCount = parseInt(localStorage.getItem('streakCount') || '0');
-            updateAllTags();
+            updateAllTags(); // Ensure allTags are updated on load
         }
 
         /**
@@ -972,7 +993,8 @@
             localStorage.setItem('smartNotepadNotes', JSON.stringify(notes));
             localStorage.setItem('lastNoteCreationDate', lastNoteCreationDate);
             localStorage.setItem('streakCount', streakCount.toString());
-            updateAllTags();
+            updateAllTags(); // Update allTags after saving
+            updateGlobalTagFilterOptions(); // Update global tag filter options
         }
 
         /**
@@ -988,107 +1010,203 @@
             allTags = Array.from(tagsSet).sort();
         }
 
-        // --- View Management ---
+        // --- Render Functions (defined before showView to avoid ReferenceError) ---
 
         /**
-         * Switches the active view.
-         * @param {string} viewName - The ID of the view to show ('dashboard', 'addContentItem', etc.).
+         * Populates the show reel filter value dropdown based on filter type.
          */
-        function showView(viewName) {
-            // Hide all main views first
-            dashboardView.classList.add('hidden');
-            addContentItemView.classList.add('hidden');
-            contentItemNotesView.classList.add('hidden');
-            allTagsSection.classList.add('hidden');
-            insightsPanel.classList.add('hidden');
-            exportPanel.classList.add('hidden');
-            showReelPanel.classList.add('hidden'); // Hide show reel panel
+        function populateShowReelFilterValues() {
+            showReelFilterValue.innerHTML = '';
+            const filterType = showReelFilterType.value;
+            let options = [];
 
-            // Always hide the note form when switching main views, unless it's specifically for adding/editing a note
-            addEditNoteView.classList.add('hidden');
+            if (filterType === 'tag') {
+                options = allTags.map(tag => ({ value: tag, text: tag }));
+            }
 
-            currentView = viewName;
-
-            switch (viewName) {
-                case 'dashboard':
-                    dashboardView.classList.remove('hidden');
-                    renderDashboard();
-                    break;
-                case 'addContentItem':
-                    addContentItemView.classList.remove('hidden');
-                    contentUrlInput.value = '';
-                    contentTitleInput.value = '';
-                    contentTypeSelect.value = 'youtube';
-                    contentUrlGroup.classList.remove('hidden');
-                    break;
-                case 'contentItemNotes':
-                    contentItemNotesView.classList.remove('hidden');
-                    renderContentItemNotes();
-                    break;
-                case 'addNote':
-                    if (isStandaloneNote) {
-                        dashboardView.classList.add('hidden');
-                        addEditNoteView.classList.remove('hidden');
-                    } else {
-                        contentItemNotesView.classList.remove('hidden');
-                        addEditNoteView.classList.remove('hidden');
-                    }
-                    renderAddEditNoteForm();
-                    break;
-                case 'allTags':
-                    allTagsSection.classList.remove('hidden');
-                    renderAllTags();
-                    break;
-                case 'insights':
-                    insightsPanel.classList.remove('hidden');
-                    renderInsights();
-                    break;
-                case 'export':
-                    exportPanel.classList.remove('hidden');
-                    renderExportPanel();
-                    break;
-                case 'showReel':
-                    showReelPanel.classList.remove('hidden');
-                    renderShowReelPanel();
-                    break;
+            if (options.length > 0) {
+                options.forEach(optionData => {
+                    const option = document.createElement('option');
+                    option.value = optionData.value;
+                    option.textContent = optionData.text;
+                    showReelFilterValue.appendChild(option);
+                });
+                showReelFilterValueContainer.classList.remove('hidden');
+            } else {
+                showReelFilterValueContainer.classList.add('hidden');
             }
         }
 
-        // --- Render Functions ---
+        /**
+         * Populates the showReelNotes array based on selected filter.
+         */
+        function populateShowReel() {
+            const filterType = showReelFilterType.value;
+            const filterValue = showReelFilterValue.value;
+
+            let filteredReelNotes = notes.slice(); // Start with all notes
+
+            // Apply filter based on type
+            switch (filterType) {
+                case 'favorite':
+                    filteredReelNotes = filteredReelNotes.filter(note => note.isFavorite);
+                    break;
+                case 'reviewDate':
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    filteredReelNotes = filteredReelNotes.filter(note => note.reviewDate && new Date(note.reviewDate) >= today);
+                    break;
+                case 'highPriority':
+                    filteredReelNotes = filteredReelNotes.filter(note => note.priority === 'high');
+                    break;
+                case 'tag':
+                    filteredReelNotes = filteredReelNotes.filter(note => note.tags && note.tags.includes(filterValue));
+                    break;
+                default:
+                    // 'all' case, no further filtering needed here
+                    break;
+            }
+
+            // Apply global search term if present (for show reel as well)
+            const searchTermLower = globalSearchTerm.toLowerCase();
+            if (searchTermLower) {
+                filteredReelNotes = filteredReelNotes.filter(note =>
+                    note.content.toLowerCase().includes(searchTermLower) ||
+                    (note.tags && note.tags.some(tag => tag.toLowerCase().includes(searchTermLower))) ||
+                    (note.intent && note.intent.toLowerCase().includes(searchTermLower))
+                );
+            }
+
+            // Sort by creation date descending
+            showReelNotes = filteredReelNotes.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+            currentShowReelIndex = 0; // Reset index when populating
+            displayCurrentShowReelNote();
+        }
+
+        /**
+         * Helper function to get filtered content items and notes based on global search and filters.
+         * @returns {object} An object containing filtered content items, standalone notes, and linked notes.
+         */
+        function getFilteredItemsAndNotes() {
+            let filteredContentItems = [...contentItems];
+            let filteredNotes = [...notes];
+            const searchTermLower = globalSearchTerm.toLowerCase();
+            const now = Date.now();
+
+            // Apply item type filter first
+            if (globalFilterItemType === 'notes') {
+                filteredContentItems = []; // No content items if filtering for notes only
+                filteredNotes = filteredNotes.filter(n => !n.isStandalone); // Notes associated with content items
+            } else if (globalFilterItemType === 'links') {
+                filteredNotes = []; // No notes if filtering for links only
+                filteredContentItems = filteredContentItems.filter(item => item.type !== 'text-only');
+            } else if (globalFilterItemType === 'standalone') {
+                filteredContentItems = []; // No content items
+                filteredNotes = filteredNotes.filter(n => n.isStandalone); // Only standalone notes
+            }
+
+            // Apply search term to relevant fields
+            if (searchTermLower) {
+                // Filter content items
+                filteredContentItems = filteredContentItems.filter(item => {
+                    const itemTitleMatch = item.title.toLowerCase().includes(searchTermLower);
+                    const itemUrlMatch = (item.url && item.url.toLowerCase().includes(searchTermLower));
+                    const associatedNoteContentMatch = notes.some(n =>
+                        n.contentItemId === item.id && n.content.toLowerCase().includes(searchTermLower)
+                    );
+                    const associatedNoteTagsMatch = notes.some(n =>
+                        n.contentItemId === item.id && n.tags && n.tags.some(tag => tag.toLowerCase().includes(searchTermLower))
+                    );
+                    const associatedNoteIntentMatch = notes.some(n =>
+                        n.contentItemId === item.id && n.intent && n.intent.toLowerCase().includes(searchTermLower)
+                    );
+                    return itemTitleMatch || itemUrlMatch || associatedNoteContentMatch || associatedNoteTagsMatch || associatedNoteIntentMatch;
+                });
+
+                // Filter notes (standalone and linked)
+                filteredNotes = filteredNotes.filter(note =>
+                    note.content.toLowerCase().includes(searchTermLower) ||
+                    (note.tags && note.tags.some(tag => tag.toLowerCase().includes(searchTermLower))) ||
+                    (note.intent && note.intent.toLowerCase().includes(searchTermLower))
+                );
+            }
+
+            // Apply global tag filter
+            if (globalFilterSearchTag !== 'all') {
+                // If content item has any note with the tag, it matches
+                filteredContentItems = filteredContentItems.filter(item =>
+                    notes.some(n => n.contentItemId === item.id && n.tags && n.tags.includes(globalFilterSearchTag))
+                );
+                // Notes must directly have the tag
+                filteredNotes = filteredNotes.filter(note =>
+                    note.tags && note.tags.includes(globalFilterSearchTag)
+                );
+            }
+
+            // Apply date filter
+            filteredContentItems = filteredContentItems.filter(item => {
+                const createdAt = item.createdAt; // Timestamp of content item creation
+                if (globalFilterDateRange === 'today') return new Date(createdAt).toDateString() === new Date(now).toDateString();
+                if (globalFilterDateRange === 'last7days') return (now - createdAt) < (7 * 24 * 60 * 60 * 1000);
+                if (globalFilterDateRange === 'last30days') return (now - createdAt) < (30 * 24 * 60 * 60 * 1000);
+                return true;
+            });
+            filteredNotes = filteredNotes.filter(note => {
+                const createdAt = note.createdAt; // Timestamp of note creation
+                if (globalFilterDateRange === 'today') return new Date(createdAt).toDateString() === new Date(now).toDateString();
+                if (globalFilterDateRange === 'last7days') return (now - createdAt) < (7 * 24 * 60 * 60 * 1000);
+                if (globalFilterDateRange === 'last30days') return (now - createdAt) < (30 * 24 * 60 * 60 * 1000);
+                return true;
+            });
+
+            // Separate final lists based on their type
+            const finalContentItemsList = filteredContentItems.filter(item => item.type !== 'text-only');
+            const finalStandaloneNotesList = filteredNotes.filter(n => n.isStandalone);
+            
+            // For the dashboard, we want to show linked notes in context of their content items,
+            // but the `finalLinkedNotes` variable here isn't directly used for display in dashboard list of content items.
+            // It's mainly for internal filtering.
+            // The content item rendering already includes filtering by global filter search tag for its notes.
+
+            return { finalContentItems: finalContentItemsList, finalStandaloneNotes: finalStandaloneNotesList };
+        }
+
 
         /**
          * Renders the main dashboard with content items and standalone notes.
          */
         function renderDashboard() {
+            const { finalContentItems, finalStandaloneNotes } = getFilteredItemsAndNotes();
+
             // Render Content Items
             contentItemsList.innerHTML = '';
-            const linkedContentItems = contentItems.filter(item => item.type !== 'text-only');
-            if (linkedContentItems.length === 0) {
+            const linkedContentItemsToDisplay = finalContentItems.filter(item => item.type !== 'text-only'); // Ensure no text-only content items here
+            if (linkedContentItemsToDisplay.length === 0) {
                 noContentItemsMessage.classList.remove('hidden');
             } else {
                 noContentItemsMessage.classList.add('hidden');
-                linkedContentItems.forEach(item => {
+                linkedContentItemsToDisplay.forEach(item => {
                     const itemCard = document.createElement('div');
-                    itemCard.className = `relative p-6 rounded-xl card glass-effect text-center break-words`;
+                    itemCard.className = `relative p-4 rounded-xl card glass-effect text-center break-words`;
                     
                     let thumbnailHtml = '';
                     if (item.type === 'youtube' && item.thumbnail) {
-                        thumbnailHtml = `<img src="${item.thumbnail}" alt="${item.title}" class="w-full h-36 object-cover rounded-lg mb-4" onerror="this.onerror=null;this.src='https://placehold.co/320x180/333333/FFFFFF?text=Video';">`;
+                        thumbnailHtml = `<img src="${item.thumbnail}" alt="Thumbnail for ${item.title}" class="w-full h-32 object-cover rounded-lg mb-3" onerror="this.onerror=null;this.src='https://placehold.co/320x180/333333/FFFFFF?text=Video';">`;
                     } else if (item.type === 'website') {
-                        thumbnailHtml = `<div class="w-full h-36 flex items-center justify-center bg-gray-700 rounded-lg mb-4">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        thumbnailHtml = `<div class="w-full h-32 flex items-center justify-center bg-gray-700 rounded-lg mb-3" aria-label="Website placeholder image">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                             </svg>
                                         </div>`;
                     } else { // Generic fallback
-                        thumbnailHtml = `<div class="w-full h-36 flex items-center justify-center bg-gray-700 rounded-lg mb-4">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        thumbnailHtml = `<div class="w-full h-32 flex items-center justify-center bg-gray-700 rounded-lg mb-3" aria-label="Generic content placeholder image">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                         </div>`;
                     }
 
-                    let titleHtml = `<h3 class="text-xl font-semibold mb-3">`;
+                    let titleHtml = `<h3 class="text-lg font-semibold mb-2">`;
                     if (item.title.length > MAX_TITLE_LENGTH) {
                         const truncatedTitle = item.title.substring(0, MAX_TITLE_LENGTH) + '...';
                         titleHtml += `
@@ -1107,22 +1225,22 @@
                     itemCard.innerHTML = `
                         ${thumbnailHtml}
                         ${titleHtml}
-                        <p class="text-base text-gray-400 mb-3"><span class="font-medium">Notes:</span> ${notes.filter(n => n.contentItemId === item.id).length}</p>
-                        <div class="flex flex-wrap mt-2 justify-center gap-2">
-                            ${notes.filter(n => n.contentItemId === item.id).flatMap(n => n.tags || []).filter((value, index, self) => self.indexOf(value) === index).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 30)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
+                        <p class="text-sm text-gray-400 mb-2" aria-label="Number of notes associated with this content"><span class="font-medium">Notes:</span> ${notes.filter(n => n.contentItemId === item.id).length}</p>
+                        <div class="flex flex-wrap mt-1 justify-center gap-1" aria-label="Tags for notes associated with this content">
+                            ${notes.filter(n => n.contentItemId === item.id).flatMap(n => n.tags || []).filter((value, index, self) => self.indexOf(value) === index).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 20)}; color: var(--text-light);" data-tag="${tag}" aria-label="Tag: ${tag}">#${tag}</span>`).join('')}
                         </div>
-                        <div class="flex justify-between mt-5">
-                            <button class="button-primary view-notes-btn" data-content-item-id="${item.id}">
+                        <div class="flex justify-between mt-4">
+                            <button class="button-primary view-notes-btn" data-content-item-id="${item.id}" aria-label="View notes for ${item.title}">
                                 View Notes
                             </button>
-                            <div class="flex space-x-2">
-                                <button class="p-2 rounded-full icon-button add-note-for-content-item-btn" data-content-item-id="${item.id}" title="Add Note">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div class="flex space-x-1" role="group" aria-label="Actions for content item">
+                                <button class="p-1 rounded-full icon-button add-note-for-content-item-btn" data-content-item-id="${item.id}" title="Add Note" aria-label="Add note for ${item.title}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </button>
-                                <button class="p-2 rounded-full icon-button delete-content-item-btn" data-content-item-id="${item.id}" title="Delete Link">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <button class="p-1 rounded-full icon-button delete-content-item-btn" data-content-item-id="${item.id}" title="Delete Link" aria-label="Delete ${item.title}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
                                 </button>
@@ -1135,37 +1253,39 @@
 
             // Render Standalone Notes
             standaloneNotesList.innerHTML = '';
-            const standaloneNotes = notes.filter(n => n.isStandalone && (!filterTag || (n.tags && n.tags.includes(filterTag))))
+            // filterTag used for specific tag filtering in the dashboard (from All Tags section)
+            // globalFilterSearchTag used for global search tag filter
+            const standaloneNotesToDisplay = finalStandaloneNotes.filter(n => (!filterTag || (n.tags && n.tags.includes(filterTag))))
                                         .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)); // Sort by creation date descending
-            if (standaloneNotes.length === 0) {
+            if (standaloneNotesToDisplay.length === 0) {
                 noStandaloneNotesMessage.classList.remove('hidden');
             } else {
                 noStandaloneNotesMessage.classList.add('hidden');
-                standaloneNotes.forEach(note => {
+                standaloneNotesToDisplay.forEach(note => {
                     const noteCard = document.createElement('div');
-                    noteCard.className = `relative p-6 rounded-xl card glass-effect text-center break-words`;
+                    noteCard.className = `relative p-4 rounded-xl card glass-effect text-center break-words`;
                     noteCard.innerHTML = `
-                        <h3 class="text-xl font-semibold mb-3 flex items-center justify-center">
-                            ${note.isFavorite ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 favorite-icon mr-2" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" /></svg>` : ''}
+                        <h3 class="text-lg font-semibold mb-2 flex items-center justify-center">
+                            ${note.isFavorite ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 favorite-icon mr-1" viewBox="0 0 20 20" fill="currentColor" aria-label="Favorite note"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" /></svg>` : ''}
                             Standalone Note
                         </h3>
-                        <p class="text-base text-gray-300 mb-3">${note.content.substring(0, 100)}...</p>
-                        ${note.intent ? `<p class="text-sm text-gray-500 mb-1">Intent: ${note.intent}</p>` : ''}
-                        ${note.priority ? `<p class="text-sm text-gray-500 mb-1">Priority: <span class="priority-${note.priority}">${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}</span></p>` : ''}
-                        ${note.status ? `<p class="text-sm text-gray-500 mb-1">Status: <span class="status-${note.status}">${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}</span></p>` : ''}
-                        ${note.estimatedDuration ? `<p class="text-sm text-gray-500 mb-1">Est. Time: ${note.estimatedDuration} mins</p>` : ''}
-                        ${note.reviewDate ? `<p class="text-sm text-gray-500 mb-3">Review: ${new Date(note.reviewDate).toLocaleDateString()}</p>` : ''}
-                        <div class="flex flex-wrap mt-2 justify-center gap-2">
-                            ${(note.tags || []).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 30)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
+                        <p class="text-sm text-gray-300 mb-2">${note.content.substring(0, 100)}...</p>
+                        ${note.intent ? `<p class="text-xs text-gray-500 mb-1">Intent: ${note.intent}</p>` : ''}
+                        ${note.priority ? `<p class="text-xs text-gray-500 mb-1">Priority: <span class="priority-${note.priority}">${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}</span></p>` : ''}
+                        ${note.status ? `<p class="text-xs text-gray-500 mb-1">Status: <span class="status-${note.status}">${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}</span></p>` : ''}
+                        ${note.estimatedDuration ? `<p class="text-xs text-gray-500 mb-1">Est. Time: ${note.estimatedDuration} mins</p>` : ''}
+                        ${note.reviewDate ? `<p class="text-xs text-gray-500 mb-2">Review: ${new Date(note.reviewDate).toLocaleDateString()}</p>` : ''}
+                        <div class="flex flex-wrap mt-1 justify-center gap-1" aria-label="Note tags">
+                            ${(note.tags || []).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 20)}; color: var(--text-light);" data-tag="${tag}" aria-label="Tag: ${tag}">#${tag}</span>`).join('')}
                         </div>
-                        <div class="flex justify-end mt-5 space-x-2">
-                            <button class="p-2 rounded-full icon-button edit-note-btn" data-note-id="${note.id}" title="Edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="flex justify-end mt-4 space-x-1" role="group" aria-label="Actions for standalone note">
+                            <button class="p-1 rounded-full icon-button edit-note-btn" data-note-id="${note.id}" title="Edit" aria-label="Edit standalone note">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
                             </button>
-                            <button class="p-2 rounded-full icon-button delete-note-btn" data-note-id="${note.id}" title="Delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <button class="p-1 rounded-full icon-button delete-note-btn" data-note-id="${note.id}" title="Delete" aria-label="Delete standalone note">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
                             </button>
@@ -1177,7 +1297,7 @@
         }
 
         /**
-         * Renders notes for the currently selected content item.
+         * Renders notes for the currently selected content item, applying global search/filters.
          */
         function renderContentItemNotes() {
             if (!selectedContentItem) {
@@ -1186,6 +1306,8 @@
             }
 
             selectedContentItemTitle.textContent = selectedContentItem.title;
+            selectedContentItemTitle.setAttribute('aria-label', `Notes for: ${selectedContentItem.title}`);
+
 
             // Set iframe src based on content type
             if (selectedContentItem.type === 'youtube') {
@@ -1194,7 +1316,7 @@
                 contentItemNoteFields.classList.remove('hidden'); // Show timestamp fields for YouTube
             } else if (selectedContentItem.type === 'website') {
                 contentViewerIframe.src = selectedContentItem.url;
-                websiteControls.classList.add('hidden');
+                websiteControls.classList.remove('hidden'); // Show open in new tab button
                 openInNewTabBtn.href = selectedContentItem.url;
                 contentItemNoteFields.classList.add('hidden'); // Hide timestamp fields for websites
             } else { // text-only or other types without a direct embed
@@ -1206,8 +1328,26 @@
             addEditNoteView.classList.add('hidden'); // Ensure the note form is hidden
 
             contentItemNotesList.innerHTML = '';
-            const contentItemSpecificNotes = notes.filter(n => n.contentItemId === selectedContentItem.id && (!filterTag || (n.tags && n.tags.includes(filterTag))))
-                                            .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)); // Sort by creation date descending
+            const searchTermLower = globalSearchTerm.toLowerCase();
+            const now = Date.now();
+
+            const contentItemSpecificNotes = notes.filter(n => {
+                const isForSelectedContentItem = n.contentItemId === selectedContentItem.id;
+                // Apply global tag filter
+                const matchesTag = globalFilterSearchTag === 'all' || (n.tags && n.tags.includes(globalFilterSearchTag));
+                // Apply global search term to content and intent
+                const matchesSearch = searchTermLower === '' || 
+                                      n.content.toLowerCase().includes(searchTermLower) || 
+                                      (n.intent && n.intent.toLowerCase().includes(searchTermLower));
+                // Apply global date filter
+                let matchesDate = true;
+                const createdAt = n.createdAt;
+                if (globalFilterDateRange === 'today') matchesDate = new Date(createdAt).toDateString() === new Date(now).toDateString();
+                else if (globalFilterDateRange === 'last7days') matchesDate = (now - createdAt) < (7 * 24 * 60 * 60 * 1000);
+                else if (globalFilterDateRange === 'last30days') matchesDate = (now - createdAt) < (30 * 24 * 60 * 60 * 1000);
+
+                return isForSelectedContentItem && matchesTag && matchesSearch && matchesDate;
+            }).sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0)); // Sort by creation date descending
 
             if (contentItemSpecificNotes.length === 0) {
                 noContentItemNotesMessage.classList.remove('hidden');
@@ -1215,32 +1355,32 @@
                 noContentItemNotesMessage.classList.add('hidden');
                 contentItemSpecificNotes.forEach(note => {
                     const noteCard = document.createElement('div');
-                    noteCard.className = `relative p-6 rounded-xl card glass-effect text-center break-words`;
+                    noteCard.className = `relative p-4 rounded-xl card glass-effect text-center break-words`;
                     noteCard.innerHTML = `
-                        <div class="flex justify-between items-start mb-3">
+                        <div class="flex justify-between items-start mb-2">
                             <div class="flex items-center">
-                                ${note.timestamp ? `<span class="text-xl font-bold mr-3 text-blue-300">${formatTimestamp(note.timestamp)}</span>` : ''}
-                                ${note.startSegment && note.endSegment ? `<span class="text-base text-gray-400">(${formatTimestamp(note.startSegment)} - ${formatTimestamp(note.endSegment)})</span>` : ''}
+                                ${note.timestamp ? `<span class="text-lg font-bold mr-2 text-blue-300" aria-label="Note timestamp">${formatTimestamp(note.timestamp)}</span>` : ''}
+                                ${note.startSegment && note.endSegment ? `<span class="text-sm text-gray-400" aria-label="Content segment">${formatTimestamp(note.startSegment)} - ${formatTimestamp(note.endSegment)}</span>` : ''}
                             </div>
-                            ${note.isFavorite ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 favorite-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" /></svg>` : ''}
+                            ${note.isFavorite ? `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 favorite-icon" viewBox="0 0 20 20" fill="currentColor" aria-label="Favorite note"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.538 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.538-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.462a1 1 0 00.95-.69l1.07-3.292z" /></svg>` : ''}
                         </div>
-                        <p class="mb-4 text-lg text-gray-200">${note.content}</p>
-                        ${note.intent ? `<p class="text-sm text-gray-500 mb-1">Intent: ${note.intent}</p>` : ''}
-                        ${note.priority ? `<p class="text-sm text-gray-500 mb-1">Priority: <span class="priority-${note.priority}">${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}</span></p>` : ''}
-                        ${note.status ? `<p class="text-sm text-gray-500 mb-1">Status: <span class="status-${note.status}">${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}</span></p>` : ''}
-                        ${note.estimatedDuration ? `<p class="text-sm text-gray-500 mb-1">Est. Time: ${note.estimatedDuration} mins</p>` : ''}
-                        ${note.reviewDate ? `<p class="text-sm text-gray-500 mb-4">Review: ${new Date(note.reviewDate).toLocaleDateString()}</p>` : ''}
-                        <div class="flex flex-wrap justify-center gap-2">
-                            ${(note.tags || []).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 30)}; color: var(--text-light);" data-tag="${tag}">#${tag}</span>`).join('')}
+                        <p class="mb-3 text-base text-gray-200" aria-label="Note content">${note.content}</p>
+                        ${note.intent ? `<p class="text-xs text-gray-500 mb-1">Intent: ${note.intent}</p>` : ''}
+                        ${note.priority ? `<p class="text-xs text-gray-500 mb-1">Priority: <span class="priority-${note.priority}">${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}</span></p>` : ''}
+                        ${note.status ? `<p class="text-xs text-gray-500 mb-1">Status: <span class="status-${note.status}">${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}</span></p>` : ''}
+                        ${note.estimatedDuration ? `<p class="text-xs text-gray-500 mb-1">Est. Time: ${note.estimatedDuration} mins</p>` : ''}
+                        ${note.reviewDate ? `<p class="text-xs text-gray-500 mb-2">Review: ${new Date(note.reviewDate).toLocaleDateString()}</p>` : ''}
+                        <div class="flex flex-wrap justify-center gap-1" aria-label="Note tags">
+                            ${(note.tags || []).map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 20)}; color: var(--text-light);" data-tag="${tag}" aria-label="Tag: ${tag}">#${tag}</span>`).join('')}
                         </div>
-                        <div class="flex justify-end mt-5 space-x-2">
-                            <button class="p-2 rounded-full icon-button edit-note-btn" data-note-id="${note.id}" title="Edit">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <div class="flex justify-end mt-4 space-x-1" role="group" aria-label="Actions for note">
+                            <button class="p-1 rounded-full icon-button edit-note-btn" data-note-id="${note.id}" title="Edit" aria-label="Edit note">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
                             </button>
-                            <button class="p-2 rounded-full icon-button delete-note-btn" data-note-id="${note.id}" title="Delete">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <button class="p-1 rounded-full icon-button delete-note-btn" data-note-id="${note.id}" title="Delete" aria-label="Delete note">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                 </svg>
                             </button>
@@ -1308,7 +1448,7 @@
         function renderAllTags() {
             allTagsContainer.innerHTML = '';
             if (allTags.length === 0) {
-                allTagsContainer.innerHTML = '<p class="text-gray-400 text-base">No tags created yet.</p>';
+                allTagsContainer.innerHTML = '<p class="text-gray-400 text-sm">No tags created yet.</p>';
                 return;
             }
 
@@ -1316,7 +1456,7 @@
                 const tagSpan = document.createElement('span');
                 tagSpan.className = `inline-block tag-pill ${filterTag === tag ? 'active-filter' : ''}`;
                 tagSpan.textContent = `#${tag}`;
-                tagSpan.style.backgroundColor = stringToHslColor(tag, 50, 30);
+                tagSpan.style.backgroundColor = stringToHslColor(tag, 50, 20);
                 tagSpan.style.color = `var(--text-light)`;
                 tagSpan.dataset.tag = tag;
                 allTagsContainer.appendChild(tagSpan);
@@ -1324,7 +1464,7 @@
 
             if (filterTag) {
                 const clearFilterBtn = document.createElement('button');
-                clearFilterBtn.className = `px-4 py-2 text-sm rounded-full bg-red-500 text-white tag-pill cursor-pointer`;
+                clearFilterBtn.className = `px-3 py-1 text-xs rounded-full bg-red-500 text-white tag-pill cursor-pointer`;
                 clearFilterBtn.textContent = `Clear Filter (${filterTag})`;
                 clearFilterBtn.onclick = () => {
                     filterTag = '';
@@ -1332,6 +1472,21 @@
                 };
                 allTagsContainer.appendChild(clearFilterBtn);
             }
+        }
+
+        /**
+         * Populates the global tag filter dropdown with all unique tags.
+         */
+        function updateGlobalTagFilterOptions() {
+            globalFilterTag.innerHTML = '<option value="all">All Tags</option>';
+            allTags.forEach(tag => {
+                const option = document.createElement('option');
+                option.value = tag;
+                option.textContent = `#${tag}`;
+                globalFilterTag.appendChild(option);
+            });
+            // Select the current filter if it exists
+            globalFilterTag.value = globalFilterSearchTag;
         }
 
         /**
@@ -1405,65 +1560,6 @@
         }
 
         /**
-         * Populates the show reel filter value dropdown based on filter type.
-         */
-        function populateShowReelFilterValues() {
-            showReelFilterValue.innerHTML = '';
-            const filterType = showReelFilterType.value;
-            let options = [];
-
-            if (filterType === 'tag') {
-                options = allTags.map(tag => ({ value: tag, text: tag }));
-            }
-
-            if (options.length > 0) {
-                options.forEach(optionData => {
-                    const option = document.createElement('option');
-                    option.value = optionData.value;
-                    option.textContent = optionData.text;
-                    showReelFilterValue.appendChild(option);
-                });
-                showReelFilterValueContainer.classList.remove('hidden');
-            } else {
-                showReelFilterValueContainer.classList.add('hidden');
-            }
-        }
-
-        /**
-         * Populates the showReelNotes array based on selected filter.
-         */
-        function populateShowReel() {
-            const filterType = showReelFilterType.value;
-            const filterValue = showReelFilterValue.value;
-
-            switch (filterType) {
-                case 'all':
-                    showReelNotes = notes.slice(); // Clone array
-                    break;
-                case 'favorite':
-                    showReelNotes = notes.filter(note => note.isFavorite);
-                    break;
-                case 'reviewDate':
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
-                    showReelNotes = notes.filter(note => note.reviewDate && new Date(note.reviewDate) >= today);
-                    break;
-                case 'highPriority':
-                    showReelNotes = notes.filter(note => note.priority === 'high');
-                    break;
-                case 'tag':
-                    showReelNotes = notes.filter(note => note.tags && note.tags.includes(filterValue));
-                    break;
-                default:
-                    showReelNotes = notes.slice();
-            }
-            // Sort by creation date descending
-            showReelNotes.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-            currentShowReelIndex = 0; // Reset index when populating
-            displayCurrentShowReelNote();
-        }
-
-        /**
          * Displays the note at the currentShowReelIndex.
          */
         function displayCurrentShowReelNote() {
@@ -1497,8 +1593,8 @@
             if (note.status) detailsHtml += `<p class="mb-1">Status: <span class="status-${note.status}">${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}</span></p>`;
             if (note.reviewDate) detailsHtml += `<p class="mb-1">Review Date: <span class="font-medium">${new Date(note.reviewDate).toLocaleDateString()}</span></p>`;
             if (note.tags && note.tags.length > 0) {
-                detailsHtml += `<div class="flex flex-wrap justify-center gap-2 mt-2">`;
-                detailsHtml += note.tags.map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 30)}; color: var(--text-light);">#${tag}</span>`).join('');
+                detailsHtml += `<div class="flex flex-wrap justify-center gap-1 mt-1">`;
+                detailsHtml += note.tags.map(tag => `<span class="inline-block tag-pill" style="background-color: ${stringToHslColor(tag, 50, 20)}; color: var(--text-light);">#${tag}</span>`).join('');
                 detailsHtml += `</div>`;
             }
             showReelNoteDetails.innerHTML = detailsHtml;
@@ -1624,10 +1720,10 @@
         }
 
         /**
-         * Handles export functionality.
-         * @param {string} format - 'txt' or 'json'.
+         * Retrieves filtered notes for export.
+         * @returns {Array} An array of notes to export.
          */
-        function handleExport(format) {
+        function getFilteredNotesForExport() {
             const filterType = exportFilterType.value;
             const filterValue = exportFilterValue.value;
             let notesToExport = [];
@@ -1645,6 +1741,15 @@
             } else if (filterType === 'reviewDate') {
                 notesToExport = notes.filter(note => note.reviewDate && new Date(note.reviewDate) >= new Date());
             }
+            return notesToExport;
+        }
+
+        /**
+         * Handles export functionality for TXT and JSON.
+         * @param {string} format - 'txt' or 'json'.
+         */
+        function handleExport(format) {
+            const notesToExport = getFilteredNotesForExport();
 
             if (notesToExport.length === 0) {
                 showMessageBox('No notes found for the selected filter.', 'info');
@@ -1653,16 +1758,18 @@
 
             let fileContent;
             let fileName;
+            const filterType = exportFilterType.value;
+            const filterValueText = filterType !== 'all' && exportFilterValue.selectedOptions[0] ? `_${exportFilterValue.selectedOptions[0].textContent.replace(/ /g, '_')}` : '';
 
             if (format === 'json') {
                 fileContent = JSON.stringify(notesToExport, null, 2);
-                fileName = `smart_notepad_export_${filterType}.json`;
+                fileName = `EveXa_Buddy_Pad_Export_${filterType}${filterValueText}.json`;
             } else { // txt
                 fileContent = notesToExport.map(note => {
                     let text = `--- Note ID: ${note.id} ---\n`;
                     if (note.contentItemId) {
                         const contentItem = contentItems.find(item => item.id === note.contentItemId);
-                        text += `Content: ${contentItem ? contentItem.title : 'Unknown Content'} (ID: ${note.contentItemId}, Type: ${contentItem ? contentItem.type : 'N/A'})\n`;
+                        text += `Content: ${contentItem ? contentItem.title : 'Unknown Content'} (ID: ${contentItem ? contentItem.id : 'N/A'}, Type: ${contentItem ? contentItem.type : 'N/A'})\n`;
                         if (contentItem && contentItem.url) text += `URL: ${contentItem.url}\n`;
                     } else {
                         text += `Type: Standalone Note\n`;
@@ -1681,7 +1788,7 @@
                     text += `\n${note.content}\n\n`;
                     return text;
                 }).join('\n');
-                fileName = `smart_notepad_export_${filterType}.txt`;
+                fileName = `EveXa_Buddy_Pad_Export_${filterType}${filterValueText}.txt`;
             }
 
             const blob = new Blob([fileContent], { type: format === 'json' ? 'application/json' : 'text/plain' });
@@ -1695,6 +1802,226 @@
             URL.revokeObjectURL(url);
             showMessageBox('Notes exported successfully!', 'success');
         }
+
+        /**
+         * Handles exporting notes as a PDF.
+         */
+        async function handleExportPdf() {
+            if (typeof window.jspdf === 'undefined' || typeof window.jspdf.jsPDF === 'undefined') {
+                showMessageBox('PDF library not loaded. Please try again or check your internet connection.', 'error');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const notesToExport = getFilteredNotesForExport();
+
+            if (notesToExport.length === 0) {
+                showMessageBox('No notes found for the selected filter to export as PDF.', 'info');
+                return;
+            }
+
+            const margin = 15; 
+            const topMargin = 35; 
+            const bottomMargin = 25; 
+            const lineHeight = 6; 
+            const contentFontSize = 10; 
+            const headerFontSize = 16;
+            const subheaderFontSize = 11;
+            const footerFontSize = 8;
+            const pageHeight = doc.internal.pageSize.height;
+            const maxWidth = doc.internal.pageSize.width - 2 * margin;
+
+            const currentTime = new Date();
+            const filterType = exportFilterType.value;
+            const filterValueText = filterType !== 'all' && exportFilterValue.selectedOptions[0] ? ` (${exportFilterValue.selectedOptions[0].textContent})` : '';
+
+            // Helper function to add header and footer to a page
+            const addPageHeaderAndFooter = (doc, pageNum, filterText) => {
+                // Header
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(headerFontSize);
+                doc.text(`EveXa Buddy Pad - Notes Export`, margin, 15);
+                
+                doc.setFontSize(subheaderFontSize);
+                doc.text(`Filter: ${filterText}`, margin, 22);
+
+                doc.setDrawColor(128, 128, 128); // Grey color for separator
+                doc.line(margin, 25, doc.internal.pageSize.width - margin, 25); // Line below header
+
+                // Footer
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(footerFontSize);
+                doc.setTextColor(100); // Darker grey for professional look
+                doc.text(`EveXa Buddy Pad | Exported: ${currentTime.toLocaleDateString()} ${currentTime.toLocaleTimeString()} | Page ${pageNum}`, doc.internal.pageSize.width / 2, pageHeight - 10, { align: 'center' });
+                doc.setTextColor(0); // Reset text color to black for main content
+            };
+
+            let yPos = topMargin; // Initial Y position for content on the first page
+
+            // Add header and footer to the first page
+            addPageHeaderAndFooter(doc, 1, filterType + filterValueText);
+
+            // Ensure text color is black for notes before drawing
+            doc.setTextColor(0);
+
+            notesToExport.forEach((note, index) => {
+                let noteContentLines = [];
+                
+                // Get content item title or default for standalone note
+                let noteTitleDisplay = note.contentItemId ? contentItems.find(item => item.id === note.contentItemId)?.title : 'Standalone Note';
+                noteTitleDisplay = noteTitleDisplay ? (noteTitleDisplay.length > MAX_TITLE_LENGTH ? noteTitleDisplay.substring(0, MAX_TITLE_LENGTH) + '...' : noteTitleDisplay) : 'Untitled Note';
+
+                // Add note header/metadata
+                // Ensure bold font for note title
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(subheaderFontSize);
+                const titleLine = `--- Note ${index + 1} (${noteTitleDisplay}) ---`;
+                noteContentLines.push(titleLine);
+
+                // Switch to normal font for metadata
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(contentFontSize);
+                if (note.timestamp) noteContentLines.push(`Timestamp: ${formatTimestamp(note.timestamp)}`);
+                if (note.startSegment && note.endSegment) noteContentLines.push(`Segment: ${formatTimestamp(note.startSegment)} - ${formatTimestamp(note.endSegment)}`);
+                if (note.intent) noteContentLines.push(`Intent: ${note.intent}`);
+                if (note.priority) noteContentLines.push(`Priority: ${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}`);
+                if (note.status) noteContentLines.push(`Status: ${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}`);
+                if (note.estimatedDuration) noteContentLines.push(`Estimated Duration: ${note.estimatedDuration} mins`);
+                if (note.reviewDate) noteContentLines.push(`Review Date: ${new Date(note.reviewDate).toLocaleDateString()}`);
+                if (note.tags && note.tags.length > 0) noteContentLines.push(`Tags: ${note.tags.map(t => `#${t}`).join(', ')}\n`);
+                if (note.isFavorite) noteContentLines.push(`Favorite: Yes`);
+                noteContentLines.push(`Created At: ${new Date(note.createdAt).toLocaleString()}`);
+                if (note.lastModifiedAt) noteContentLines.push(`Last Modified At: ${new Date(note.lastModifiedAt).toLocaleString()}\n`);
+                noteContentLines.push(''); // Empty line for spacing before note body
+
+                // Split the main note content using the current font settings
+                const splitNoteBody = doc.splitTextToSize(note.content, maxWidth);
+                noteContentLines = noteContentLines.concat(splitNoteBody);
+                noteContentLines.push(''); // Extra empty line for spacing after note body
+
+                // Draw each line of the note content, adding new pages as needed
+                noteContentLines.forEach(line => {
+                    // Check if current line plus next line will exceed page height
+                    if (yPos + lineHeight > pageHeight - bottomMargin) {
+                        doc.addPage();
+                        yPos = topMargin; // Reset Y position for new page
+                        addPageHeaderAndFooter(doc, doc.internal.getNumberOfPages(), filterType + filterValueText);
+                    }
+
+                    // Set font based on whether it's the title line or other content/metadata
+                    if (line === titleLine) { // Check against the exact title line string
+                        doc.setFont('helvetica', 'bold');
+                        doc.setFontSize(subheaderFontSize);
+                    } else {
+                        doc.setFont('helvetica', 'normal');
+                        doc.setFontSize(contentFontSize);
+                    }
+                    doc.text(line, margin, yPos);
+                    yPos += lineHeight;
+                });
+                
+                // Add a separator line between notes, if not the last note
+                if (index < notesToExport.length - 1) {
+                    doc.setDrawColor(128, 128, 128);
+                    const separatorYPos = yPos + 2; // Position separator slightly below the note
+                    const minSpaceForNextNote = 10; // Minimum space needed for separator and next note's first line
+
+                    // Check if separator and start of next note fit, if not, add a new page
+                    if (separatorYPos + minSpaceForNextNote > pageHeight - bottomMargin) {
+                        doc.addPage();
+                        yPos = topMargin;
+                        addPageHeaderAndFooter(doc, doc.internal.getNumberOfPages(), filterType + filterValueText);
+                    } else {
+                        doc.line(margin, separatorYPos, doc.internal.pageSize.width - margin, separatorYPos);
+                        yPos = separatorYPos + 8; // Move yPos past the separator and add some buffer
+                    }
+                }
+            });
+
+            const fileName = `EveXa_Buddy_Pad_Export_${filterType}${filterValueText.replace(/ /g, '_')}.pdf`;
+            doc.save(fileName);
+            showMessageBox('Notes exported as PDF successfully!', 'success');
+        }
+
+
+        // --- View Management ---
+
+        /**
+         * Switches the active view.
+         * @param {string} viewName - The ID of the view to show ('dashboard', 'addContentItem', etc.).
+         */
+        function showView(viewName) {
+            // Get all elements that act as main app panels and hide them
+            const allAppPanels = document.querySelectorAll('.main-app-panel');
+            allAppPanels.forEach(panel => {
+                panel.classList.remove('active');
+                panel.classList.add('hidden');
+            });
+            
+            // Explicitly hide the note form when switching main views, unless it's specifically for adding/editing a note
+            addEditNoteView.classList.add('hidden');
+            addEditNoteView.classList.remove('active');
+
+            currentView = viewName;
+
+            // Show the requested view
+            switch (viewName) {
+                case 'dashboard':
+                    dashboardView.classList.remove('hidden');
+                    dashboardView.classList.add('active');
+                    renderDashboard(); // Re-render dashboard content based on current search/filters
+                    break;
+                case 'addContentItem':
+                    addContentItemView.classList.remove('hidden');
+                    addContentItemView.classList.add('active');
+                    contentUrlInput.value = '';
+                    contentTitleInput.value = '';
+                    contentTypeSelect.value = 'youtube';
+                    contentUrlGroup.classList.remove('hidden');
+                    break;
+                case 'contentItemNotes':
+                    contentItemNotesView.classList.remove('hidden');
+                    contentItemNotesView.classList.add('active');
+                    renderContentItemNotes(); // Re-render notes for the selected content item based on search/filters
+                    break;
+                case 'addNote':
+                    // For addNote, we need to decide if it overlays dashboard or contentItemNotes
+                    if (isStandaloneNote) {
+                        dashboardView.classList.add('hidden'); // Ensure dashboard is hidden
+                        dashboardView.classList.remove('active');
+                    } else {
+                        contentItemNotesView.classList.remove('hidden');
+                        contentItemNotesView.classList.add('active');
+                    }
+                    addEditNoteView.classList.remove('hidden');
+                    addEditNoteView.classList.add('active'); // Make add/edit note section active for fade-in
+                    renderAddEditNoteForm();
+                    break;
+                case 'allTags':
+                    allTagsSection.classList.remove('hidden');
+                    allTagsSection.classList.add('active');
+                    renderAllTags();
+                    break;
+                case 'insights':
+                    insightsPanel.classList.remove('hidden');
+                    insightsPanel.classList.add('active');
+                    renderInsights();
+                    break;
+                case 'export':
+                    exportPanel.classList.remove('hidden');
+                    exportPanel.classList.add('active');
+                    renderExportPanel();
+                    break;
+                case 'showReel':
+                    showReelPanel.classList.remove('hidden');
+                    showReelPanel.classList.add('active');
+                    renderShowReelPanel();
+                    break;
+            }
+        }
+
 
         // --- Event Listeners ---
 
@@ -1730,11 +2057,11 @@
             const title = contentTitleInput.value.trim();
 
             if (!title) {
-                showMessageBox('Please provide a title for your content.', 'error');
+                showMessageBox('Please provide a descriptive title for your content.', 'error');
                 return;
             }
             if (type !== 'text-only' && !url) {
-                showMessageBox('Please provide a URL for this content type.', 'error');
+                showMessageBox('Please provide a valid URL for this content type.', 'error');
                 return;
             }
 
@@ -1766,7 +2093,7 @@
 
         backToDashboardBtn.addEventListener('click', () => {
             selectedContentItem = null;
-            filterTag = '';
+            filterTag = ''; // Clear specific tag filter when going back to dashboard
             showView('dashboard');
         });
 
@@ -1776,7 +2103,7 @@
             if (e.target.classList.contains('view-notes-btn')) {
                 const contentItemId = e.target.dataset.contentItemId;
                 selectedContentItem = contentItems.find(item => item.id === contentItemId);
-                filterTag = '';
+                filterTag = ''; // Clear specific tag filter when viewing content notes
                 showView('contentItemNotes');
             }
             else if (e.target.classList.contains('add-note-for-content-item-btn')) {
@@ -1832,7 +2159,7 @@
                     deleteButton.dataset.confirmDelete = 'true';
                     deleteButton.dataset.originalHtml = deleteButton.innerHTML; 
                     
-                    deleteButton.innerHTML = `<span class="text-sm font-semibold">Confirm?</span>`;
+                    deleteButton.innerHTML = `<span class="text-xs font-semibold">Confirm?</span>`;
                     deleteButton.classList.add('bg-red-600', 'text-white');
                     showMessageBox('Click again to confirm deletion.', 'warning', 2000);
 
@@ -1858,8 +2185,6 @@
                     console.log('Confirming deletion for content item ID:', contentItemIdToDelete);
                     contentItems = contentItems.filter(item => item.id !== contentItemIdToDelete);
                     notes = notes.filter(note => note.contentItemId !== contentItemIdToDelete);
-                    console.log('Content items array after filter:', contentItems.length);
-                    console.log('Notes array after content item deletion:', notes.length);
                     saveData();
                     console.log('Data saved after content item deletion.');
                     showMessageBox('Link and associated notes deleted successfully!', 'success');
@@ -1877,7 +2202,7 @@
                     deleteContentItemButton.dataset.confirmDelete = 'true';
                     deleteContentItemButton.dataset.originalHtml = deleteContentItemButton.innerHTML; 
                     
-                    deleteContentItemButton.innerHTML = `<span class="text-sm font-semibold">Confirm?</span>`;
+                    deleteContentItemButton.innerHTML = `<span class="text-xs font-semibold">Confirm?</span>`;
                     deleteContentItemButton.classList.add('bg-red-600', 'text-white');
                     showMessageBox('Click again to confirm deletion of link and all its notes.', 'warning', 3000);
 
@@ -1895,7 +2220,16 @@
                 }
             }
             else if (e.target.classList.contains('tag-pill') && e.target.dataset.tag) {
-                filterTag = e.target.dataset.tag;
+                filterTag = e.target.dataset.tag; // This is the specific filter for "All Tags" section
+                // Set global filter search tag as well for consistency
+                globalFilterSearchTag = e.target.dataset.tag;
+                globalFilterTag.value = globalFilterSearchTag; // Update dropdown
+                globalSearchInput.value = ''; // Clear search term if filtering by tag from here
+                globalFilterItemType = 'all'; // Reset item type filter
+                globalFilterType.value = 'all'; // Update dropdown
+                globalFilterDateRange = 'all'; // Reset date filter
+                globalFilterDate.value = 'all'; // Update dropdown
+
                 if (currentView === 'dashboard' || currentView === 'allTags') {
                     showView('dashboard');
                 } else if (currentView === 'contentItemNotes') {
@@ -1939,7 +2273,7 @@
             const reviewDate = noteReviewDateInput.value;
 
             if (!content) {
-                showMessageBox('Note content cannot be empty.', 'error');
+                showMessageBox('Note content cannot be empty. Please add some text.', 'error');
                 return;
             }
 
@@ -2023,6 +2357,8 @@
         exportFilterType.addEventListener('change', populateExportFilterValues);
         exportTxtBtn.addEventListener('click', () => handleExport('txt'));
         exportJsonBtn.addEventListener('click', () => handleExport('json'));
+        exportPdfBtn.addEventListener('click', handleExportPdf); // NEW: PDF export button event listener
+
 
         // Show Reel Event Listeners
         showReelFilterType.addEventListener('change', () => {
@@ -2040,20 +2376,60 @@
             }
         });
 
+        // NEW: Global Search and Filter Event Listeners
+        globalSearchInput.addEventListener('input', () => {
+            globalSearchTerm = globalSearchInput.value.trim();
+            if (currentView === 'dashboard') {
+                renderDashboard();
+            } else if (currentView === 'contentItemNotes') {
+                renderContentItemNotes();
+            } else if (currentView === 'showReel') {
+                populateShowReel();
+            }
+        });
+
+        globalFilterType.addEventListener('change', () => {
+            globalFilterItemType = globalFilterType.value;
+            renderDashboard(); // Always re-render dashboard as this filter affects its main content
+        });
+
+        globalFilterTag.addEventListener('change', () => {
+            globalFilterSearchTag = globalFilterTag.value;
+            if (currentView === 'dashboard') {
+                renderDashboard();
+            } else if (currentView === 'contentItemNotes') {
+                renderContentItemNotes();
+            } else if (currentView === 'showReel') {
+                populateShowReel();
+            }
+        });
+
+        globalFilterDate.addEventListener('change', () => {
+            globalFilterDateRange = globalFilterDate.value;
+            if (currentView === 'dashboard') {
+                renderDashboard();
+            } else if (currentView === 'contentItemNotes') {
+                renderContentItemNotes();
+            } else if (currentView === 'showReel') {
+                populateShowReel();
+            }
+        });
+
         // --- Initial Load ---
         // Show loader immediately on DOMContentLoaded
         document.addEventListener('DOMContentLoaded', () => {
             pageLoader.classList.remove('hidden'); // Ensure loader is visible
             loadData();
             updateStreakCounter();
-            showView('dashboard');
+            updateGlobalTagFilterOptions(); // Populate global tag filter dropdown on load
+            showView('dashboard'); // Initial view render, which will use the default filters
         });
 
         // Hide loader after everything (including images, if any) is loaded
         window.addEventListener('load', () => {
             setTimeout(() => {
                 pageLoader.classList.add('hidden');
-            }, 1000); // Give the animation 1 second to play before hiding
+            }, 500); // Give the loader a brief moment before hiding
         });
 
     </script>
