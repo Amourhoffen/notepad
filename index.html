@@ -560,7 +560,7 @@
             <div class="flex flex-col md:flex-row justify-center items-center space-y-3 md:space-y-0 md:space-x-3 mt-4" role="group" aria-label="Show reel autoplay controls">
                 <div class="flex items-center space-x-2">
                     <button id="show-reel-autoplay-btn" class="button-primary" aria-label="Start autoplay">Auto-Play</button>
-                    <button id="show-reel-stop-btn" class="button-secondary hidden" aria-label="Stop autoplay">Stop</button>
+                    <button id="show-reel-stop-btn" class="button-secondary hidden" aria-label="Stop">Stop</button>
                 </div>
                 <div class="flex items-center space-x-2">
                     <label for="show-reel-autoplay-speed" class="text-sm text-gray-300">Speed (seconds):</label>
@@ -972,45 +972,92 @@
             return `hsl(${h}, ${s}%, ${l}%)`;
         }
 
+        /**
+         * Updates the `allTags` array from existing notes and content items.
+         */
+        function updateAllTags() {
+            const newTags = new Set();
+            notes.forEach(note => {
+                if (note.tags) {
+                    note.tags.forEach(tag => newTags.add(tag));
+                }
+            });
+            // Also collect tags from content items if they have a 'tags' property (future proofing)
+            contentItems.forEach(item => {
+                if (item.tags) {
+                    item.tags.forEach(tag => newTags.add(tag));
+                }
+            });
+            allTags = Array.from(newTags).sort();
+        }
+
+        /**
+         * Populates the global tag filter dropdown with all unique tags.
+         */
+        function updateGlobalTagFilterOptions() {
+            globalFilterTag.innerHTML = '<option value="all">All Tags</option>';
+            allTags.forEach(tag => {
+                const option = document.createElement('option');
+                option.value = tag;
+                option.textContent = `#${tag}`;
+                globalFilterTag.appendChild(option);
+            });
+            // Select the current filter if it exists
+            globalFilterTag.value = globalFilterSearchTag;
+        }
+
+
         // --- Data Management (localStorage) ---
 
         /**
          * Loads contentItems and notes from localStorage.
          */
         function loadData() {
-            contentItems = JSON.parse(localStorage.getItem('smartNotepadContentItems')) || [];
-            notes = JSON.parse(localStorage.getItem('smartNotepadNotes')) || [];
-            lastNoteCreationDate = localStorage.getItem('lastNoteCreationDate');
-            streakCount = parseInt(localStorage.getItem('streakCount') || '0');
-            updateAllTags(); // Ensure allTags are updated on load
+            try {
+                const storedContentItems = localStorage.getItem('smartNotepadContentItems');
+                contentItems = storedContentItems ? JSON.parse(storedContentItems) : [];
+                console.log('Loaded contentItems:', contentItems.length, 'items', contentItems);
+
+                const storedNotes = localStorage.getItem('smartNotepadNotes');
+                notes = storedNotes ? JSON.parse(storedNotes) : [];
+                console.log('Loaded notes:', notes.length, 'notes', notes);
+
+                lastNoteCreationDate = localStorage.getItem('lastNoteCreationDate');
+                streakCount = parseInt(localStorage.getItem('streakCount') || '0');
+
+                updateAllTags(); // Ensure allTags is populated after loading data
+                updateGlobalTagFilterOptions(); // Populate global tag filter dropdown after allTags is updated
+            } catch (e) {
+                console.error('Error loading data from localStorage:', e);
+                showMessageBox('Error loading notes. Your browser might be blocking local storage or it\'s full.', 'error', 5000);
+                contentItems = []; // Reset to empty to avoid using corrupted data
+                notes = [];
+            }
         }
 
         /**
          * Saves contentItems and notes to localStorage.
          */
         function saveData() {
-            localStorage.setItem('smartNotepadContentItems', JSON.stringify(contentItems));
-            localStorage.setItem('smartNotepadNotes', JSON.stringify(notes));
-            localStorage.setItem('lastNoteCreationDate', lastNoteCreationDate);
-            localStorage.setItem('streakCount', streakCount.toString());
-            updateAllTags(); // Update allTags after saving
-            updateGlobalTagFilterOptions(); // Update global tag filter options
-        }
-
-        /**
-         * Updates the global allTags array from current notes.
-         */
-        function updateAllTags() {
-            const tagsSet = new Set();
-            notes.forEach(note => {
-                if (note.tags && Array.isArray(note.tags)) {
-                    note.tags.forEach(tag => tagsSet.add(tag));
+            try {
+                localStorage.setItem('smartNotepadContentItems', JSON.stringify(contentItems));
+                localStorage.setItem('smartNotepadNotes', JSON.stringify(notes));
+                localStorage.setItem('lastNoteCreationDate', lastNoteCreationDate);
+                localStorage.setItem('streakCount', streakCount.toString());
+                console.log('Data saved successfully. Content items:', contentItems.length, 'Notes:', notes.length);
+                console.log('Current contentItems state:', contentItems);
+                console.log('Current notes state:', notes);
+                updateAllTags();
+                updateGlobalTagFilterOptions();
+            } catch (e) {
+                console.error('Error saving data to localStorage:', e);
+                if (e.name === 'QuotaExceededError') {
+                    showMessageBox('Local storage is full! Cannot save new notes.', 'error', 5000);
+                } else {
+                    showMessageBox('Error saving notes. Please check your browser settings or try clearing browser data.', 'error', 5000);
                 }
-            });
-            allTags = Array.from(tagsSet).sort();
+            }
         }
-
-        // --- Render Functions (defined before showView to avoid ReferenceError) ---
 
         /**
          * Populates the show reel filter value dropdown based on filter type.
@@ -1475,21 +1522,6 @@
         }
 
         /**
-         * Populates the global tag filter dropdown with all unique tags.
-         */
-        function updateGlobalTagFilterOptions() {
-            globalFilterTag.innerHTML = '<option value="all">All Tags</option>';
-            allTags.forEach(tag => {
-                const option = document.createElement('option');
-                option.value = tag;
-                option.textContent = `#${tag}`;
-                globalFilterTag.appendChild(option);
-            });
-            // Select the current filter if it exists
-            globalFilterTag.value = globalFilterSearchTag;
-        }
-
-        /**
          * Renders the insights panel.
          */
         function renderInsights() {
@@ -1591,6 +1623,7 @@
             if (note.intent) detailsHtml += `<p class="mb-1">Intent: <span class="font-medium">${note.intent}</span></p>`;
             if (note.priority) detailsHtml += `<p class="mb-1">Priority: <span class="priority-${note.priority}">${note.priority.charAt(0).toUpperCase() + note.priority.slice(1)}</span></p>`;
             if (note.status) detailsHtml += `<p class="mb-1">Status: <span class="status-${note.status}">${note.status.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}</span></p>`;
+            if (note.estimatedDuration) detailsHtml += `<p class="mb-1">Est. Time: ${note.estimatedDuration} mins</p>`;
             if (note.reviewDate) detailsHtml += `<p class="mb-1">Review Date: <span class="font-medium">${new Date(note.reviewDate).toLocaleDateString()}</span></p>`;
             if (note.tags && note.tags.length > 0) {
                 detailsHtml += `<div class="flex flex-wrap justify-center gap-1 mt-1">`;
@@ -2421,7 +2454,7 @@
             pageLoader.classList.remove('hidden'); // Ensure loader is visible
             loadData();
             updateStreakCounter();
-            updateGlobalTagFilterOptions(); // Populate global tag filter dropdown on load
+            // Removed updateGlobalTagFilterOptions() here as it's now called within loadData()
             showView('dashboard'); // Initial view render, which will use the default filters
         });
 
